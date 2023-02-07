@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { UserContext } from "../../helper/Context";
 import Modal from "../modal/Modal";
 import "./orderItem.scss";
 
 function OrderItem(props) {
+  const { user, setUser } = useContext(UserContext);
   const [acceptModal, setAcceptModal] = useState(false);
   const [denyModal, setDenyModal] = useState(0);
+  const [completeModal, setCompleteModal] = useState(0);
 
   return (
     <div className="OrderItem">
@@ -64,7 +67,16 @@ function OrderItem(props) {
             <></>
           )}
           {props.active == "1" ? (
-            <button className="complete-accept-btn">Complete</button>
+            <button
+              onClick={() => {
+                user.role == "seller"
+                  ? setCompleteModal(1)
+                  : setCompleteModal(2);
+              }}
+              className="complete-accept-btn"
+            >
+              Complete
+            </button>
           ) : (
             <></>
           )}
@@ -90,7 +102,7 @@ function OrderItem(props) {
           onClick={
             denyModal == 2
               ? () => {
-                setDenyModal(0);
+                  setDenyModal(0);
                 }
               : () => {}
           }
@@ -127,6 +139,35 @@ function OrderItem(props) {
               </div>
             ) : (
               <></>
+            );
+          }}
+        />
+      )}
+      {completeModal == 1 && (
+        <Modal
+          onClick={() => {
+            setCompleteModal(0);
+          }}
+          content={() => {
+            return (
+              <div className="order-accept">
+                <i class="fa-regular fa-circle-check"></i>
+                <span>Order Completed !</span>
+              </div>
+            );
+          }}
+        />
+      )}
+      {completeModal == 2 && (
+        <Modal
+          onClick={() => {
+            setCompleteModal(0);
+          }}
+          content={() => {
+            return (
+              <div className="order-accept">
+                <div className="title">Pay money</div>
+              </div>
             );
           }}
         />

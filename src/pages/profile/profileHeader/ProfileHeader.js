@@ -122,17 +122,12 @@ export default function ProfileHeader(props) {
                   src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdXrN5H9Es9LsjxqNrUFbuEXtdc6q1457prQ&usqp=CAU"
                   alt=""
                 />
-                {/* <div className="account-hover-list">
+                <div className="account-hover-list">
                   <div className="title">Welcome back</div>
                   <ul>
-                    <Link to="/profile">
-                      <li>My Profile</li>
-                    </Link>
-                    <li>My Cart</li>
-                    <li>Message Center</li>
                     <li onClick={doLogout}>Log Out</li>
                   </ul>
-                </div> */}
+                </div>
               </div>
               {/* <button className="signup" onClick={doLogout}>
                 Logout
