@@ -1,0 +1,10 @@
+@import "../../assets/styles/variables";
+
+.Chat{
+    position: absolute;
+    bottom: 30px;
+    right: 35px;
+    z-index: 100;
+    width: fit-content;
+    height: fit-content;
+}

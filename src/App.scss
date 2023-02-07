@@ -1,0 +1,77 @@
+@import "./assets/styles/variables";
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+    width: 0.5em;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: $primary-color;
+    border-radius: 0.25em;
+}
+
+.App {
+    width: 100vw;
+    height: 100vh;
+    background-color: $backgorund-color;
+    overflow: hidden;
+
+    .float-chat {
+        position: absolute;
+        bottom: 30px;
+        right: 35px;
+        width: 50px;
+        height: 50px;
+        align-items: center;
+        justify-content: center;
+        display: grid;
+        transition: 1s transform;
+        place-content: center;
+        &:hover {
+            transform:translateY(-10px);
+        }
+        .sub-float-div {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+    
+            i {
+                z-index: 1;
+                font-size: 50px;
+                color: $primary-color;
+                opacity: 1;
+                cursor: pointer;
+                position:absolute;
+                top: -15px;
+                left: -18px;
+            }
+    
+            .chat-dec {
+                z-index: 0;
+                width: 10px;
+                aspect-ratio: 1/1;
+                background-color: transparent;
+                background-color: $primary-color;
+                transition: 5s transform;
+                border-radius: 50%;
+                animation-name: puls;
+                animation-duration: 4s;
+                animation-iteration-count: infinite;
+            }
+            @keyframes puls {
+                0%{transform: scale(0%);opacity: 1;}
+                100%{transform: scale(1100%);opacity: 0;}
+            }
+        }
+    }
+}

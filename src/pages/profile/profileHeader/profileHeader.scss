@@ -1,0 +1,197 @@
+@import "../../../assets/styles/variables";
+
+.Header {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    padding-inline: 70px;
+    border-bottom: 2px solid $border-color-3;
+
+    .logo {
+        font-size: 1.5em;
+        color: black;
+
+        span {
+            font-weight: bolder;
+        }
+    }
+
+    .search-bar {
+        height: 35px;
+        max-width: 400px;
+        min-width: 300px;
+        margin-left: 50px;
+        margin-right: auto;
+        padding-inline: 20px;
+        display: flex;
+        justify-items: center;
+        border-radius: 15px;
+        background-color: rgb(247, 247, 247);
+
+        input[type=text] {
+            width: calc(100% - 25px);
+            border: 0;
+            background-color: transparent;
+
+            &:focus {
+                outline: none;
+            }
+        }
+
+        i {
+            width: 25px;
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: $primary-color;
+        }
+    }
+
+    .nav-bar {
+        display: flex;
+
+        .text-link {
+            text-decoration: none;
+            color: black;
+            margin-inline: 5px;
+            padding: 10px;
+            border-radius: 1px;
+        }
+
+        .active-nav {
+            margin-inline: 5px;
+            padding: 10px;
+            border-radius: 1px;
+            border-bottom: 3px solid $primary-color;
+            text-decoration: none;
+            color: black;
+        }
+    }
+
+    .buttons {
+        display: flex;
+
+        button {
+            width: 100px;
+            height: 35px;
+            border-radius: 18px;
+            margin-inline: 5px;
+            font-size: 0.9em;
+            border: 0;
+            background-color: transparent;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .signup {
+            background-color: $primary-color;
+            color: white;
+            cursor: pointer;
+        }
+
+        .login {
+            border: 1px solid $primary-color;
+            cursor: pointer;
+        }
+        .switch-btn{
+            margin-top: 4px;
+            width: 140px;
+        }
+        .icon {
+            width: 50px;
+            color: $primary-color;
+            font-size: 25px;
+            transform: translateY(3px);
+            cursor: pointer;
+        }
+
+        .profile-img {
+            display: flex;
+            justify-content: center;
+            margin-left: 10px;
+            cursor: pointer;
+            position: relative;
+
+            img {
+                height: 35px;
+                aspect-ratio: 1/1;
+                border-radius: 50%;
+                border: 2px solid $border-color;
+            }
+
+            // &:hover {
+            //     &::after {
+            //         content: "";
+            //         width: 100px;
+            //         height: 100px;
+            //         position: absolute;
+            //         top: 36px;
+            //         left: -30px;
+            //         background-color: white;
+            //         border: 1px solid $border-color;
+
+            //         &:hover {
+            //             content: "";
+            //             width: 100px;
+            //             height: 100px;
+            //             position: absolute;
+            //             top: 40px;
+            //             left: -30px;
+            //             background-color: white;
+            //             border: 1px solid $border-color;
+            //         }
+            //     }
+            // }
+
+
+            .account-hover-list {
+                width: 150px;
+                height: fit-content;
+                background-color: white;
+                position: absolute;
+                top: 36px;
+                right: 16px;
+                display: none;
+                border-radius: 3px;
+                box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+                border-top-right-radius: 0px;
+                z-index: 20;
+                overflow: hidden;
+                flex-direction: column;
+                padding-block: 10px;
+                .title{
+                    font-weight: 600;
+                    margin-bottom: 5px;
+                    padding-inline: 10px;
+                }
+                ul{
+                    list-style: none;
+                    width: 100%;
+                    font-size: 14px;
+                    font-weight: 400;
+                    padding-block: 5px;
+                    
+                    li{
+                        width: 100%;
+                        padding-block: 5px;
+                        padding-inline: 10px;
+                        &:hover{
+                            background-color: $sub-backgorund-color-1;
+                        }
+                    }
+                }
+
+            }
+            &:hover .account-hover-list {
+                display: flex;
+            }
+
+            .account-hover-list:hover {
+                display: flex;
+
+            }
+        }
+    }
+}

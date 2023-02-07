@@ -1,0 +1,98 @@
+@import "../../assets/styles/variables";
+
+.reactLink {
+    text-decoration: none;
+    color: black;
+}
+
+.SellerCard {
+    min-width: 280px;
+    min-height: 300px;
+    max-width: 280px;
+    max-height: 350px;
+    margin-right: 25px;
+    margin-bottom: 25px;
+    overflow: hidden;
+    border: 1px solid $line-color-1;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    padding-block: 10px;
+    background-color: white;
+    position: relative;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+
+    img {
+        width: 150px;
+        aspect-ratio: 1/1;
+        padding: 2px;
+        border-radius: 50%;
+        border: 3px solid $primary-color
+    }
+
+    .seller-name {
+        color: $primary-color;
+        font-weight: 600;
+    }
+
+    .seller-rank {
+        display: none;
+    }
+
+    .seller-ratings {
+        i {
+            color: $primary-color;
+            opacity: 0.6;
+        }
+    }
+
+    .seller-details-container {
+        margin-top: 5px;
+        margin-bottom: 8px;
+        font-size: 0.9em;
+        opacity: 0.7;
+        text-align: justify;
+        height: 80px;
+        width: 100%;
+        overflow: hidden;
+        overflow-wrap:break-word;
+        text-overflow: ellipsis;
+    }
+
+    .buttons {
+        display: flex;
+        width: 100%;
+        margin-top: auto;
+        margin-bottom: 10px;
+        justify-content: space-between;
+        display: none;
+
+        button {
+            width: 47%;
+            height: 30px;
+            border: 0;
+            margin-top: auto;
+            font-size: 15px;
+            color: white;
+            background-color: $primary-color;
+            border-radius: 5px;cursor: pointer;
+        }
+
+        .view-profile-btn {
+            color: white;
+            text-decoration: none;
+        }
+
+        .contact-now-btn {
+            background-color: transparent;
+            color: $primary-color;
+            border: 1px solid $primary-color;
+        }
+    }
+}
+
+.service-card:hover {
+    transform: scale(102%);
+}

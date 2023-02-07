@@ -1,0 +1,45 @@
+@import "../../../assets/styles/variables";
+
+.ChatMessage {
+    margin-bottom: 20px;
+    height: fit-content;
+    width: fit-content;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+    position: relative;
+    display: flex;
+}
+
+.chatMessage-receiver {
+    background-color: white;
+    border-top-left-radius: 0px;
+
+    .message-conner-svg {
+        position: absolute;
+        top: 0px;
+        left: -8px;
+
+        .message-conner {
+            fill: white;
+        }
+    }
+}
+
+.chatMessage-sender {
+    background-color: $primary-color;
+    color: white;
+    margin-left: auto;
+    border-top-right-radius: 0px;
+
+    .message-conner-svg {
+        position: absolute;
+        top: 0px;
+        right: -8px;
+        transform: scaleX(-1);
+
+        .message-conner {
+            fill: $primary-color;
+        }
+    }
+}
