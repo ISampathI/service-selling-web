@@ -6,10 +6,10 @@ import ServiceCard from "../../../../components/serviceCard/ServiceCard";
 import ProfileCard from "../../components/ProfileCard";
 import "./nservices.scss";
 import { Link } from "react-router-dom";
+import { API_IP } from "../../../../helper/Context";
 
 const api = axios.create({
-  baseURL: "http://localhost:5001/api/",
-  withCredentials: true,
+  baseURL: `http://${API_IP}/api/`,
 });
 
 function NServices() {

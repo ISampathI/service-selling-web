@@ -6,7 +6,6 @@ import { API_IP, LoginContext, UserContext } from "../../helper/Context";
 
 const api = axios.create({
   baseURL: `http://${API_IP}/`,
-  withCredentials: true,
 });
 
 function Login() {

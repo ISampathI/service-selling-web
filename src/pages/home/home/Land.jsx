@@ -8,7 +8,6 @@ import { API_IP } from "../../../helper/Context";
 
 const api = axios.create({
   baseURL: `http://${API_IP}/`,
-  withCredentials: true,
 });
 export default function Home(props) {
   const [loginStatus, setloginStatus] = useState(false);

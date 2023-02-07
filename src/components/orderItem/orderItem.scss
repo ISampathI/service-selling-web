@@ -120,9 +120,11 @@
                 font-weight: bold;
             }
         }
-        .service-view{
+
+        .service-view {
             display: flex;
         }
+
         .buttons {
             margin-left: auto;
             height: 100%;
@@ -153,7 +155,7 @@
         }
     }
 
-    .order-accept{
+    .order-accept {
         position: relative;
         width: 300px;
         height: 250px;
@@ -161,17 +163,20 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        span{
+
+        span {
             margin-top: 10px;
             font-size: 25px;
             color: $primary-color;
         }
-        i{
+
+        i {
             font-size: 80px;
             color: $primary-color;
         }
     }
-    .order-deny-message{
+
+    .order-deny-message {
         position: relative;
         width: 300px;
         height: 250px;
@@ -179,17 +184,20 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        span{
+
+        span {
             margin-top: 10px;
             font-size: 25px;
             color: red;
         }
-        i{
+
+        i {
             font-size: 80px;
             color: red;
         }
     }
-    .order-deny{
+
+    .order-deny {
         position: relative;
         width: 350px;
         height: 170px;
@@ -197,34 +205,99 @@
         flex-direction: column;
         padding: 15px;
         padding-inline: 30px;
-        .title{
+
+        .title {
             font-size: 17px;
             font-weight: 500;
             margin-bottom: 10px;
         }
 
-        .qustion{
+        .qustion {
             margin-bottom: 20px;
         }
-        .buttons{
+
+        .buttons {
             display: flex;
             justify-content: space-between;
 
-            button{
+            button {
                 width: 80px;
                 height: 30px;
                 border: 0;
                 border-radius: 2px;
             }
         }
-        span{
+
+        span {
             margin-top: 10px;
             font-size: 25px;
             color: red;
         }
-        i{
+
+        i {
             font-size: 80px;
             color: red;
         }
+    }
+
+    .order-accept-buyer {
+        position: relative;
+        width: 350px;
+        height: 250px;
+        display: flex;
+        padding: 20px;
+        padding-top: 0px;
+        flex-direction: column;
+
+        .details {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+
+            ul {
+                list-style: none;
+            }
+        }
+
+        .payment-amount {
+            width: 100%;
+            background-color: $border-color-2;
+            padding: 10px;
+            border-radius: 5px;
+            display: flex;
+            margin-top: 20px;
+            span{
+                margin-left: auto;
+            }
+        }
+        .buttons{
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+
+            button{
+                height: 40px;
+                margin-bottom: 10px;
+                border: 0;
+                border-radius: 5px;
+                font-size: 16px;
+                color: black;
+                background-color: $sub-backgorund-color-1;
+
+                i{
+                    margin-right: 15px;
+                }
+            }
+        }
+
+        // span{
+        //     margin-top: 10px;
+        //     font-size: 25px;
+        //     color: $primary-color;
+        // }
+        // i{
+        //     font-size: 80px;
+        //     color: $primary-color;
+        // }
     }
 }

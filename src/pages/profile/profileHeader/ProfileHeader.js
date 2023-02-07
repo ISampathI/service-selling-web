@@ -2,11 +2,10 @@ import React, { useContext } from "react";
 import { Link, Navigate, NavLink, useNavigate } from "react-router-dom";
 import "./profileHeader.scss";
 import axios from "axios";
-import { LoginContext, UserContext } from "../../../helper/Context";
+import { API_IP, LoginContext, UserContext } from "../../../helper/Context";
 
 const api = axios.create({
-  baseURL: "http://localhost:5001/",
-  withCredentials: true,
+    baseURL: `http://${API_IP}/`
 });
 export default function ProfileHeader(props) {
   let navigate = useNavigate();

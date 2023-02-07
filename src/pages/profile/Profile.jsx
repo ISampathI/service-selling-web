@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import Chat from "../../components/chat/Chat";
 import {
+  API_IP,
   ChatBoxContext,
   LoginContext,
   UserContext,
@@ -19,8 +20,7 @@ import { useState } from "react";
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:5001/",
-  withCredentials: true,
+  baseURL: `http://${API_IP}/`,
 });
 
 export default function Profile(props) {

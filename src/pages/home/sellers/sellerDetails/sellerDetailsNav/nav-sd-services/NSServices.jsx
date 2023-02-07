@@ -7,7 +7,6 @@ import { API_IP } from "../../../../../../helper/Context";
 
 const api = axios.create({
   baseURL: `http://${API_IP}/api/`,
-  withCredentials: true,
 });
 
 function NSServices() {

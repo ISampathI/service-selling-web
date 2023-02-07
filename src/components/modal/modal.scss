@@ -20,5 +20,33 @@
         box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px,
             rgba(17, 17, 26, 0.1) 0px 8px 24px,
             rgba(17, 17, 26, 0.1) 0px 16px 48px;
+
+        .title-bar-wrapper {
+            width: 100%;
+            position: relative;
+            padding: 10px;
+            padding-left: 20px;
+
+            .title {
+                font-size: 20px;
+                font-weight: 500;
+                padding-bottom: 10px;
+                border-bottom: 1px solid $border-color-2;
+            }
+
+            .exit-btn {
+                position: absolute;
+                width: 20px;
+                height: 20px;
+                top: 10px;
+                right: 15px;
+                text-align: center;
+                border: 0;
+                background-color: transparent;
+            }
+        }
+        .content{
+            position: relative;
+        }
     }
 }

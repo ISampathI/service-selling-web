@@ -3,11 +3,10 @@ import OrderItem from "../../../../components/orderItem/OrderItem";
 import "./nOrder.scss";
 import axios from "axios";
 import { NavLink, Outlet } from "react-router-dom";
-import { UserContext } from "../../../../helper/Context";
+import { API_IP, UserContext } from "../../../../helper/Context";
 
 const api = axios.create({
-  baseURL: "http://localhost:5001/api/",
-  withCredentials: true,
+  baseURL: `http://${API_IP}/api/`,
 });
 
 function NOrder() {

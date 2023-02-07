@@ -160,13 +160,33 @@ function OrderItem(props) {
       )}
       {completeModal == 2 && (
         <Modal
-          onClick={() => {
-            setCompleteModal(0);
+          exit_btn="true"
+          title="Pay Summery"
+          onClick = {()=>{
+            setCompleteModal(0)
           }}
           content={() => {
             return (
-              <div className="order-accept">
-                <div className="title">Pay money</div>
+              <div className="order-accept-buyer">
+                <div className="details">
+                  <ul>
+                    <li>Seller name</li>
+                  </ul>
+                  <ul>
+                    <li>Jhon ali</li>
+                  </ul>
+                </div>
+                <div className="payment-amount">
+                  <p>payment amount</p> <span>5000</span>
+                </div>
+                <div className="buttons">
+                  <button>
+                    <i class="fa-regular fa-credit-card"></i>Pay Online
+                  </button>
+                  <button>
+                    <i class="fa-regular fa-handshake"></i>Cash
+                  </button>
+                </div>
               </div>
             );
           }}
