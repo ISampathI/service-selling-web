@@ -68,10 +68,10 @@ function NOrder() {
         <div className="right">
           <div className="profile">
             <div className="profile-img">
-              <img
+              {/* <img
                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdXrN5H9Es9LsjxqNrUFbuEXtdc6q1457prQ&usqp=CAU"
                 alt=""
-              />
+              /> */}
             </div>
             <div className="container1">
               <div className="name">Lernal heral</div>
