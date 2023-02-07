@@ -97,7 +97,13 @@ export default function AppHeader(props) {
                   <div className="title">Welcome back</div>
                   <ul>
                     <Link
-                      to="/profile/services"
+                      to={
+                        user.role == "seller"
+                          ? "/profile/services"
+                          : user.role == "buyer"
+                          ? "/profile/orders"
+                          : "/"
+                      }
                       style={{ textDecoration: "none" }}
                       className="react-link"
                     >

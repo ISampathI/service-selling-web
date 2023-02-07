@@ -71,7 +71,20 @@ function App() {
               <Route path="/profile" element={<Profile />}>
                 <Route path="services" element={<NServices />} />
                 <Route path="orders" element={<NOrder />}>
-                  <Route path="" element={<Navigate to="neworders" />} />
+                  <Route
+                    path=""
+                    element={
+                      <Navigate
+                        to={
+                          user.role == "seller"
+                            ? "neworders"
+                            : user.role == "buyer"
+                            ? "activeorders"
+                            : ""
+                        }
+                      />
+                    }
+                  />
                   <Route path="neworders" element={<NewOrdersNav />} />
                   <Route path="activeorders" element={<ActiveOrdersNav />} />
                   <Route
