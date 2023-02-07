@@ -176,6 +176,81 @@
         }
     }
 
+    .order-complete-seller {
+        position: relative;
+        width: 350px;
+        height: 200px;
+        display: flex;
+        padding: 20px;
+        padding-top: 0px;
+        flex-direction: column;
+
+        .details {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+
+            ul {
+                list-style: none;
+            }
+        }
+
+        .payment-amount {
+            width: 100%;
+            background-color: $border-color-2;
+            padding: 10px;
+            border-radius: 5px;
+            display: flex;
+            margin-top: 20px;
+            justify-content: space-between;
+            align-items: center;
+
+
+            input {
+                width: 90%;
+                height: 30px;
+                border: 0;
+                margin-left: 15px;
+                border-radius: 2px;
+                padding-inline: 10px;
+
+                &:focus{
+                    outline: 1px solid $border-color;
+                }
+            }
+        }
+
+        .buttons {
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+
+            button {
+                height: 40px;
+                margin-bottom: 10px;
+                border: 0;
+                border-radius: 5px;
+                font-size: 16px;
+                color: black;
+                background-color: $sub-backgorund-color-1;
+
+                i {
+                    margin-right: 15px;
+                }
+            }
+        }
+
+        // span{
+        //     margin-top: 10px;
+        //     font-size: 25px;
+        //     color: $primary-color;
+        // }
+        // i{
+        //     font-size: 80px;
+        //     color: $primary-color;
+        // }
+    }
+
     .order-deny-message {
         position: relative;
         width: 300px;
@@ -240,7 +315,7 @@
         }
     }
 
-    .order-accept-buyer {
+    .order-complete-buyer {
         position: relative;
         width: 350px;
         height: 250px;
@@ -266,16 +341,18 @@
             border-radius: 5px;
             display: flex;
             margin-top: 20px;
-            span{
+
+            span {
                 margin-left: auto;
             }
         }
-        .buttons{
+
+        .buttons {
             margin-top: auto;
             display: flex;
             flex-direction: column;
 
-            button{
+            button {
                 height: 40px;
                 margin-bottom: 10px;
                 border: 0;
@@ -284,7 +361,7 @@
                 color: black;
                 background-color: $sub-backgorund-color-1;
 
-                i{
+                i {
                     margin-right: 15px;
                 }
             }

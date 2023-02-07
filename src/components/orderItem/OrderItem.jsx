@@ -145,14 +145,31 @@ function OrderItem(props) {
       )}
       {completeModal == 1 && (
         <Modal
+          exit_btn="true"
+          title="Pay Summery"
           onClick={() => {
             setCompleteModal(0);
           }}
           content={() => {
             return (
-              <div className="order-accept">
-                <i class="fa-regular fa-circle-check"></i>
-                <span>Order Completed !</span>
+              <div className="order-complete-seller">
+                <div className="details">
+                  <ul>
+                    <li>Buyer name</li>
+                  </ul>
+                  <ul>
+                    <li>Jhon ali</li>
+                  </ul>
+                </div>
+                <div className="payment-amount">
+                  <p>Payment</p>{" "}
+                  <input placeholder="Enter Amount" type="text" />
+                </div>
+                <div className="buttons">
+                  <button>Submit</button>
+                </div>
+                {/* <i class="fa-regular fa-circle-check"></i>
+                <span>Order Completed !</span> */}
               </div>
             );
           }}
@@ -162,12 +179,12 @@ function OrderItem(props) {
         <Modal
           exit_btn="true"
           title="Pay Summery"
-          onClick = {()=>{
-            setCompleteModal(0)
+          onClick={() => {
+            setCompleteModal(0);
           }}
           content={() => {
             return (
-              <div className="order-accept-buyer">
+              <div className="order-complete-buyer">
                 <div className="details">
                   <ul>
                     <li>Seller name</li>
