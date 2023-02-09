@@ -146,7 +146,7 @@ function OrderItem(props) {
       {completeModal == 1 && (
         <Modal
           exit_btn="true"
-          title="Pay Summery"
+          title="Payment"
           onClick={() => {
             setCompleteModal(0);
           }}

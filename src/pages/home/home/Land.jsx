@@ -38,15 +38,16 @@ export default function Home(props) {
         <img className="dec1" src={dec1} alt="" />
         <div className="hero-left">
           <div className="main-title">
-            Lorem ipsum dolor sit amet consectetur.
+          The Ultimate Platform for Finding Services
           </div>
           <div className="para">
-            Welcome to [Platform Name], the easiest and most reliable platform
-            for selling all your products online. Our platform provides you with
-            the tools and resources you need to create a successful online
-            store, whether you're a small business owner or a large corporation.
-            With [Platform Name], you'll be able to reach a wider audience,
-            increase sales and grow your business.
+            Are you tired of sifting through countless resumes and dealing with
+            unreliable workers? HireNow is here to solve that problem. Our
+            platform connects businesses with a large pool of skilled workers,
+            making it easy to find the right fit for your job. With easy-to-use
+            tools, secure payment options, and a commitment to quality, HireNow
+            is the best choice for finding your next worker. Sign up now to
+            start your search today.
           </div>
           <button className="get-start-btn">
             Get Started<i class="fa-solid fa-circle-chevron-right"></i>

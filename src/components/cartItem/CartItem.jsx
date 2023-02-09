@@ -9,7 +9,7 @@ function CartItem(props) {
   }, [props.checked]);
 
   return (
-    <div className={props.type !="hire"?"CartItem CI-normal":"CartItem"}>
+    <div className={props.type != "hire" ? "CartItem CI-normal" : "CartItem"}>
       <div className="up">
         <div className="seller">
           <div className="profile-img">
@@ -19,7 +19,7 @@ function CartItem(props) {
             />
           </div>
           <div className="container">
-            <div className="name">Lernal heral</div>
+            <div className="name">Lernal heral {props.cart_id}</div>
           </div>
           {props.type != "hire" ? (
             <input
@@ -37,7 +37,10 @@ function CartItem(props) {
         </div>
       </div>
       {props.type != "hire" ? (
-        <i className="fa-regular fa-trash-can"></i>
+        <i
+          onClick={props.onClickRemove}
+          className="fa-regular fa-trash-can"
+        ></i>
       ) : (
         <></>
       )}

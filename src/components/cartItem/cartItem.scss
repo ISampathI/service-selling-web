@@ -129,7 +129,7 @@
         position: absolute;
         right: 10px;
         bottom: 10px;
-
+        z-index: 3;
         &:hover {
             transform: scale(110%);
             color: red;

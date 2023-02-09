@@ -18,7 +18,6 @@ import Chat from "../../components/chat/Chat";
 import "./home.scss";
 const api = axios.create({
   baseURL: `http://${API_IP}/`,
-  withCredentials: true,
 });
 function Home() {
   const { loggedIn, setLoggedIn } = useContext(LoginContext);

@@ -1,9 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CartItem from "../../../components/cartItem/CartItem";
 import "./cart.scss";
+import axios from "axios";
+import { API_IP } from "../../../helper/Context";
+
+const api = axios.create({
+  baseURL: `http://${API_IP}/`,
+});
 
 function Cart() {
   const [checkedAll, setCheckedAll] = useState(false);
+  const [cartList, setCartList] = useState([]);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = () => {
+    api.get("/api/suggestedServices").then((res) => {
+      setCartList(res.data);
+    });
+  };
 
   return (
     <div className="Cart">
@@ -14,7 +31,17 @@ function Cart() {
               Service Cart <span>(10)</span>
             </h1>
             <div className="spacer"></div>
-            {checkedAll ? <button>Remove All</button> : <></>}
+            {checkedAll ? (
+              <button
+                onClick={() => {
+                  setCartList([]);
+                }}
+              >
+                Remove All
+              </button>
+            ) : (
+              <></>
+            )}
             <input
               type="checkbox"
               name=""
@@ -24,17 +51,17 @@ function Cart() {
               }}
             />
           </div>
-          <CartItem checked={checkedAll} />
-          <CartItem checked={checkedAll} />
-          <CartItem checked={checkedAll} />
-          <CartItem checked={checkedAll} />
-          <CartItem checked={checkedAll} />
-          <CartItem checked={checkedAll} />
-          <CartItem checked={checkedAll} />
-          <CartItem checked={checkedAll} />
-          <CartItem checked={checkedAll} />
-          <CartItem checked={checkedAll} />
-          <CartItem checked={checkedAll} />
+          {cartList.map((item, index) => (
+            <CartItem
+              cart_id={index}
+              onClickRemove={() => {
+                cartList.pop(index);
+                console.log(cartList);
+                setCartList(cartList);
+              }}
+              checked={checkedAll}
+            />
+          ))}
         </div>
         <div className="right">
           <div className="profile">

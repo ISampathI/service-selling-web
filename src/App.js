@@ -41,10 +41,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />}>
                 <Route path="" element={<Land />} />
-                <Route
-                  path="/cart"
-                  element={loggedIn ? <Cart /> : <Navigate to="/" />}
-                />
+                <Route path="/cart" element={<Cart />} />
                 <Route path="/services" element={<Services />}>
                   <Route path="servicedetails" element={<ServiceDetails />} />
                 </Route>
