@@ -170,6 +170,12 @@
             line-height: 33px;
             padding-bottom: 10px;
         }
+
+        .ReviewList{
+            width: 100%;
+            height: fit-content;
+            margin-top: 50px;
+        }
     }
 
     .popup-screen {
@@ -182,6 +188,7 @@
         left: 0;
         display: grid;
         place-content: center;
+        background-color: $border-color-3;
 
         .popup-container {
             width: 100%;

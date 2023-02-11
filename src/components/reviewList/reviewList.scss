@@ -1,0 +1,12 @@
+@import "../../assets/styles/variables";
+
+.ReviewList {
+    width: 100%;
+    height: fit-content;
+
+    .review-list-title{
+        padding-bottom: 10px;
+        font-size: 25px;
+        border-bottom: 1px solid $border-color-2;
+    }
+}
