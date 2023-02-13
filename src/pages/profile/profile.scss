@@ -4,12 +4,13 @@
     width: 100%;
     height: calc(100% - 80px);
     overflow: hidden;
+    overflow-y: auto;
     display: flex;
     background-color: $sub-backgorund-color-2;
 
     .main-container {
         width: 100%;
-        height: 100%;
+        height: fit-content;
         //box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     }
 

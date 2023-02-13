@@ -5,6 +5,7 @@ import "./service.scss";
 import InfiniteScroll from "react-infinite-scroll-component";
 import axios from "axios";
 import { API_IP } from "../../../helper/Context";
+import Footer from "../../../layouts/Footer";
 
 const api = axios.create({
   baseURL: `http://${API_IP}/api/`,
@@ -87,6 +88,7 @@ export default function Services(props) {
           <div className="correct-margine"></div>
         </InfiniteScroll>
       </div>
+      <Footer />
     </div>
   );
 }

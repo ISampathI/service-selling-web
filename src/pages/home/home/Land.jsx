@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import CategoryCard from "../../../components/CategoryCard";
 import ServiceCard from "../../../components/serviceCard/ServiceCard";
 import "./land.scss";
-import dec1 from "../../../assets/svg/dec1.svg";
+import heroimg from "../../../assets/img/workers/hero.png";
 import axios from "axios";
 import { API_IP } from "../../../helper/Context";
+import Footer from "../../../layouts/Footer";
 
 const api = axios.create({
   baseURL: `http://${API_IP}/`,
@@ -35,10 +36,9 @@ export default function Home(props) {
   return (
     <div className="Home">
       <div className="hero-section">
-        <img className="dec1" src={dec1} alt="" />
         <div className="hero-left">
           <div className="main-title">
-          The Ultimate Platform for Finding Services
+            The Ultimate Platform for Finding Services
           </div>
           <div className="para">
             Are you tired of sifting through countless resumes and dealing with
@@ -53,8 +53,13 @@ export default function Home(props) {
             Get Started<i class="fa-solid fa-circle-chevron-right"></i>
           </button>
         </div>
-        <div className="hero-right"></div>
+        <div className="hero-right">
+          <div className="hero-img">
+            <img className="heroimg" src={heroimg} alt="" />
+          </div>
+        </div>
       </div>
+      <div className="platform-status"></div>
       <div className="category-section">
         <div className="categories">
           <div className="title">Categories</div>
@@ -99,7 +104,21 @@ export default function Home(props) {
           </div>
         </div>
       </div>
-      <footer></footer>
+      <div className="about-section">
+        <div className="about-left">
+          <span>ABOUT US</span>
+          <h1>Lorem ipsum dolor sit amet.</h1>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit, nulla
+            magni numquam voluptatibus, similique accusantium fugiat aperiam
+            exercitationem molestias placeat dolor quas expedita quos est
+            dolorem harum totam incidunt aliquid.
+          </p>
+          <button>More Details</button>
+        </div>
+        <div className="about-right"></div>
+      </div>
+      <Footer />
     </div>
   );
 }

@@ -7,6 +7,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { API_IP } from "../../../helper/Context";
+import Footer from "../../../layouts/Footer";
 
 const api = axios.create({
   baseURL: `http://${API_IP}/api/`,
@@ -61,6 +62,7 @@ function Sellers(props) {
           <div className="correct-margine"></div>
         </InfiniteScroll>
       </div>
+      <Footer />
     </div>
   );
 }

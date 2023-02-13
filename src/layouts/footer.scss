@@ -1,0 +1,114 @@
+@import "../assets/styles/variables";
+
+.react-link {
+    text-decoration: none;
+    color: black;
+}
+
+.Footer {
+    margin-top: 100px;
+    width: 100%;
+    height: fit-content;
+    background-color: white;
+    border-top: 2px solid $border-color-3;
+    padding-inline: 7%;
+    padding-block: 10px;
+    padding-top: 30px;
+
+    .footer-column {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .footer-row {
+        display: flex;
+    }
+
+    .footer-logo {
+        .logo {
+            font-size: 1.5em;
+
+            span {
+                font-weight: bolder;
+            }
+        }
+        p{
+            margin-top: 20px;
+            color: $text-color;
+            font-size: 17px !important;
+            font-weight: 400 !important;
+        }
+    }
+
+    .footer-contacts {
+
+        div {
+            color: $text-color;
+        }
+
+        .footer-row {
+            margin-top: 20px;
+
+            input {
+                height: 35px;
+                accent-color: $primary-color;
+                border: 1px solid $border-color-2;
+                border-radius: 5px;
+                border-bottom-right-radius: 0px;
+                border-top-right-radius: 0px;
+            }
+
+            button {
+                border: 0;
+                width: 40px;
+                background-color: $primary-color;
+                color: white;
+                font-size: 20px;
+            }
+        }
+
+        .social {
+            i {
+                font-size: 25px;
+                margin-right: 10px;
+            }
+        }
+    }
+
+    .footer-links {
+        align-items: flex-start;
+        justify-content: space-between;
+
+        .footer-column {
+            p {
+                font-size: 18px;
+                font-weight: bold;
+                margin-bottom: 15px;
+            }
+        }
+
+        ul {
+            list-style: none;
+
+            li {
+                color: $text-color-2;
+                margin-bottom: 10px;
+            }
+        }
+    }
+
+    .last-row {
+        margin-top: 25px;
+        font-size: 15px;
+        color: $text-color;
+        font-weight: 400;
+
+        .copyright {
+            margin-right: auto;
+        }
+
+        p {
+            margin-right: 30px;
+        }
+    }
+}

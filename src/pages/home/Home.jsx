@@ -16,6 +16,7 @@ import {
 import AppHeader from "../../layouts/AppHeader";
 import Chat from "../../components/chat/Chat";
 import "./home.scss";
+import Footer from "../../layouts/Footer";
 const api = axios.create({
   baseURL: `http://${API_IP}/`,
 });

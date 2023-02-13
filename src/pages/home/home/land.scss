@@ -1,30 +1,41 @@
 @import "../../../assets/styles/variables";
 
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed:ital,wght@0,600;0,700;1,400;1,500;1,600&family=Julee&family=Roboto:wght@100;300;500;700;900&display=swap');
+
+// font-family: 'Fira Sans Extra Condensed', sans-serif;
+
 .Home {
     width: 100%;
     height: calc(100vh - 80px);
     overflow-y: auto;
     overflow-x: hidden;
-    padding-bottom: 200px;
+    padding-bottom: 30px;
 
     .hero-section {
         width: 100vw;
         height: calc(100vh - 80px);
-        padding-inline: 7%;
+        padding-inline: 0%;
+        padding-right: 0;
         display: flex;
-        background-image: url("../../../assets/img/background.png");
-        background-size:contain;
-        background-repeat: no-repeat;
+        background-image: url("../../../assets/img/background5.png");
+        background-size: contain;
+        background-repeat: repeat;
+        position: relative;
+        background-color: $sub-backgorund-color-3;
+
         .hero-left {
-            flex: 1;
+            width: 50%;
             display: flex;
             flex-direction: column;
             justify-content: center;
             padding-bottom: 0%;
+            padding-right: 10px;
+            padding-left: 7%;
 
             .main-title {
                 font-size: 4em;
                 font-weight: bold;
+                font-family: 'Fira Sans Extra Condensed', sans-serif;
             }
 
             .para {
@@ -47,7 +58,7 @@
                 align-items: center;
                 justify-content: center;
 
-                i{
+                i {
                     margin-left: 15px;
                     font-size: 22px;
                 }
@@ -55,20 +66,42 @@
         }
 
         .hero-right {
-            flex: 1;
-            background-image: url("../../../assets/img/workers/hero.png");
-            background-size: cover;
-            transform: scaleX(-1);
+            width: 50%;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+
+            .hero-img {
+                width: 100%;
+                height: fit-content;
+                display: flex;
+                overflow: hidden;
+                margin-top: auto;
+
+                .heroimg {
+                    margin-top: auto;
+                    width: 100%;
+                    height: 100%;
+                    object-fit: contain;
+                    transform: scaleX(-1) translateX(7%);
+                }
+            }
         }
-        .dec1{
-            position: absolute;
-            z-index: 0;
-            right: 0;
-            top: 30;
-            width: 30%;
-            z-index: 0;
-            display: none;
+    }
+    .platform-status {
+        width: 100%;
+        height: 100px;
+        background-color: white;
+    }
+
+    .wave {
+
+        path {
+            fill: $primary-color;
         }
+
+        opacity: 0.5;
     }
 
     .category-section {
@@ -133,8 +166,14 @@
 
         .services {
             width: 100%;
-            height: 320px;
-            margin-top: 80px;
+            height: fit-content;
+            margin-top: 10px;
+            padding: 20px;
+            border-radius: 5px;
+
+            .ServiceCard {
+                margin-bottom: 0px;
+            }
 
             .titile {
                 font-size: 1.2em;
@@ -144,15 +183,67 @@
 
             .services-list {
                 width: 100%;
-                height: 300px;
+                height: fit-content;
                 display: flex;
                 justify-content: space-between;
-                overflow-x: auto;   
-                
+                overflow-x: auto;
+
                 &::-webkit-scrollbar {
                     height: 0px;
                 }
             }
+        }
+    }
+
+    .about-section {
+        display: flex;
+        width: 100%;
+        height: fit-content;
+        padding-inline: 7%;
+        background-position: 0% 30%;
+        background-image: url("../../../assets/img/background5.png");
+        background-color: $sub-backgorund-color-3;
+
+        .about-left {
+            padding-block: 100px;
+            flex: 1;
+
+            span {
+                color: $primary-color;
+                font-weight: 600;
+                font-size: 30px;
+            }
+
+            h1 {
+                font-size: 50px;
+                font-weight: bolder;
+            }
+
+            p {
+                margin-top: 15px;
+                color: $text-color;
+                line-height: 25px;
+            }
+
+            button {
+                margin-top: 30px;
+                padding: 10px;
+                border: 0;
+                border-radius: 5px;
+                background-color: $sub-backgorund-color-1;
+                padding-inline: 20px;
+                color: $primary-color;
+                font-weight: bolder;
+                font-size: 17px;
+            }
+        }
+
+        .about-right {
+            flex: 1;
+            background-image: url("../../../assets/img/people-group-world.png");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: 70%;
         }
     }
 }

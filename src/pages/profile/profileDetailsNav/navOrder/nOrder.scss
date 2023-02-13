@@ -6,13 +6,12 @@
 
     .order-list {
         width: 100%;
-        height: calc(100vh - 80px);
+        height: fit-content;
         padding-inline: 150px;
         padding-top: 25px;
         padding-bottom: 50px;
         background-color: $sub-backgorund-color-2;
         display: flex;
-        overflow-y: scroll;
         justify-content: center;
 
         .left {

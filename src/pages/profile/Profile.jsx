@@ -18,6 +18,7 @@ import ProfileHeader from "./profileHeader/ProfileHeader";
 import ProfileCard from "./components/ProfileCard";
 import { useState } from "react";
 import axios from "axios";
+import Footer from "../../layouts/Footer";
 
 const api = axios.create({
   baseURL: `http://${API_IP}/`,
@@ -54,6 +55,7 @@ export default function Profile(props) {
       >
         <div className="main-container">
           <Outlet />
+          <Footer />
         </div>
       </div>
 

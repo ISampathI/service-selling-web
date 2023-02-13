@@ -3,6 +3,7 @@ import { Link, Navigate, NavLink, useNavigate } from "react-router-dom";
 import "./profileHeader.scss";
 import axios from "axios";
 import { API_IP, LoginContext, UserContext } from "../../../helper/Context";
+import Footer from "../../../layouts/Footer";
 
 const api = axios.create({
     baseURL: `http://${API_IP}/`
