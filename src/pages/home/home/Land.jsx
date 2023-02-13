@@ -3,6 +3,8 @@ import CategoryCard from "../../../components/CategoryCard";
 import ServiceCard from "../../../components/serviceCard/ServiceCard";
 import "./land.scss";
 import heroimg from "../../../assets/img/workers/hero.png";
+import playstoreimg from "../../../assets/img/buttons/playstore.png";
+import appstoreimg from "../../../assets/img/buttons/appstore.png";
 import axios from "axios";
 import { API_IP } from "../../../helper/Context";
 import Footer from "../../../layouts/Footer";
@@ -74,6 +76,30 @@ export default function Home(props) {
             <CategoryCard />
             <CategoryCard />
           </ul>
+        </div>
+        <div className="app-promotion">
+          <div className="left">
+            <div className="title">Try our Mobile app today</div>
+            <p>
+              The app is designed to be simple and easy-to-use, so you can focus
+              on what you do best - providing services. You can create a
+              professional profile, add your services, set your prices, and
+              start accepting payments through the app.
+            </p>
+            <div className="buttons">
+              <div className="playstore">
+                <img
+                  src={playstoreimg}
+                  alt=""
+                />
+              </div>
+              <div className="appstore">
+                <img src={appstoreimg} alt="" srcset="" />
+              </div>
+            </div>
+          </div>
+          <div className="right">
+          </div>
         </div>
         <div className="services">
           <div className="titile">Suggested Services for you</div>

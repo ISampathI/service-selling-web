@@ -3,6 +3,7 @@ import CartItem from "../../../components/cartItem/CartItem";
 import "./cart.scss";
 import axios from "axios";
 import { API_IP } from "../../../helper/Context";
+import Footer from "../../../layouts/Footer";
 
 const api = axios.create({
   baseURL: `http://${API_IP}/`,
@@ -107,6 +108,7 @@ function Cart() {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
