@@ -1,10 +1,21 @@
 @import "../../assets/styles/variables";
 
-.Chat{
+.Chat {
     position: absolute;
     bottom: 30px;
     right: 35px;
     z-index: 100;
     width: fit-content;
     height: fit-content;
+    // animation: popupanim 0.1s;
+
+    // @keyframes popupanim {
+    //     from {
+    //         opacity: 0;
+    //     }
+
+    //     to {
+    //         opacity: 1;
+    //     }
+    // }
 }

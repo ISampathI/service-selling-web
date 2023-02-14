@@ -60,6 +60,15 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                transition: transform 0.2s;
+
+                &:hover{
+                    transform: scale(99%);
+
+                    i{
+                        margin-left: 25px;
+                    }
+                }
 
                 @include sm {
                     width: 90%;
@@ -68,11 +77,13 @@
                 i {
                     margin-left: 15px;
                     font-size: 22px;
+                    transition: margin 1s;
                 }
             }
 
             @include breakpoint(1100px) {
                 width: 100%;
+                padding-right: 5%;
             }
         }
 
@@ -106,9 +117,49 @@
     }
 
     .platform-status {
+        position: absolute;
         width: 100%;
-        height: 100px;
-        background-color: white;
+        bottom: 0px;
+        height: fit-content;
+        display: flex;
+        justify-content: end;
+        padding-inline: 150px;
+
+        @include breakpoint(1100px) {
+            display: none;
+        }
+
+        .platform-status-wrapper {
+            width: 50%;
+            height: fit-content;
+            padding-block: 0px;
+            display: flex;
+            justify-content: space-around;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        }
+
+        .p-status {
+            padding: 10px;
+            border-radius: 10px;
+            // box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+            // background-color: white;
+            transition: margin 1s;
+            &:hover{
+                margin-right: 15px;
+            }
+
+            .status-num {
+                font-size: 40px;
+                font-weight: 500;
+                display: flex;
+            }
+
+            .status-name {
+                color: $text-color;
+            }
+        }
     }
 
     .wave {
@@ -124,6 +175,7 @@
         width: 100vw;
         padding: 20px;
         padding-inline: 7%;
+        margin-top: 40px;
 
         .categories {
             width: 100%;
@@ -299,9 +351,10 @@
         width: 100%;
         height: fit-content;
         padding-inline: 7%;
+        padding-left: 8%;
         background-position: 0% 30%;
-        background-image: url("../../../assets/img/background5.png");
-        background-color: $sub-backgorund-color-3;
+        // background-image: url("../../../assets/img/background5.png");
+        // background-color: $sub-backgorund-color-3;
 
         .about-left {
             padding-block: 100px;
@@ -340,7 +393,7 @@
         .about-right {
             flex: 1;
             background-image: url("../../../assets/img/people-group-world.png");
-            background-position: center;
+            background-position: right;
             background-repeat: no-repeat;
             background-size: 70%;
 

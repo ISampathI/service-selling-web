@@ -49,7 +49,7 @@ function Home() {
         <AppHeader />
         <Outlet />
       </div>
-      {showChatBox ? <Chat className="Chat" /> : <></>}
+      {showChatBox && <Chat className="Chat" />}
       {loggedIn && !showChatBox ? (
         <div
           className="float-chat"

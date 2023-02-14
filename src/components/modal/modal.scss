@@ -17,7 +17,8 @@
         top: 50%;
         left: 50%;
         border-radius: 20px;
-        transform: translate(-50%, -50%);
+        animation: popupanim 0.1s;
+        transform: scale(100%) translate(-50%, -50%);
         box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px,
             rgba(17, 17, 26, 0.1) 0px 8px 24px,
             rgba(17, 17, 26, 0.1) 0px 16px 48px;
@@ -46,8 +47,19 @@
                 background-color: transparent;
             }
         }
-        .content{
+
+        .content {
             position: relative;
+        }
+    }
+
+    @keyframes popupanim {
+        from {
+            transform: scale(0%) translate(-50%, -50%);
+        }
+
+        to {
+            transform: scale(100%) translate(-50%, -50%);
         }
     }
 }

@@ -20,6 +20,7 @@
 
     .Gallery {
         width: calc(100% - 310px);
+        min-width: 910px;
         height: fit-content;
         display: flex;
         flex-wrap: wrap;

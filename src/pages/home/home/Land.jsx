@@ -59,8 +59,23 @@ export default function Home(props) {
             <img className="heroimg" src={heroimg} alt="" />
           </div>
         </div>
+        <div className="platform-status">
+          <div className="platform-status-wrapper">
+            <div className="p-status">
+              <div className="status-num">10+</div>
+              <div className="status-name">Total Sellers</div>
+            </div>
+            <div className="p-status">
+              <div className="status-num">10+</div>
+              <div className="status-name">Total Services</div>
+            </div>
+            <div className="p-status">
+              <div className="status-num">10+</div>
+              <div className="status-name">Total Sellers</div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div className="platform-status"></div>
       <div className="category-section">
         <div className="categories">
           <div className="title">Categories</div>
@@ -87,18 +102,14 @@ export default function Home(props) {
             </p>
             <div className="buttons">
               <div className="playstore">
-                <img
-                  src={playstoreimg}
-                  alt=""
-                />
+                <img src={playstoreimg} alt="" />
               </div>
               <div className="appstore">
                 <img src={appstoreimg} alt="" srcset="" />
               </div>
             </div>
           </div>
-          <div className="right">
-          </div>
+          <div className="right"></div>
         </div>
         <div className="services">
           <div className="titile">Suggested Services for you</div>
