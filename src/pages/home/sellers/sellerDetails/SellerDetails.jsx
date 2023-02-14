@@ -57,7 +57,8 @@ export default function SellerDetails(props) {
           distinctio cumque! Perspiciatis, labore quis!
         </div>
         <button className="contact-now-btn">Private Chat</button>
-        <div className="for-small">
+      </div>
+      <div className="for-small">
           <div className="seller-about-text">About</div>
           <div className="seller-about">
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Libero
@@ -69,7 +70,6 @@ export default function SellerDetails(props) {
           </div>
           <button className="contact-now-btn">Private Chat</button>
         </div>
-      </div>
       <div className="main-container">
         <div className="seller-container-nav">
           <ul>

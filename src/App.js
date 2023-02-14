@@ -46,7 +46,10 @@ function App() {
                   <Route path="servicedetails" element={<ServiceDetails />} />
                 </Route>
                 <Route path="/sellers" element={<Sellers />}>
-                  <Route path="sellerdetails" element={<SellerDetails />}>
+                  
+                  <Route path="servicedetails" element={<ServiceDetails />} />
+                </Route>
+                <Route path="sellers/sellerdetails" element={<SellerDetails />}>
                     <Route
                       path="services"
                       element={<SellerDetailsNav name="services" />}
@@ -60,8 +63,6 @@ function App() {
                       element={<SellerDetailsNav name="chat" />}
                     />
                   </Route>
-                  <Route path="servicedetails" element={<ServiceDetails />} />
-                </Route>
               </Route>
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />

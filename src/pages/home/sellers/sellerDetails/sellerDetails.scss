@@ -8,11 +8,12 @@
     overflow: hidden;
     overflow-y: auto;
     display: flex;
-    background-color: red;
-    @include xl{
+
+    @include xl {
         padding-inline: 5%;
     }
-    @include breakpoint(1060px){
+
+    @include breakpoint(1060px) {
         flex-direction: column;
     }
 
@@ -27,21 +28,29 @@
         flex-direction: column;
         background-color: white;
         box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
-        @include breakpoint(1060px){
+
+        @include breakpoint(1060px) {
             width: 100%;
             flex-direction: row;
         }
+
+
         .profile-img {
             width: 100%;
             aspect-ratio: 1/1;
             display: flex;
             justify-content: center;
 
-            @include breakpoint(1060px){
+            @include breakpoint(1060px) {
                 width: 210px;
                 height: 210px;
                 margin-left: auto;
                 margin-right: auto;
+            }
+
+            @include md {
+                width: 100px;
+                height: 100px;
             }
 
             img {
@@ -50,6 +59,11 @@
                 aspect-ratio: 1/1;
                 border-radius: 50%;
                 margin-bottom: 10px;
+
+                @include md {
+                    width: 100px;
+                    height: 100px;
+                }
             }
 
         }
@@ -58,13 +72,23 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            @include breakpoint(1060px){
+
+            @include breakpoint(1060px) {
                 width: 100%;
+            }
+            @include md {
+                flex-direction: row;
+                align-items: center;
             }
 
             .name {
                 font-size: 25px;
                 text-align: center;
+                
+                @include md {
+                    width: 200px;
+                    margin-left: 20px;
+                }
             }
 
             .job {
@@ -79,6 +103,13 @@
                 align-items: center;
                 justify-content: center;
 
+                @include md {
+                    border-left: 1px solid $border-color-2;
+                    justify-content: start;
+                    padding: 10px;
+                    margin-left: 10px;
+                }
+
                 .rating-num {
                     margin-right: 10px;
                     font-size: 40px;
@@ -92,9 +123,7 @@
 
                     .rating-star {}
 
-                    .reviews {
-
-                    }
+                    .reviews {}
                 }
             }
 
@@ -106,6 +135,10 @@
             display: flex;
             align-items: center;
             justify-content: center;
+
+            @include md {
+                display: none;
+            }
 
             ul {
                 margin-top: 20px;
@@ -132,33 +165,73 @@
             background-color: $primary-color;
             border-radius: 5px;
             cursor: pointer;
-            @include breakpoint(1060px){
+
+            @include breakpoint(1060px) {
                 display: none;
             }
         }
-        .seller-about-text{
+
+        .seller-about-text {
             font-size: 20px;
             margin-top: 15px;
             margin-bottom: 5px;
             font-weight: 500;
             padding-top: 10px;
             border-top: 1px solid $border-color-3;
-            @include breakpoint(1060px){
+
+            @include breakpoint(1060px) {
                 display: none;
             }
         }
-        .seller-about{
+
+        .seller-about {
             text-align: justify;
 
-            @include breakpoint(1060px){
+            @include breakpoint(1060px) {
                 display: none;
             }
         }
-        // .for-small{
-        //     @include breakpoint(1060px){
-        //         width: 100%;
-        //     }
-        // }
+    }
+
+    .for-small {
+        display: none;
+        margin-top: 20px;
+        height: fit-content;
+        padding: 10px;
+        padding-inline: 30px;
+        border-radius: 5px;
+        background-color: white;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+
+        button {
+            width: 100%;
+            min-height: 30px;
+            margin-top: 20px;
+            border: 0;
+            font-size: 15px;
+            color: white;
+            background-color: $primary-color;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .seller-about-text {
+            font-size: 20px;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-weight: 500;
+            padding-top: 10px;
+        }
+
+        .seller-about {
+            text-align: justify;
+        }
+
+        @include breakpoint(1060px) {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
     }
 
     .main-container {
@@ -172,8 +245,8 @@
         border-radius: 5px;
         background-color: white;
         box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
-        
-        @include breakpoint(1060px){
+
+        @include breakpoint(1060px) {
             width: 100%;
             margin-left: 0px;
         }
