@@ -4,6 +4,7 @@
     width: 100%;
     height: 100%;
     background-color: $sub-backgorund-color-2;
+    overflow-x: auto;
 
     .titile {
         font-size: 1.2em;
@@ -13,6 +14,7 @@
 
     .services-list {
         width: 100%;
+        min-width: 910px;
         height: calc(100vh - 80px);
         overflow-y: auto;
         padding-inline: 100px;

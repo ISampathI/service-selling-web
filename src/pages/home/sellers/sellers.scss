@@ -3,6 +3,7 @@
 .Sellers {
     width: 100%;
     height: 100%;
+    overflow-x: auto;
     background-color: $sub-backgorund-color-2;
     
 
@@ -14,6 +15,7 @@
 
     .sellers-list {
         width: 100%;
+        min-width: 945px;
         height: calc(100vh - 80px);
         overflow-y: auto;
         padding-inline: 100px;

@@ -242,6 +242,7 @@
     .main-container {
         margin-top: 20px;
         width: calc(100% - 320px);
+        min-width: 935px;
         height: fit-content;
         min-height: calc(100% - 10px);
         margin-left: 20px;
