@@ -1,8 +1,12 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link, Navigate, NavLink, useNavigate } from "react-router-dom";
 import "./appHeader.scss";
 import axios from "axios";
-import { LoginContext, UserContext } from "../helper/Context";
+import {
+  ChangeHeaderNavColorContext,
+  LoginContext,
+  UserContext,
+} from "../helper/Context";
 
 const api = axios.create({
   baseURL: "http://localhost:5001/",
@@ -11,16 +15,21 @@ export default function AppHeader(props) {
   let navigate = useNavigate();
   const { loggedIn, setLoggedIn } = useContext(LoginContext);
   const { user, setUser } = useContext(UserContext);
-
+  const { changeHeaderNavColor, setChangeHeaderNavColor } = useContext(
+    ChangeHeaderNavColorContext
+  );
   const doLogout = () => {
     api.get("/logout").then((res) => {
       setLoggedIn(false);
       setUser({});
     });
   };
+
+  // useEffect(() => {}, [changeHeaderNavColor]);
+
   return (
     <>
-      <div className="Header">
+      <div className={changeHeaderNavColor ? "Header header-scroll" : "Header"}>
         <div className="logo">
           <span>Hire</span> Now
         </div>
@@ -30,7 +39,7 @@ export default function AppHeader(props) {
         <div className="search-bar">
           <input
             type="text"
-            placeholder="Search"
+            placeholder="What services are you looking for?"
             onKeyUp={(event) => {
               if (event.key == "Enter") {
                 console.log(event.target.value);
@@ -78,10 +87,10 @@ export default function AppHeader(props) {
           {!loggedIn ? (
             <>
               <Link to="/login">
-                <button className="login">Log in</button>
+                <button className="login">Sign in</button>
               </Link>
               <Link to="/signup">
-                <button className="signup">Sign up</button>
+                <button className="signup">Register Now</button>
               </Link>
             </>
           ) : (

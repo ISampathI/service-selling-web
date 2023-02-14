@@ -1,12 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import CategoryCard from "../../../components/CategoryCard";
 import ServiceCard from "../../../components/serviceCard/ServiceCard";
 import "./land.scss";
 import heroimg from "../../../assets/img/workers/hero.png";
+// import herosvg from "../../../assets/svg/hero.svg";
+import dec1 from "../../../assets/img/dec1.png";
 import playstoreimg from "../../../assets/img/buttons/playstore.png";
 import appstoreimg from "../../../assets/img/buttons/appstore.png";
 import axios from "axios";
-import { API_IP } from "../../../helper/Context";
+import {
+  API_IP,
+  ChangeHeaderNavColor,
+  ChangeHeaderNavColorContext,
+} from "../../../helper/Context";
 import Footer from "../../../layouts/Footer";
 
 const api = axios.create({
@@ -19,9 +25,21 @@ export default function Home(props) {
   const [suggestedServicesList, setSuggestedServicesList] = useState([]);
   const [populerServicesList, setPopulerServices] = useState([]);
 
+  const { changeHeaderNavColor, setChangeHeaderNavColor } = useContext(
+    ChangeHeaderNavColorContext
+  );
+
   useEffect(() => {
     fetchData();
   }, []);
+  var handleScroll = (event) => {
+    const scrollTop = event.target.scrollTop;
+    if (scrollTop > 0) {
+      setChangeHeaderNavColor(true);
+    } else if (scrollTop == 0) {
+      setChangeHeaderNavColor(false);
+    }
+  };
 
   const fetchData = () => {
     api.get("/api/suggestedServices").then((res) => {
@@ -36,43 +54,42 @@ export default function Home(props) {
   };
 
   return (
-    <div className="Home">
+    <div className="Home" onScroll={handleScroll}>
       <div className="hero-section">
+        <div className="dec1">
+          <img src={dec1} alt="" />
+        </div>
         <div className="hero-left">
           <div className="main-title">
-            The Ultimate Platform for Finding Services
+            <span>Find</span> Any Service You Need!
           </div>
           <div className="para">
-            Are you tired of sifting through countless resumes and dealing with
-            unreliable workers? HireNow is here to solve that problem. Our
-            platform connects businesses with a large pool of skilled workers,
-            making it easy to find the right fit for your job. With easy-to-use
-            tools, secure payment options, and a commitment to quality, HireNow
-            is the best choice for finding your next worker.
+            Our platform makes it easy to find and hire talented professionals
+            for all your needs.{" "}
           </div>
           <button className="get-start-btn">
             Get Started<i class="fa-solid fa-circle-chevron-right"></i>
           </button>
+          <div className="platform-status">
+            <div className="platform-status-wrapper">
+              <div className="p-status">
+                <div className="status-num">10+</div>
+                <div className="status-name">Total Sellers</div>
+              </div>
+              <div className="p-status">
+                <div className="status-num">10+</div>
+                <div className="status-name">Total Services</div>
+              </div>
+              <div className="p-status">
+                <div className="status-num">10+</div>
+                <div className="status-name">Total users</div>
+              </div>
+            </div>
+          </div>
         </div>
         <div className="hero-right">
           <div className="hero-img">
             <img className="heroimg" src={heroimg} alt="" />
-          </div>
-        </div>
-        <div className="platform-status">
-          <div className="platform-status-wrapper">
-            <div className="p-status">
-              <div className="status-num">10+</div>
-              <div className="status-name">Total Sellers</div>
-            </div>
-            <div className="p-status">
-              <div className="status-num">10+</div>
-              <div className="status-name">Total Services</div>
-            </div>
-            <div className="p-status">
-              <div className="status-num">10+</div>
-              <div className="status-name">Total Sellers</div>
-            </div>
           </div>
         </div>
       </div>

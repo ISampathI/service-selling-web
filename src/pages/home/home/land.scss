@@ -5,22 +5,25 @@
 
 .Home {
     width: 100%;
-    height: calc(100vh - 80px);
+    height: 100vh;
     overflow-y: auto;
     overflow-x: hidden;
     padding-bottom: 30px;
-
+    .dec1{
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
     .hero-section {
         width: 100vw;
-        height: calc(100vh - 80px);
+        height: 100vh;
+        padding-top: 80px;
         padding-inline: 0%;
         padding-right: 0;
         display: flex;
-        background-image: url("../../../assets/img/background5.png");
         background-size: contain;
         background-repeat: repeat;
         position: relative;
-        background-color: $sub-backgorund-color-3;
 
         @include sm {
             height: fit-content;
@@ -38,14 +41,19 @@
             .main-title {
                 font-size: 4em;
                 font-weight: bold;
-                font-family: 'Fira Sans Extra Condensed', sans-serif;
+                color: $text-color-3;
+
+                span{
+                    color: $primary-color;
+                }
             }
 
             .para {
                 margin-top: 35px;
-                font-size: 1.1em;
+                font-size: 20px;
                 line-height: 1.8em;
                 text-align: justify;
+                color: $text-color-3;
             }
 
             .get-start-btn {
@@ -100,13 +108,13 @@
                 display: flex;
                 overflow: hidden;
                 margin-top: auto;
+                margin-top: 20px;
 
                 .heroimg {
                     margin-top: auto;
                     width: 100%;
                     height: 100%;
                     object-fit: contain;
-                    transform: scaleX(-1) translateX(7%);
                 }
             }
 
@@ -117,27 +125,16 @@
     }
 
     .platform-status {
-        position: absolute;
         width: 100%;
-        bottom: 0px;
-        height: fit-content;
-        display: flex;
-        justify-content: end;
-        padding-inline: 150px;
-
-        @include breakpoint(1100px) {
-            display: none;
-        }
+        margin-top: 20px;
 
         .platform-status-wrapper {
             width: 50%;
             height: fit-content;
             padding-block: 0px;
             display: flex;
-            justify-content: space-around;
-            background-color: white;
+            justify-content: space-between;
             border-radius: 10px;
-            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
         }
 
         .p-status {
@@ -147,17 +144,20 @@
             // background-color: white;
             transition: margin 1s;
             &:hover{
-                margin-right: 15px;
+                margin-inline: 7px;
             }
 
             .status-num {
-                font-size: 40px;
+                font-size: 25px;
                 font-weight: 500;
                 display: flex;
+                color: $text-color-3;
+                font-weight: bold;
             }
 
             .status-name {
                 color: $text-color;
+                font-size: 15px;
             }
         }
     }
