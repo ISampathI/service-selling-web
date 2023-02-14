@@ -1,8 +1,11 @@
 @import "../assets/styles/variables";
-.react-link{
+@import "../assets/styles/breakpoints";
+
+.react-link {
     text-decoration: none;
     color: black;
 }
+
 .Header {
     width: 100%;
     z-index: 100;
@@ -14,11 +17,32 @@
     //margin-bottom: 1px;
     z-index: 100;
 
+    @include lg {
+        padding-inline: 30px;
+    }
+
     .logo {
-        font-size: 1.5em;
+        font-size: 23px;
+
+        @include md {
+            display: none;
+        }
 
         span {
             font-weight: bolder;
+        }
+    }
+
+    .logo-md {
+        display: none;
+
+        @include md {
+            display: flex;
+        }
+
+        i {
+            font-weight: bolder;
+            font-size: 30px;
         }
     }
 
@@ -52,6 +76,10 @@
             justify-content: center;
             color: $primary-color;
         }
+
+        @include breakpoint(1120px) {
+            display: none;
+        }
     }
 
     .nav-bar {
@@ -73,10 +101,22 @@
             text-decoration: none;
             color: black;
         }
+
+        @include md {
+            display: none;
+        }
+
+        @include breakpoint(1120px) {
+            margin-left: auto;
+        }
     }
 
     .buttons {
         display: flex;
+
+        @include md {
+            display: none;
+        }
 
         button {
             width: 100px;

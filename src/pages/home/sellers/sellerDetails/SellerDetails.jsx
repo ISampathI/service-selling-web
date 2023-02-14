@@ -1,6 +1,7 @@
 import React, { Component, useContext, useState } from "react";
 import { Outlet, NavLink, useOutletContext } from "react-router-dom";
 import { LoginContext, UserContext } from "../../../../helper/Context";
+import Footer from "../../../../layouts/Footer";
 import "./sellerDetails.scss";
 
 export default function SellerDetails(props) {
@@ -56,6 +57,18 @@ export default function SellerDetails(props) {
           distinctio cumque! Perspiciatis, labore quis!
         </div>
         <button className="contact-now-btn">Private Chat</button>
+        <div className="for-small">
+          <div className="seller-about-text">About</div>
+          <div className="seller-about">
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Libero
+            debitis ab asperiores dicta officiis nam maiores temporibus iste,
+            enim illum reprehenderit sint magnam impedit hic aut quibusdam vel
+            nihil accusantium dignissimos quaerat mollitia numquam. Incidunt,
+            suscipit quidem. Laborum, alias aliquam sit laudantium accusantium
+            hic non distinctio cumque! Perspiciatis, labore quis!
+          </div>
+          <button className="contact-now-btn">Private Chat</button>
+        </div>
       </div>
       <div className="main-container">
         <div className="seller-container-nav">

@@ -132,6 +132,9 @@
                 background-position: center;
                 background-repeat: no-repeat;
             }
+            @include lg{
+                display: none;
+             }
         }
     }
 }

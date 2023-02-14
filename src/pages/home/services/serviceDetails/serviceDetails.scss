@@ -13,6 +13,9 @@
         display: flex;
         justify-content: center;
         overflow-y: auto;
+        @include md{
+            padding-inline: 5px;
+        }
     }
 
     ::-webkit-scrollbar {
@@ -30,6 +33,10 @@
         padding-inline: 25px;
         background-color: white;
         border-radius: 5px;
+
+        @include lg{
+            width: 100%;
+        }
 
         .seller {
             display: flex;

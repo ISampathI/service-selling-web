@@ -28,7 +28,7 @@ function Footer() {
               <li>About</li>
             </ul>
           </div>
-          <div className="footer-column">
+          <div className="footer-column footer-categories">
             <p>Top Categories</p>
             <ul>
               <li>Lorem</li>

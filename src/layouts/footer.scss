@@ -32,11 +32,16 @@
                 font-weight: bolder;
             }
         }
-        p{
+
+        p {
             margin-top: 20px;
             color: $text-color;
             font-size: 17px !important;
             font-weight: 400 !important;
+        }
+
+        @include lg {
+            display: none;
         }
     }
 
@@ -97,6 +102,12 @@
         }
     }
 
+    .footer-categories {
+        @include breakpoint(600px) {
+            display: none;
+        }
+    }
+
     .last-row {
         margin-top: 50px;
         font-size: 15px;
@@ -105,10 +116,20 @@
 
         .copyright {
             margin-right: auto;
+
+            @include breakpoint(600px) {
+                margin-right: 0;
+                width: 100%;
+                text-align: center;
+            }
         }
 
         p {
             margin-right: 30px;
+
+            @include breakpoint(600px) {
+                display: none;
+            }
         }
     }
 }

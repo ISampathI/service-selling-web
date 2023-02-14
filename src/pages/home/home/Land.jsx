@@ -48,8 +48,7 @@ export default function Home(props) {
             platform connects businesses with a large pool of skilled workers,
             making it easy to find the right fit for your job. With easy-to-use
             tools, secure payment options, and a commitment to quality, HireNow
-            is the best choice for finding your next worker. Sign up now to
-            start your search today.
+            is the best choice for finding your next worker.
           </div>
           <button className="get-start-btn">
             Get Started<i class="fa-solid fa-circle-chevron-right"></i>

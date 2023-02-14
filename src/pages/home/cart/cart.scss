@@ -14,6 +14,9 @@
         padding-bottom: 50px;
         background-color: $sub-backgorund-color-2;
         display: flex;
+        @include xl{
+            padding-inline: 5%;
+        }
 
         .left {
             width: calc(100% - 300px);
@@ -22,6 +25,9 @@
             flex-direction: column;
             justify-content: space-between;
             align-items: left;
+            @include breakpoint(1000px){
+                width: 100%;
+            }
 
             .cart-header {
                 width: 100%;
@@ -73,7 +79,9 @@
             padding-bottom: 10px;
             background-color: white;
             box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
-
+            @include breakpoint(1000px){
+                display: none;
+            }
             .profile {
                 display: flex;
                 width: 300px;

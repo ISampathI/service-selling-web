@@ -1,3 +1,5 @@
+@import "./breakpoints";
+
 $backgorund-color: white;
 $primary-color: rgb(20, 168, 0);
 $sub-backgorund-color-1: rgba(20, 168, 0, 0.174);
@@ -21,3 +23,8 @@ $Dark_Olive: #4A4A2C;
 $Sea_Green: #0FC0A9;
 $Off_White: #F5F5F5;
 $Sage_Green: #9FA67E;
+
+
+$mobile-device: 480px;
+$tablet-device: 768px;
+$laptop-device: 1024px;

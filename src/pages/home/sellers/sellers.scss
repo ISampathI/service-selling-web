@@ -4,6 +4,7 @@
     width: 100%;
     height: 100%;
     background-color: $sub-backgorund-color-2;
+    
 
     .titile {
         font-size: 1.2em;
@@ -18,6 +19,9 @@
         padding-inline: 100px;
         padding-bottom: 10px;
         padding-top: 20px;
+        @include xl{
+            padding-inline: 11px;
+        }
 
         .infinite-scroll {
             width: 100%;

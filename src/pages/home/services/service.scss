@@ -18,6 +18,10 @@
         padding-inline: 100px;
         padding-bottom: 100px;
         padding-top: 20px;
+        
+        @include xl{
+            padding-inline: 0px;
+        }
 
         .infinite-scroll {
             width: 100%;

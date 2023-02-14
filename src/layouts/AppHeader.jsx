@@ -24,6 +24,9 @@ export default function AppHeader(props) {
         <div className="logo">
           <span>Hire</span> Now
         </div>
+        <div className="logo-md">
+          <i class="fa-solid fa-bars"></i>
+        </div>
         <div className="search-bar">
           <input
             type="text"

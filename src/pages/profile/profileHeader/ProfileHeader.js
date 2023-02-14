@@ -21,13 +21,13 @@ export default function ProfileHeader(props) {
   };
   return (
     <>
-      <div className="Header">
+      <div className="ProfileHeader">
         <Link to="/" style={{ textDecoration: "none" }}>
           <div className="logo">
             <span>Hire</span> Now
           </div>
         </Link>
-        <div className="search-bar">
+        {/* <div className="search-bar">
           <input
             type="text"
             placeholder="Search"
@@ -39,7 +39,7 @@ export default function ProfileHeader(props) {
             }}
           />
           <i className="fa-solid fa-magnifying-glass"></i>
-        </div>
+        </div> */}
         <div className="nav-bar">
           {/* <NavLink
             to="/"
