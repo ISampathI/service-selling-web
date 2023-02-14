@@ -46,23 +46,22 @@ function App() {
                   <Route path="servicedetails" element={<ServiceDetails />} />
                 </Route>
                 <Route path="/sellers" element={<Sellers />}>
-                  
                   <Route path="servicedetails" element={<ServiceDetails />} />
                 </Route>
                 <Route path="sellers/sellerdetails" element={<SellerDetails />}>
-                    <Route
-                      path="services"
-                      element={<SellerDetailsNav name="services" />}
-                    />
-                    <Route
-                      path="gallery"
-                      element={<SellerDetailsNav name="gallery" />}
-                    />
-                    <Route
-                      path="chat"
-                      element={<SellerDetailsNav name="chat" />}
-                    />
-                  </Route>
+                  <Route
+                    path="services"
+                    element={<SellerDetailsNav name="services" />}
+                  />
+                  <Route
+                    path="gallery"
+                    element={<SellerDetailsNav name="gallery" />}
+                  />
+                  <Route
+                    path="chat"
+                    element={<SellerDetailsNav name="chat" />}
+                  />
+                </Route>
               </Route>
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />

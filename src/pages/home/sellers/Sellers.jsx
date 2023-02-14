@@ -28,7 +28,7 @@ function Sellers(props) {
 
   return (
     <div className="Sellers">
-      <Outlet />
+      <Outlet/>
       <div className="sellers-list" id="sellers-list-id">
         <InfiniteScroll
           dataLength={sellersList.length}

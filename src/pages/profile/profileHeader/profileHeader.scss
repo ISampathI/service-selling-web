@@ -1,5 +1,10 @@
 @import "../../../assets/styles/variables";
 
+.react-link {
+    text-decoration: none;
+    color: black;
+}
+
 .ProfileHeader {
     width: 100%;
     height: 80px;
@@ -8,49 +13,42 @@
     padding-inline: 70px;
     border-bottom: 2px solid $border-color-3;
 
+    @include lg {
+        padding-inline: 30px;
+    }
+
     .logo {
-        font-size: 1.5em;
-        color: black;
+        font-size: 23px;
+
+        @include breakpoint(765px) {
+            display: none;
+        }
 
         span {
             font-weight: bolder;
         }
     }
 
-    .search-bar {
-        height: 35px;
-        max-width: 400px;
-        min-width: 300px;
-        margin-left: 50px;
-        margin-right: auto;
-        padding-inline: 20px;
-        display: flex;
-        justify-items: center;
-        border-radius: 15px;
-        background-color: rgb(247, 247, 247);
+    .logo-md {
+        display: none;
 
-        input[type=text] {
-            width: calc(100% - 25px);
-            border: 0;
-            background-color: transparent;
-
-            &:focus {
-                outline: none;
-            }
+        @include breakpoint(765px) {
+            display: flex;
         }
 
         i {
-            width: 25px;
-            margin-left: auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: $primary-color;
+            font-weight: bolder;
+            font-size: 30px;
         }
     }
 
     .nav-bar {
         display: flex;
+        margin-left: auto;
+
+        @include breakpoint(765px) {
+            display: none;
+        }
 
         .text-link {
             text-decoration: none;
@@ -72,6 +70,9 @@
 
     .buttons {
         display: flex;
+        @include breakpoint(765px) {
+            margin-left: auto;
+        }
 
         button {
             width: 100px;
@@ -95,10 +96,13 @@
             border: 1px solid $primary-color;
             cursor: pointer;
         }
-        .switch-btn{
+
+        .switch-btn {
             margin-top: 4px;
             width: 140px;
+
         }
+
         .icon {
             width: 50px;
             color: $primary-color;
@@ -161,29 +165,33 @@
                 overflow: hidden;
                 flex-direction: column;
                 padding-block: 10px;
-                .title{
+
+                .title {
                     font-weight: 600;
                     margin-bottom: 5px;
                     padding-inline: 10px;
                 }
-                ul{
+
+                ul {
                     list-style: none;
                     width: 100%;
                     font-size: 14px;
                     font-weight: 400;
                     padding-block: 5px;
-                    
-                    li{
+
+                    li {
                         width: 100%;
                         padding-block: 5px;
                         padding-inline: 10px;
-                        &:hover{
+
+                        &:hover {
                             background-color: $sub-backgorund-color-1;
                         }
                     }
                 }
 
             }
+
             &:hover .account-hover-list {
                 display: flex;
             }

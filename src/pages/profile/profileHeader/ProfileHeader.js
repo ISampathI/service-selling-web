@@ -22,10 +22,13 @@ export default function ProfileHeader(props) {
   return (
     <>
       <div className="ProfileHeader">
-        <Link to="/" style={{ textDecoration: "none" }}>
+        <Link to="/" style={{ textDecoration: "none" }} className="react-link">
           <div className="logo">
             <span>Hire</span> Now
           </div>
+          <div className="logo-md">
+          <i class="fa-solid fa-bars"></i>
+        </div>
         </Link>
         {/* <div className="search-bar">
           <input

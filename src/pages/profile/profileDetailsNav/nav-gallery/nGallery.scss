@@ -10,6 +10,10 @@
     padding-inline: 150px;
     background-color: $sub-backgorund-color-2;
 
+    @include xl{
+        padding-inline: 5%;
+    }
+
     .Profile {
         margin-right: 10px;
     }
