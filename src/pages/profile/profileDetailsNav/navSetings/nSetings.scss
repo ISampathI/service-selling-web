@@ -10,7 +10,7 @@
     overflow-y: scroll;
     display: flex;
     justify-content: center;
-    
+
     .edit-profile {
         width: 90%;
         height: fit-content;
@@ -71,6 +71,7 @@
                 width: 60%;
                 height: fit-content;
                 padding: 20px;
+
                 .userinfo-form,
                 .sellerinfo-form {
                     width: 100%;
@@ -156,7 +157,9 @@
         font-size: 16px;
     }
 
-    input[type=text],select, textarea {
+    input[type=text],
+    select,
+    textarea {
         width: 100%;
         margin-bottom: 35px;
         border: 2px solid $border-color-2;
@@ -164,9 +167,11 @@
         font-size: 16px;
 
     }
-    input[type=text]{
+
+    input[type=text] {
         height: 40px;
     }
+
     select {
         height: 40px;
     }
@@ -195,12 +200,22 @@
     }
 
     .form-sub-container {
-        width: 100%;  
+        width: 100%;
         padding: 10px;
         border-radius: 5px;
         border: 2px solid $border-color-3;
         display: flex;
         flex-direction: column;
         position: relative;
+
+        .update-btn {
+            padding: 10px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            background-color: $primary-color;
+            border: 0px;
+            border-radius: 5px;
+            color: white;
+        }
     }
 }

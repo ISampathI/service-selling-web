@@ -5,8 +5,28 @@ function EditUserInfo() {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
+  const [addressLine1, setAddressLine1] = useState("");
+  const [addressLine2, setAddressLine2] = useState("");
+  const [city, setCity] = useState("");
+  const [province, setProvince] = useState("");
+
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
+  const updateUserData = () => {
+    console.log({
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      mobileNumber: mobileNumber,
+      address: {
+        addressLine1: addressLine1,
+        addressLine2: addressLine2,
+        city: city,
+        province: province,
+      },
+    });
+  };
 
   return (
     <div className="EditUserInfo">
@@ -17,14 +37,26 @@ function EditUserInfo() {
               <label htmlFor="">
                 First Name <span>*</span>
               </label>
-              <input type="text" />
+              <input
+                type="text"
+                value={firstName}
+                onChange={(e) => {
+                  setFirstName(e.target.value);
+                }}
+              />
             </div>
             <div className="spacer"></div>
             <div className="column">
               <label htmlFor="">
                 Last Name <span>*</span>
               </label>
-              <input type="text" />
+              <input
+                type="text"
+                value={lastName}
+                onChange={(e) => {
+                  setLastName(e.target.value);
+                }}
+              />
             </div>
           </div>
           <div className="row">
@@ -32,14 +64,26 @@ function EditUserInfo() {
               <label htmlFor="">
                 Email Address <span>*</span>
               </label>
-              <input type="text" />
+              <input
+                type="text"
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+              />
             </div>
             <div className="spacer"></div>
             <div className="column">
               <label htmlFor="">
                 Mobile Number <span>*</span>
               </label>
-              <input type="text" />
+              <input
+                type="text"
+                value={mobileNumber}
+                onChange={(e) => {
+                  setMobileNumber(e.target.value);
+                }}
+              />
             </div>
           </div>
           <label htmlFor="">
@@ -50,18 +94,36 @@ function EditUserInfo() {
               <label htmlFor="">
                 Address line 1 <span>*</span>
               </label>
-              <input type="text" />
+              <input
+                type="text"
+                value={addressLine1}
+                onChange={(e) => {
+                  setAddressLine1(e.target.value);
+                }}
+              />
               <label htmlFor="">
                 Address line 2 <span>*</span>
               </label>
-              <input type="text" />
+              <input
+                type="text"
+                value={addressLine2}
+                onChange={(e) => {
+                  setAddressLine2(e.target.value);
+                }}
+              />
             </div>
             <div className="row">
               <div className="column">
                 <label htmlFor="">
                   City <span>*</span>
                 </label>
-                <input type="text" />
+                <input
+                  type="text"
+                  value={city}
+                  onChange={(e) => {
+                    setCity(e.target.value);
+                  }}
+                />
               </div>
               <div className="spacer"></div>
               <div className="column">
@@ -97,6 +159,9 @@ function EditUserInfo() {
                 </select>
               </div>
             </div>
+            <button onClick={updateUserData} className="update-btn">
+              Update
+            </button>
           </div>
         </div>
       </div>

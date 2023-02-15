@@ -4,11 +4,15 @@ import ServiceCard from "../../../components/serviceCard/ServiceCard";
 import "./service.scss";
 import InfiniteScroll from "react-infinite-scroll-component";
 import axios from "axios";
-import { API_IP, ChangeHeaderNavColorContext } from "../../../helper/Context";
+import {
+  API_IP,
+  API_IP_2,
+  ChangeHeaderNavColorContext,
+} from "../../../helper/Context";
 import Footer from "../../../layouts/Footer";
 
 const api = axios.create({
-  baseURL: `http://${API_IP}/api/`,
+  baseURL: `http://${API_IP_2}/api/`,
 });
 // var state = {
 //   serviceList: Array.from({ length: 20 }),
@@ -27,8 +31,9 @@ const refresh = (setItems) => {
 
 export default function Services(props) {
   const [servicesList, setServicesList] = useState([]);
-  const { changeHeaderNavColor, setChangeHeaderNavColor } =
-    useContext(ChangeHeaderNavColorContext);
+  const { changeHeaderNavColor, setChangeHeaderNavColor } = useContext(
+    ChangeHeaderNavColorContext
+  );
 
   useEffect(() => {
     setChangeHeaderNavColor(true);
@@ -36,10 +41,8 @@ export default function Services(props) {
   }, []);
 
   const fetchMoreData = () => {
-    //state.serviceList.concat(Array.from({ length: 20 }));
-    api.get("/services").then((res) => {
-      setServicesList(servicesList.concat(res.data));
-      console.log("nn", servicesList);
+    api.get("/services/suggested").then((res) => {
+      setServicesList(servicesList.concat(res.data.services));
     });
   };
 
@@ -79,9 +82,10 @@ export default function Services(props) {
             <>
               <ServiceCard
                 name={item.name}
-                profile_img={item.profile_img}
-                service_img={item.service_img}
+                profile_img={item.proPic}
+                service_img={item.serviceImg}
                 title={item.title}
+                id={item.id}
                 type="0"
               />
             </>
