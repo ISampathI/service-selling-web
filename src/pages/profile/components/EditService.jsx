@@ -1,16 +1,23 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { API_IP_2 } from "../../../helper/Context";
+import { API_IP_2, UserContext } from "../../../helper/Context";
+import ImageUploading from "react-images-uploading";
 import "./editService.scss";
+import { useCookies } from "react-cookie";
 
 const api = axios.create({
   baseURL: `http://${API_IP_2}/api/`,
 });
 
 function EditService(props) {
+  const [serviceDetails, setServiceDetails] = useState({});
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [image, setImage] = useState([]);
+  const [cookies, setCookie] = useCookies(["token"]);
+
+  const { user, setUser } = useContext(UserContext);
 
   var { id } = useParams();
 
@@ -19,17 +26,62 @@ function EditService(props) {
   }, [id]);
 
   const updateService = () => {
-    console.log({
-      id: id,
-      title: title,
-      description: description,
-    });
+    // console.log([
+    //   { propName: "title", value: title },
+    //   { propName: "description", value: description },
+    // ]);
+    api
+      .patch(
+        `/services/${id}`,
+        [
+          { propName: "title", value: title },
+          { propName: "description", value: description },
+        ],
+        {
+          headers: {
+            Authorization: `Bearer ${cookies.token}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res);
+      });
+  };
+
+  const createService = () => {
+    // console.log({
+    //   title: title,
+    //   description: description,
+    //   provider: user._id,
+    // });
+    api
+      .post(
+        `/services`,
+        {
+          title: title,
+          description: description,
+          provider: user._id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${cookies.token}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res);
+      });
   };
   const fetchData = () => {
     api.get(`/services/${id}`).then((res) => {
+      setServiceDetails(res.data.service);
       setTitle(res.data.service.service.title);
       setDescription(res.data.service.service.description);
     });
+  };
+  const onChange = (image, addUpdateIndex) => {
+    console.log(image, addUpdateIndex);
+    setImage(image);
   };
   return (
     <div className="EditService">
@@ -55,15 +107,53 @@ function EditService(props) {
               }}
             />
             <label htmlFor="">Service image</label>
+
             <div className="service-img">
-              <i class="fa-solid fa-cloud-arrow-up"></i>
-              <p>
-                Upload a Image
-                <span>Drag and drop image here</span>
-              </p>
+              <ImageUploading
+                value={image}
+                onChange={onChange}
+                maxNumber={1}
+                dataURLKey="data_url"
+              >
+                {({
+                  imageList,
+                  onImageUpload,
+                  onImageRemoveAll,
+                  onImageUpdate,
+                  onImageRemove,
+                  isDragging,
+                  dragProps,
+                }) => (
+                  <>
+                    {" "}
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                    <img
+                      src={
+                        imageList.length != 0
+                          ? imageList[0]["data_url"]
+                          : serviceDetails.service?.serviceImg
+                      }
+                      width="150px"
+                      alt=""
+                    />
+                    <p
+                      onClick={() => {
+                        onImageUpdate();
+                      }}
+                    >
+                      Upload a Image
+                      <span>Drag and drop or onClick to upload</span>
+                    </p>
+                  </>
+                )}
+              </ImageUploading>
             </div>
+
             <div className="buttons">
-              <div className="update-service button">
+              <div
+                className="update-service button"
+                onClick={props.type == "new" ? createService : updateService}
+              >
                 {props.type == "new" ? "Save" : "Update"}
               </div>
             </div>
