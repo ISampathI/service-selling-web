@@ -49,7 +49,6 @@ function Home() {
       )
       .then((res) => {
         if (res.status) {
-          console.log(res.data, "/////");
           setUser(res.data);
           setLoggedIn(true);
           //navigate("/");

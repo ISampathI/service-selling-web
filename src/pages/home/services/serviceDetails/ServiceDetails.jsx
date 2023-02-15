@@ -1,17 +1,33 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { createContext, useState } from "react";
+import axios from "axios";
+import React, { createContext, useEffect, useState } from "react";
 import { TailSpin } from "react-loader-spinner";
 import { useParams } from "react-router-dom";
 import CartItem from "../../../../components/cartItem/CartItem";
 import ReviewList from "../../../../components/reviewList/ReviewList";
-import { PopUpScreenContext } from "../../../../helper/Context";
+import { API_IP_2, PopUpScreenContext } from "../../../../helper/Context";
 import "./serviceDetails.scss";
+
+const api = axios.create({
+  baseURL: `http://${API_IP_2}/api/`,
+});
 
 export default function ServiceDetails(props) {
   const [showPopup, setShowPopup] = useState(false);
   const [orderComplete, setOrderComplete] = useState(0);
+  const [serviceDetails, setServiceDetails] = useState({});
 
-  var { id } = useParams(); 
+  var { id } = useParams();
+
+  useEffect(() => {
+    fetchData();
+  }, [id, serviceDetails]);
+
+  const fetchData = () => {
+    api.get(`/services/${id}`).then((res) => {
+      setServiceDetails(res.data.service);
+    });
+  };
 
   return (
     <div className="ServiceDetails">
@@ -20,12 +36,14 @@ export default function ServiceDetails(props) {
           <div className="seller">
             <div className="profile-img">
               <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdXrN5H9Es9LsjxqNrUFbuEXtdc6q1457prQ&usqp=CAU"
+                src={serviceDetails.seller && serviceDetails.seller.proPic}
                 alt=""
               />
             </div>
             <div className="container1">
-              <div className="name">Lernal heral</div>
+              <div className="name">
+                {serviceDetails.seller && serviceDetails.seller.name}
+              </div>
               <div className="row">
                 <div className="rating-num">4.5</div>
                 <div className="rating-sub">
@@ -44,30 +62,17 @@ export default function ServiceDetails(props) {
             <i className="fa-solid fa-cart-shopping"></i>
           </div>
           <div className="title">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem,
-            necessitatibus.
+            {serviceDetails.service && serviceDetails.service.title}
           </div>
 
           <img
             className="service-img"
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5o1JEx5HkuIza83FgPMcXYA5aylxAwGXGyA&usqp=CAU"
+            src={serviceDetails.service && serviceDetails.service.serviceImg}
             alt=""
           />
           <h1>About</h1>
           <div className="details">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem
-            mollitia alias ipsa labore inventore? Veniam pariatur inventore
-            necessitatibus et numquam atque! Magni quod aliquid at, recusandae
-            saepe perspiciatis nulla maiores accusamus et corporis neque.
-            Voluptate voluptas fugit mollitia rem iusto quisquam, distinctio
-            quas impedit facere quibusdam explicabo fuga delectus dolore!
-            <br />
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus
-            consequuntur ut error quos omnis voluptatibus qui sapiente natus
-            sunt cupiditate dolor veritatis fuga, reiciendis eos fugit similique
-            debitis odio suscipit deserunt quibusdam perferendis, unde facere!
-            Rerum fuga nihil deleniti natus? Beatae, repellat dicta! Minus
-            dolore tenetur itaque doloremque facilis provident.
+            {serviceDetails.service && serviceDetails.description}
             <br />
           </div>
           <div className="buttons">

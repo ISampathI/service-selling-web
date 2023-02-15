@@ -1,27 +1,50 @@
-import React, { Component, useContext, useState } from "react";
-import { Outlet, NavLink, useOutletContext } from "react-router-dom";
-import { LoginContext, UserContext } from "../../../../helper/Context";
+import axios from "axios";
+import React, { Component, useContext, useEffect, useState } from "react";
+import { Outlet, NavLink, useOutletContext, useParams } from "react-router-dom";
+import {
+  API_IP_2,
+  LoginContext,
+  UserContext,
+} from "../../../../helper/Context";
 import Footer from "../../../../layouts/Footer";
 import "./sellerDetails.scss";
 
+const api = axios.create({
+  baseURL: `http://${API_IP_2}/api/`,
+});
+
 export default function SellerDetails(props) {
+  const [sellerDetails, setSellerDetails] = useState({});
+
   const { loggedIn } = useContext(LoginContext);
   const { user } = useContext(UserContext);
+
+  var { username } = useParams();
+
+  useEffect(() => {
+    fetchData();
+  }, [username]);
+
+  const fetchData = () => {
+    api.get(`/users/${username}`).then((res) => {
+      setSellerDetails(res.data);
+      console.log(res.data);
+    });
+  };
 
   return (
     <div className="SellerDetails">
       <div className="seller-details-wrapper">
         <div className="profile">
           <div className="profile-img">
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdXrN5H9Es9LsjxqNrUFbuEXtdc6q1457prQ&usqp=CAU"
-              alt=""
-            />
+            <img src={sellerDetails.proPic} alt="" />
           </div>
           <div className="container1">
-            <div className="name">Lernal heral</div>
+            <div className="name">
+              {sellerDetails.firstname} {sellerDetails.lastname}
+            </div>
             <div className="row">
-              <div className="rating-num">4.5</div>
+              <div className="rating-num">{sellerDetails.rating}</div>
               <div className="rating-sub">
                 <div className="rating-star">
                   <i class="fa-solid fa-star"></i>
@@ -42,20 +65,15 @@ export default function SellerDetails(props) {
               <li>Location</li>
             </ul>
             <ul>
-              <li>Gardner</li>
-              <li>Full time</li>
+              <li>{sellerDetails.job}</li>
+              <li>{sellerDetails.availability}</li>
               <li>25</li>
-              <li>Kegalle</li>
+              <li>{sellerDetails.city}</li>
             </ul>
           </div>
           <div className="seller-about-text">About</div>
           <div className="seller-about">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Libero
-            debitis ab asperiores dicta officiis nam maiores temporibus iste,
-            enim illum reprehenderit sint magnam impedit hic aut quibusdam vel
-            nihil accusantium dignissimos quaerat mollitia numquam. Incidunt,
-            suscipit quidem. Laborum, alias aliquam sit laudantium accusantium
-            hic non distinctio cumque! Perspiciatis, labore quis!
+            {sellerDetails.about}
           </div>
           <button className="contact-now-btn">Private Chat</button>
         </div>
@@ -75,7 +93,7 @@ export default function SellerDetails(props) {
           <div className="seller-container-nav">
             <ul>
               <NavLink
-                to={"/sellers/sellerdetails/services"}
+                to={`/sellers/${username}/services`}
                 className={({ isActive }) =>
                   isActive ? "active-seller-nav" : "seller-nav"
                 }
@@ -83,7 +101,7 @@ export default function SellerDetails(props) {
                 <li>Services</li>
               </NavLink>
               <NavLink
-                to={"/sellers/sellerdetails/gallery"}
+                to={`/sellers/${username}/gallery`}
                 className={({ isActive }) =>
                   isActive ? "active-seller-nav" : "seller-nav"
                 }

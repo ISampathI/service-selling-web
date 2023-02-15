@@ -62,20 +62,18 @@
                 border: 0;
                 margin-top: 50px;
                 border-radius: 30px;
-                font-size: 1.2em;
+                font-size: 20px;
                 color: white;
                 background-color: $primary-color;
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 transition: transform 0.2s;
+                cursor: pointer;
 
                 &:hover{
                     transform: scale(99%);
-
-                    i{
-                        margin-left: 25px;
-                    }
+                    i{margin-left: 10px;}
                 }
 
                 @include sm {
@@ -86,6 +84,7 @@
                     margin-left: 15px;
                     font-size: 22px;
                     transition: margin 1s;
+                    cursor: pointer;
                 }
             }
 

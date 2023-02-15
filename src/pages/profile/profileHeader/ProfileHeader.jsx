@@ -52,7 +52,7 @@ export default function ProfileHeader(props) {
           >
             <nav>Home</nav>
           </NavLink> */}
-          {user.role == "seller" ? (
+          {user.userType == "seller" ? (
             <NavLink
               to="/profile/services"
               className={({ isActive }) =>
@@ -64,7 +64,7 @@ export default function ProfileHeader(props) {
           ) : (
             <></>
           )}
-          {user.role == "seller" ? (
+          {user.userType == "seller" ? (
             <NavLink
               to="/profile/gallery"
               className={({ isActive }) =>
@@ -105,7 +105,7 @@ export default function ProfileHeader(props) {
             </>
           ) : (
             <>
-              {user.role == "seller" ? (
+              {user.userType == "seller" ? (
                 <Link to="/">
                   <button className="signup switch-btn">Switch to Buyer</button>
                 </Link>

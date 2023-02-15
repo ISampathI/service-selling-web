@@ -7,11 +7,11 @@ import "./sellerCard.scss";
 function SellerCard(props) {
   const { showChatBox, setShowChatBox } = useContext(ChatBoxContext);
   return (
-    <Link to={`/sellers/sellerdetails/services`} className="reactLink">
+    <Link to={`/sellers/${props.username}/services`} className="reactLink">
       <div className="SellerCard">
         <img src={props.profile_img} alt="" />
         <div className="seller-name">
-          {props.first_name} {props.last_name}
+          {props.username}
         </div>
         <div className="seller-ratings">
           <i class="fa-solid fa-star"></i>

@@ -3,37 +3,40 @@ import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
 import ServiceCard from "../../../../../../components/serviceCard/ServiceCard";
-import { API_IP } from "../../../../../../helper/Context";
+import { API_IP, API_IP_2 } from "../../../../../../helper/Context";
+import { useParams } from "react-router-dom";
 
 const api = axios.create({
-  baseURL: `http://${API_IP}/api/`,
+  baseURL: `http://${API_IP_2}/api/`,
 });
 
 function NSServices() {
   const [servicesList, setServicesList] = useState([]);
 
+  var { username } = useParams();
+
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [username]);
 
-  const fetchData = async () => {
-    await api.get("/services").then((res) => {
-      setServicesList(res.data);
+  const fetchData = () => {
+    api.get(`/services/seller-services/${username}`).then((res) => {
+      setServicesList(res.data.services);
+      console.log(servicesList);
     });
   };
+
   return (
     <div className="SellerDetailsNav">
       <div className="services">
         {servicesList.map((item, index) => {
-          if (index < 6) {
-            return (
-              <ServiceCard
-                service_img={item.service_img}
-                title={item.title}
-                type="1"
-              />
-            );
-          }
+          return (
+            <ServiceCard
+              service_img={item.serviceImg}
+              title={item.title}
+              type="1"
+            />
+          );
         })}
       </div>
     </div>

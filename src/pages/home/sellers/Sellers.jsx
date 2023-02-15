@@ -50,7 +50,7 @@ function Sellers(props) {
           {sellersList.map((item, index) => (
             <>
               <SellerCard
-                first_name={item.username}
+                username={item.username}
                 last_name={""}
                 profile_img={item.proPic}
                 about={item.description}

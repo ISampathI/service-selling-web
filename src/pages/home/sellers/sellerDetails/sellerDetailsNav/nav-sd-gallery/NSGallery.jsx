@@ -3,63 +3,34 @@ import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
 import ServiceCard from "../../../../../../components/serviceCard/ServiceCard";
-import { API_IP } from "../../../../../../helper/Context";
+import { API_IP, API_IP_2 } from "../../../../../../helper/Context";
+import { useParams } from "react-router-dom";
 
 const api = axios.create({
-  baseURL: `http://${API_IP}/api/`,
+  baseURL: `http://${API_IP_2}/api/`,
 });
 
 function NSGallery() {
-  const [servicesList, setServicesList] = useState([]);
+  const [imgList, setImgList] = useState([]);
+
+  var { username } = useParams();
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [username]);
 
-  const fetchData = async () => {
-    await api.get("/services").then((res) => {
-      setServicesList(res.data);
+  const fetchData = () => {
+    api.get(`/gallery/${username}`).then((res) => {
+      setImgList(res.data.categories);
+      console.log(res.data);
     });
   };
   return (
     <div className="SellerDetailsNav">
       <div className="gallery">
-        <img
-          src="https://www.paintzen.com/wp-content/uploads/2019/12/interior-paint-contractors-painting-paintzen.jpg"
-          alt=""
-        />
-        <img
-          src="https://www.paintzen.com/wp-content/uploads/2019/12/interior-paint-contractors-painting-paintzen.jpg"
-          alt=""
-        />
-        <img
-          src="https://www.paintzen.com/wp-content/uploads/2019/12/interior-paint-contractors-painting-paintzen.jpg"
-          alt=""
-        />
-        <img
-          src="https://www.paintzen.com/wp-content/uploads/2019/12/interior-paint-contractors-painting-paintzen.jpg"
-          alt=""
-        />
-        <img
-          src="https://www.paintzen.com/wp-content/uploads/2019/12/interior-paint-contractors-painting-paintzen.jpg"
-          alt=""
-        />
-        <img
-          src="https://www.paintzen.com/wp-content/uploads/2019/12/interior-paint-contractors-painting-paintzen.jpg"
-          alt=""
-        />
-        <img
-          src="https://www.paintzen.com/wp-content/uploads/2019/12/interior-paint-contractors-painting-paintzen.jpg"
-          alt=""
-        />
-        <img
-          src="https://www.paintzen.com/wp-content/uploads/2019/12/interior-paint-contractors-painting-paintzen.jpg"
-          alt=""
-        />
-        <img
-          src="https://www.paintzen.com/wp-content/uploads/2019/12/interior-paint-contractors-painting-paintzen.jpg"
-          alt=""
-        />
+        {imgList.map((item, index) => {
+          return <img src={item.img} alt="" />;
+        })}
       </div>
     </div>
   );

@@ -67,7 +67,7 @@ function App() {
                       />
                     </Route>
                     <Route
-                      path="sellers/sellerdetails"
+                      path="sellers/:username"
                       element={<SellerDetails />}
                     >
                       <Route

@@ -53,9 +53,9 @@ export default function Home(props) {
     api.get("/api/services/popular").then((res) => {
       setPopulerServices(res.data.services);
     });
-    // api.get("/api/services/popular").then((res) => {
-    //   setPopulerServices(res.data.services);
-    // });
+    api.get("/api/users/platform-status").then((res) => {
+      setPlatformStatus(res.data.status);
+    });
   };
 
   return (
@@ -73,20 +73,27 @@ export default function Home(props) {
             for all your needs.{" "}
           </div>
           <button className="get-start-btn">
-            Get Started<i class="fa-solid fa-circle-chevron-right"></i>
+            <p>Get Started</p>
+            <i class="fa-solid fa-circle-chevron-right"></i>
           </button>
           <div className="platform-status">
             <div className="platform-status-wrapper">
               <div className="p-status">
-                <div className="status-num">10+</div>
+                <div className="status-num">
+                  {platformStatus.sellers ? platformStatus.sellers : "0"}+
+                </div>
                 <div className="status-name">Total Sellers</div>
               </div>
               <div className="p-status">
-                <div className="status-num">10+</div>
+                <div className="status-num">
+                  {platformStatus.services ? platformStatus.services : "0"}+
+                </div>
                 <div className="status-name">Total Services</div>
               </div>
               <div className="p-status">
-                <div className="status-num">10+</div>
+                <div className="status-num">
+                  {platformStatus.users ? platformStatus.users : "0"}+
+                </div>
                 <div className="status-name">Total users</div>
               </div>
             </div>
