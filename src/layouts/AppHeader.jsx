@@ -110,9 +110,9 @@ export default function AppHeader(props) {
                   <ul>
                     <Link
                       to={
-                        user.role == "seller"
+                        user.userType == "seller"
                           ? "/profile/services"
-                          : user.role == "buyer"
+                          : user.userType == "buyer"
                           ? "/profile/orders"
                           : "/"
                       }

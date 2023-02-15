@@ -10,13 +10,14 @@ import appstoreimg from "../../../assets/img/buttons/appstore.png";
 import axios from "axios";
 import {
   API_IP,
+  API_IP_2,
   ChangeHeaderNavColor,
   ChangeHeaderNavColorContext,
 } from "../../../helper/Context";
 import Footer from "../../../layouts/Footer";
 
 const api = axios.create({
-  baseURL: `http://${API_IP}/`,
+  baseURL: `http://${API_IP_2}/`,
 });
 export default function Home(props) {
   const [loginStatus, setloginStatus] = useState(false);
@@ -42,14 +43,15 @@ export default function Home(props) {
   };
 
   const fetchData = () => {
-    api.get("/api/suggestedServices").then((res) => {
-      setCategoryList(res.data);
+    api.get("/api/services/suggested").then((res) => {
+      console.log(res.data.services);
+      setCategoryList(res.data.services);
     });
-    api.get("/api/suggestedServices").then((res) => {
-      setSuggestedServicesList(res.data);
+    api.get("/api/services/suggested").then((res) => {
+      setSuggestedServicesList(res.data.services);
     });
-    api.get("/api/populerServices").then((res) => {
-      setPopulerServices(res.data);
+    api.get("/api/services/suggested").then((res) => {
+      setPopulerServices(res.data.services);
     });
   };
 
@@ -134,8 +136,8 @@ export default function Home(props) {
             {suggestedServicesList.map((item, index) => (
               <ServiceCard
                 name={item.name}
-                profile_img={item.profile_img}
-                service_img={item.service_img}
+                profile_img={item.proPic}
+                service_img={item.serviceImg}
                 title={item.title}
                 type="0"
               />
@@ -146,13 +148,14 @@ export default function Home(props) {
           <div className="titile">Populer Services</div>
           <div className="services-list">
             {populerServicesList.map((item, index) => (
-              <ServiceCard
-                name={item.name}
-                profile_img={item.profile_img}
-                service_img={item.service_img}
-                title={item.title}
-                type="0"
-              />
+              <CategoryCard />
+              // <ServiceCard
+              //   name={item.name}
+              //   profile_img={item.profile_img}
+              //   service_img={item.service_img}
+              //   title={item.title}
+              //   type="0"
+              // />
             ))}
           </div>
         </div>

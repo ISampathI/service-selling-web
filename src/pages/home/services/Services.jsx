@@ -1,10 +1,10 @@
-import { React, setState, useEffect, useState } from "react";
+import { React, setState, useContext, useEffect, useState } from "react";
 import { Outlet, useOutletContext } from "react-router-dom";
 import ServiceCard from "../../../components/serviceCard/ServiceCard";
 import "./service.scss";
 import InfiniteScroll from "react-infinite-scroll-component";
 import axios from "axios";
-import { API_IP } from "../../../helper/Context";
+import { API_IP, ChangeHeaderNavColorContext } from "../../../helper/Context";
 import Footer from "../../../layouts/Footer";
 
 const api = axios.create({
@@ -27,8 +27,11 @@ const refresh = (setItems) => {
 
 export default function Services(props) {
   const [servicesList, setServicesList] = useState([]);
+  const { changeHeaderNavColor, setChangeHeaderNavColor } =
+    useContext(ChangeHeaderNavColorContext);
 
   useEffect(() => {
+    setChangeHeaderNavColor(true);
     fetchMoreData();
   }, []);
 

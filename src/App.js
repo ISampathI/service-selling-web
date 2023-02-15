@@ -94,9 +94,9 @@ function App() {
                         element={
                           <Navigate
                             to={
-                              user.role == "seller"
+                              user.userType == "seller"
                                 ? "neworders"
-                                : user.role == "buyer"
+                                : user.userType == "buyer"
                                 ? "activeorders"
                                 : ""
                             }
