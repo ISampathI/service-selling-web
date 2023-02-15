@@ -62,14 +62,11 @@ function App() {
                     </Route>
                     <Route path="/sellers" element={<Sellers />}>
                       <Route
-                        path="servicedetails"
+                        path="servicedetails/:id"
                         element={<ServiceDetails />}
                       />
                     </Route>
-                    <Route
-                      path="sellers/:username"
-                      element={<SellerDetails />}
-                    >
+                    <Route path="sellers/:username" element={<SellerDetails />}>
                       <Route
                         path="services"
                         element={<SellerDetailsNav name="services" />}

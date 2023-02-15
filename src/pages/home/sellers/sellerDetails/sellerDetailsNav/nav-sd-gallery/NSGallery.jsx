@@ -21,14 +21,13 @@ function NSGallery() {
 
   const fetchData = () => {
     api.get(`/gallery/${username}`).then((res) => {
-      setImgList(res.data.categories);
-      console.log(res.data);
+      setImgList(res.data.images);
     });
   };
   return (
     <div className="SellerDetailsNav">
       <div className="gallery">
-        {imgList.map((item, index) => {
+        {imgList && imgList.map((item, index) => {
           return <img src={item.img} alt="" />;
         })}
       </div>

@@ -39,7 +39,7 @@ function createContent(props) {
 export default function ServiceCard(props) {
   if (props.type == "1") {
     return (
-      <Link to="/sellers/servicedetails" className="reactLink">
+      <Link to={`/services/servicedetails/${props.id}`} className="reactLink">
         {createContent(props)}
       </Link>
     );
@@ -47,7 +47,7 @@ export default function ServiceCard(props) {
     return createContent(props);
   } else {
     return (
-      <Link to={`/services/servicedetails/${props.id}`}  className="reactLink">
+      <Link to={`/services/servicedetails/${props.id}`} className="reactLink">
         {createContent(props)}
       </Link>
     );

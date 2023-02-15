@@ -22,7 +22,6 @@ function NSServices() {
   const fetchData = () => {
     api.get(`/services/seller-services/${username}`).then((res) => {
       setServicesList(res.data.services);
-      console.log(servicesList);
     });
   };
 
@@ -30,10 +29,12 @@ function NSServices() {
     <div className="SellerDetailsNav">
       <div className="services">
         {servicesList.map((item, index) => {
+          console.log(item._id);
           return (
             <ServiceCard
               service_img={item.serviceImg}
               title={item.title}
+              id={item._id}
               type="1"
             />
           );

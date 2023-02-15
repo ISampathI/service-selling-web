@@ -21,11 +21,12 @@ export default function ServiceDetails(props) {
 
   useEffect(() => {
     fetchData();
-  }, [id, serviceDetails]);
+  }, [id]);
 
   const fetchData = () => {
     api.get(`/services/${id}`).then((res) => {
       setServiceDetails(res.data.service);
+      console.log(res.data.service);
     });
   };
 
@@ -72,7 +73,7 @@ export default function ServiceDetails(props) {
           />
           <h1>About</h1>
           <div className="details">
-            {serviceDetails.service && serviceDetails.description}
+            {serviceDetails.service && serviceDetails.service.description}
             <br />
           </div>
           <div className="buttons">
