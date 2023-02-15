@@ -8,7 +8,6 @@ function NSetings() {
 
   return (
     <div className="NSetings">
-      {" "}
       <div className="edit-profile">
         <div className="up">
           <div className="seting-nav">

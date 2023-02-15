@@ -25,6 +25,7 @@ export default function Home(props) {
   const [CategoryList, setCategoryList] = useState([]);
   const [suggestedServicesList, setSuggestedServicesList] = useState([]);
   const [populerServicesList, setPopulerServices] = useState([]);
+  const [platformStatus, setPlatformStatus] = useState([]);
 
   const { changeHeaderNavColor, setChangeHeaderNavColor } = useContext(
     ChangeHeaderNavColorContext
@@ -43,16 +44,18 @@ export default function Home(props) {
   };
 
   const fetchData = () => {
-    api.get("/api/services/suggested").then((res) => {
-      console.log(res.data.services);
-      setCategoryList(res.data.services);
+    api.get("/api/categories").then((res) => {
+      setCategoryList(res.data.categories);
     });
     api.get("/api/services/suggested").then((res) => {
       setSuggestedServicesList(res.data.services);
     });
-    api.get("/api/services/suggested").then((res) => {
+    api.get("/api/services/popular").then((res) => {
       setPopulerServices(res.data.services);
     });
+    // api.get("/api/services/popular").then((res) => {
+    //   setPopulerServices(res.data.services);
+    // });
   };
 
   return (
@@ -99,15 +102,13 @@ export default function Home(props) {
         <div className="categories">
           <div className="title">Categories</div>
           <ul>
-            <CategoryCard />
-            <CategoryCard />
-            <CategoryCard />
-            <CategoryCard />
-            <CategoryCard />
-            <CategoryCard />
-            <CategoryCard />
-            <CategoryCard />
-            <CategoryCard />
+            {CategoryList.map((item, index) => (
+              <CategoryCard
+                name={item.name}
+                category_img={item.categoryImg}
+                id={item.id}
+              />
+            ))}
           </ul>
         </div>
         <div className="app-promotion">
@@ -139,6 +140,7 @@ export default function Home(props) {
                 profile_img={item.proPic}
                 service_img={item.serviceImg}
                 title={item.title}
+                id={item.id}
                 type="0"
               />
             ))}
@@ -148,14 +150,14 @@ export default function Home(props) {
           <div className="titile">Populer Services</div>
           <div className="services-list">
             {populerServicesList.map((item, index) => (
-              <CategoryCard />
-              // <ServiceCard
-              //   name={item.name}
-              //   profile_img={item.profile_img}
-              //   service_img={item.service_img}
-              //   title={item.title}
-              //   type="0"
-              // />
+              <ServiceCard
+                name={item.name}
+                profile_img={item.proPic}
+                service_img={item.serviceImg}
+                title={item.title}
+                id={item.id}
+                type="0"
+              />
             ))}
           </div>
         </div>

@@ -1,15 +1,15 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function CategoryCard() {
+export default function CategoryCard(props) {
   let navigate = useNavigate();
 
   return (
     <div className="CategoryCard" onClick={(e)=>{
       navigate("/services");
     }}>
-      <img src={require("../assets/img/workers/Asset 1.png")} alt="" />
-      <div className="cat-name">All</div>
+      <img src={props.category_img} alt="" />
+      <div className="cat-name">{props.name}</div>
     </div>
   );
 }

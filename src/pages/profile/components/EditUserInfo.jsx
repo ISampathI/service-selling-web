@@ -1,6 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 
 function EditUserInfo() {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [mobileNumber, setMobileNumber] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
   return (
     <div className="EditUserInfo">
       <div className="edit-left">
