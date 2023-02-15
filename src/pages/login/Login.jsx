@@ -2,10 +2,16 @@ import React, { Component, useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./login.scss";
-import { API_IP, LoginContext, UserContext } from "../../helper/Context";
+import {
+  API_IP,
+  API_IP_2,
+  LoginContext,
+  UserContext,
+} from "../../helper/Context";
+import { useCookies } from "react-cookie";
 
 const api = axios.create({
-  baseURL: `http://${API_IP}/`,
+  baseURL: `http://${API_IP_2}/api/`,
 });
 
 function Login() {
@@ -16,17 +22,20 @@ function Login() {
 
   const { loggedIn, setLoggedIn } = useContext(LoginContext);
   const { user, setUser } = useContext(UserContext);
+  const [cookies, setCookie] = useCookies(["token"]);
 
   const doLogin = () => {
     api
-      .post("/login", {
-        userName: userName,
+      .post("/users/get-token", {
+        email: userName,
         password: password,
       })
       .then((res) => {
-        if (res.data.pass) {
-          setLoggedIn(true);
+        if (res.data) {
+          console.log(res.data);
+          setCookie("token", res.data.token, { path: "/" });
           setUser(res.data.user);
+          setLoggedIn(true);
           navigate("/");
         }
       });

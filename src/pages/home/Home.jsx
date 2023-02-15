@@ -9,6 +9,7 @@ import React, {
 import { Link, Outlet } from "react-router-dom";
 import {
   API_IP,
+  API_IP_2,
   ChatBoxContext,
   LoginContext,
   UserContext,
@@ -17,22 +18,43 @@ import AppHeader from "../../layouts/AppHeader";
 import Chat from "../../components/chat/Chat";
 import "./home.scss";
 import Footer from "../../layouts/Footer";
+import { useCookies } from "react-cookie";
+
 const api = axios.create({
-  baseURL: `http://${API_IP}/`,
+  baseURL: `http://${API_IP_2}/`,
 });
 function Home() {
   const { loggedIn, setLoggedIn } = useContext(LoginContext);
   const { user, setUser } = useContext(UserContext);
   const { showChatBox, setShowChatBox } = useContext(ChatBoxContext);
+  const [cookies, setCookie] = useCookies(["token"]);
 
   useEffect(() => {
-    api.get("/login").then((res) => {
-      console.log(res.data.user, "++-+-+-+-");
-      if (res.data.loggedIn) {
-        setLoggedIn(true);
-        setUser(res.data.user);
-      }
-    });
+    // api.get("/login").then((res) => {
+    //   console.log(res.data.user, "++-+-+-+-");
+    //   if (res.data.loggedIn) {
+    //     setLoggedIn(true);
+    //     setUser(res.data.user);
+    //   }
+    // });
+    api
+      .post(
+        "/api/users/check-token",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${cookies.token}`,
+          },
+        }
+      )
+      .then((res) => {
+        if (res.status) {
+          console.log(res.data, "/////");
+          setUser(res.data);
+          setLoggedIn(true);
+          //navigate("/");
+        }
+      });
   }, []);
 
   return (
