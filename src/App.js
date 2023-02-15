@@ -56,7 +56,7 @@ function App() {
                     <Route path="/cart" element={<Cart />} />
                     <Route path="/services" element={<Services />}>
                       <Route
-                        path="servicedetails"
+                        path="servicedetails/:id"
                         element={<ServiceDetails />}
                       />
                     </Route>

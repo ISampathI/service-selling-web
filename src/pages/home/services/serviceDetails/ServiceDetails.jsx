@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { createContext, useState } from "react";
 import { TailSpin } from "react-loader-spinner";
+import { useParams } from "react-router-dom";
 import CartItem from "../../../../components/cartItem/CartItem";
 import ReviewList from "../../../../components/reviewList/ReviewList";
 import { PopUpScreenContext } from "../../../../helper/Context";
@@ -9,6 +10,8 @@ import "./serviceDetails.scss";
 export default function ServiceDetails(props) {
   const [showPopup, setShowPopup] = useState(false);
   const [orderComplete, setOrderComplete] = useState(0);
+
+  var { id } = useParams(); 
 
   return (
     <div className="ServiceDetails">

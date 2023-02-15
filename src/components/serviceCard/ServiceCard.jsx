@@ -47,7 +47,7 @@ export default function ServiceCard(props) {
     return createContent(props);
   } else {
     return (
-      <Link to="/services/servicedetails" className="reactLink">
+      <Link to={`/services/servicedetails/${props.id}`}  className="reactLink">
         {createContent(props)}
       </Link>
     );

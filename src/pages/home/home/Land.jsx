@@ -106,7 +106,7 @@ export default function Home(props) {
               <CategoryCard
                 name={item.name}
                 category_img={item.categoryImg}
-                id={item.id}
+                id={item._id}
               />
             ))}
           </ul>
@@ -140,7 +140,7 @@ export default function Home(props) {
                 profile_img={item.proPic}
                 service_img={item.serviceImg}
                 title={item.title}
-                id={item.id}
+                id={item._id}
                 type="0"
               />
             ))}
@@ -155,7 +155,7 @@ export default function Home(props) {
                 profile_img={item.proPic}
                 service_img={item.serviceImg}
                 title={item.title}
-                id={item.id}
+                id={item._id}
                 type="0"
               />
             ))}

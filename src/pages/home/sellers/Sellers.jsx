@@ -6,11 +6,11 @@ import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { API_IP } from "../../../helper/Context";
+import { API_IP, API_IP_2 } from "../../../helper/Context";
 import Footer from "../../../layouts/Footer";
 
 const api = axios.create({
-  baseURL: `http://${API_IP}/api/`,
+  baseURL: `http://${API_IP_2}/api/`,
 });
 
 function Sellers(props) {
@@ -21,14 +21,14 @@ function Sellers(props) {
   }, []);
 
   const fetchMoreData = () => {
-    api.get("/sellers").then((res) => {
-      setSellersList(sellersList.concat(res.data));
+    api.get("/users/sellers").then((res) => {
+      setSellersList(sellersList.concat(res.data.users));
     });
   };
 
   return (
     <div className="Sellers">
-      <Outlet/>
+      <Outlet />
       <div className="sellers-list" id="sellers-list-id">
         <InfiniteScroll
           dataLength={sellersList.length}
@@ -50,10 +50,11 @@ function Sellers(props) {
           {sellersList.map((item, index) => (
             <>
               <SellerCard
-                first_name={item.first_name}
-                last_name={item.last_name}
-                profile_img={item.profile_img}
-                about={item.about}
+                first_name={item.username}
+                last_name={""}
+                profile_img={item.proPic}
+                about={item.description}
+                rating={item.rating}
               />
             </>
           ))}

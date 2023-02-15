@@ -7,7 +7,7 @@ import "./sellerCard.scss";
 function SellerCard(props) {
   const { showChatBox, setShowChatBox } = useContext(ChatBoxContext);
   return (
-    <Link to="/sellers/sellerdetails/services" className="reactLink">
+    <Link to={`/sellers/sellerdetails/services`} className="reactLink">
       <div className="SellerCard">
         <img src={props.profile_img} alt="" />
         <div className="seller-name">
@@ -23,7 +23,7 @@ function SellerCard(props) {
         <div className="seller-details-container">
           {props.about.slice(0, 130)}...
         </div>
-        <div className="buttons">
+        {/* <div className="buttons">
           <button className="view-profile-btn">
             <Link
               to="/sellers/sellerdetails/services"
@@ -33,7 +33,7 @@ function SellerCard(props) {
             </Link>
           </button>
           <button className="contact-now-btn">Contact now</button>
-        </div>
+        </div> */}
       </div>
     </Link>
   );

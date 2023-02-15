@@ -43,6 +43,7 @@ export default function Services(props) {
   const fetchMoreData = () => {
     api.get("/services/suggested").then((res) => {
       setServicesList(servicesList.concat(res.data.services));
+      console.log(res.data.services);
     });
   };
 
@@ -85,7 +86,7 @@ export default function Services(props) {
                 profile_img={item.proPic}
                 service_img={item.serviceImg}
                 title={item.title}
-                id={item.id}
+                id={item._id}
                 type="0"
               />
             </>
