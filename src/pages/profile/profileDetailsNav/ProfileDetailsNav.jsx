@@ -7,11 +7,6 @@ import { useState } from "react";
 import { useEffect } from "react";
 import NServices from "./nav-services/NServices";
 import NGallery from "./nav-gallery/NGallery";
-import { API_IP } from "../../../helper/Context";
-
-const api = axios.create({
-  baseURL: `http://${API_IP}/api/`,
-});
 
 export default function ProfileDetailsNav(props) {
   if (props.name == "services") {

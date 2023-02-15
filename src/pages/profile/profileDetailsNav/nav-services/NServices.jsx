@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -6,22 +6,23 @@ import ServiceCard from "../../../../components/serviceCard/ServiceCard";
 import ProfileCard from "../../components/ProfileCard";
 import "./nservices.scss";
 import { Link } from "react-router-dom";
-import { API_IP } from "../../../../helper/Context";
+import { API_IP, API_IP_2, UserContext } from "../../../../helper/Context";
 
 const api = axios.create({
-  baseURL: `http://${API_IP}/api/`,
+  baseURL: `http://${API_IP_2}/api/`,
 });
 
 function NServices() {
   const [servicesList, setServicesList] = useState([]);
+  const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
     fetchData();
   }, []);
 
   const fetchData = () => {
-    api.get("/services").then((res) => {
-      setServicesList(res.data);
+    api.get(`/services/seller-services/${user.username}`).then((res) => {
+      setServicesList(res.data.services);
     });
   };
 
@@ -33,10 +34,11 @@ function NServices() {
           <i class="fa-solid fa-circle-plus"></i>
           <p>Create New Service</p>
         </Link>
-        {servicesList.map((item, index) => (
+        {servicesList.length !=0 && servicesList.map((item, index) => (
           <ServiceCard
-            service_img={item.service_img}
+            service_img={item.serviceImg}
             title={item.title}
+            id={item._id}
             type="2"
           />
         ))}

@@ -1,23 +1,50 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link, Navigate, NavLink, useNavigate } from "react-router-dom";
 import "./profileHeader.scss";
 import axios from "axios";
-import { API_IP, LoginContext, UserContext } from "../../../helper/Context";
+import {
+  API_IP,
+  API_IP_2,
+  LoginContext,
+  UserContext,
+} from "../../../helper/Context";
 import Footer from "../../../layouts/Footer";
+import { useCookies } from "react-cookie";
 
 const api = axios.create({
-    baseURL: `http://${API_IP}/`
+  baseURL: `http://${API_IP_2}/`,
 });
 export default function ProfileHeader(props) {
   let navigate = useNavigate();
   const { loggedIn, setLoggedIn } = useContext(LoginContext);
   const { user, setUser } = useContext(UserContext);
+  const [cookies, setCookie] = useCookies(["token"]);
+
+  useEffect(() => {
+    api
+      .post(
+        "/api/users/check-token",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${cookies.token}`,
+          },
+        }
+      )
+      .then((res) => {
+        if (res.data) {
+          console.log(res.data, "??")
+          setUser(res.data);
+          setLoggedIn(true);
+        }
+      });
+  }, []);
 
   const doLogout = () => {
-    api.get("/logout").then((res) => {
-      setLoggedIn(false);
-      setUser({});
-    });
+    // api.get("/logout").then((res) => {
+    //   setLoggedIn(false);
+    //   setUser({});
+    // });
   };
   return (
     <>
@@ -27,8 +54,8 @@ export default function ProfileHeader(props) {
             <span>Hire</span> Now
           </div>
           <div className="logo-md">
-          <i class="fa-solid fa-bars"></i>
-        </div>
+            <i class="fa-solid fa-bars"></i>
+          </div>
         </Link>
         {/* <div className="search-bar">
           <input
@@ -111,7 +138,9 @@ export default function ProfileHeader(props) {
                 </Link>
               ) : (
                 <Link to="/profile">
-                  <button className="signup switch-btn">Switch to Seller</button>
+                  <button className="signup switch-btn">
+                    Switch to Seller
+                  </button>
                 </Link>
               )}
 

@@ -23,10 +23,10 @@ function createContent(props) {
       <button className="hire-now-btn">Hire Now</button>
       {props.type == "2" ? (
         <div className="hover-container">
-          <Link to="/profile/services/view">
+          <Link to={`/profile/services/view/${props.id}`}>
             <i class="fa-solid fa-eye"></i>
           </Link>
-          <Link to="/profile/services/edit">
+          <Link to={`/profile/services/edit/${props.id}`}>
             <i class="fa-solid fa-pen-to-square"></i>
           </Link>
         </div>
@@ -44,6 +44,7 @@ export default function ServiceCard(props) {
       </Link>
     );
   } else if (props.type == "2") {
+    console.log(props, "LL");
     return createContent(props);
   } else {
     return (

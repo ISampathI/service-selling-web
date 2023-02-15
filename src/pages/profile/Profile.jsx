@@ -8,6 +8,7 @@ import {
 import Chat from "../../components/chat/Chat";
 import {
   API_IP,
+  API_IP_2,
   ChatBoxContext,
   LoginContext,
   UserContext,
@@ -19,9 +20,10 @@ import ProfileCard from "./components/ProfileCard";
 import { useState } from "react";
 import axios from "axios";
 import Footer from "../../layouts/Footer";
+import { useCookies } from "react-cookie";
 
 const api = axios.create({
-  baseURL: `http://${API_IP}/`,
+  baseURL: `http://${API_IP_2}/`,
 });
 
 export default function Profile(props) {
@@ -30,15 +32,6 @@ export default function Profile(props) {
   const { showChatBox, setShowChatBox } = useContext(ChatBoxContext);
 
   const [showProfileCard, setShowProfileCard] = useState(false);
-
-  useEffect(() => {
-    api.get("/login").then((res) => {
-      if (res.data.loggedIn) {
-        setLoggedIn(true);
-        setUser(res.data.user);
-      }
-    });
-  }, []);
 
   return (
     <>

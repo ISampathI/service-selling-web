@@ -30,13 +30,6 @@ function Home() {
   const [cookies, setCookie] = useCookies(["token"]);
 
   useEffect(() => {
-    // api.get("/login").then((res) => {
-    //   console.log(res.data.user, "++-+-+-+-");
-    //   if (res.data.loggedIn) {
-    //     setLoggedIn(true);
-    //     setUser(res.data.user);
-    //   }
-    // });
     api
       .post(
         "/api/users/check-token",
@@ -48,7 +41,7 @@ function Home() {
         }
       )
       .then((res) => {
-        if (res.status) {
+        if (res.data) {
           setUser(res.data);
           setLoggedIn(true);
           //navigate("/");

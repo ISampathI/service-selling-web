@@ -1,7 +1,36 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { API_IP_2 } from "../../../helper/Context";
 import "./editService.scss";
 
+const api = axios.create({
+  baseURL: `http://${API_IP_2}/api/`,
+});
+
 function EditService(props) {
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+
+  var { id } = useParams();
+
+  useEffect(() => {
+    fetchData();
+  }, [id]);
+
+  const updateService = () => {
+    console.log({
+      id: id,
+      title: title,
+      description: description,
+    });
+  };
+  const fetchData = () => {
+    api.get(`/services/${id}`).then((res) => {
+      setTitle(res.data.service.service.title);
+      setDescription(res.data.service.service.description);
+    });
+  };
   return (
     <div className="EditService">
       <div className="es-wrap">
@@ -11,9 +40,20 @@ function EditService(props) {
         <div className="edit-service-container">
           <form>
             <label htmlFor="">Title</label>
-            <input type="text" />
+            <input
+              type="text"
+              value={title}
+              onChange={(e) => {
+                setTitle(e.target.value);
+              }}
+            />
             <label htmlFor="">Description</label>
-            <textarea />
+            <textarea
+              value={description}
+              onChange={(e) => {
+                setDescription(e.target.value);
+              }}
+            />
             <label htmlFor="">Service image</label>
             <div className="service-img">
               <i class="fa-solid fa-cloud-arrow-up"></i>

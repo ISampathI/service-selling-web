@@ -110,11 +110,12 @@ export default function Home(props) {
           <div className="title">Categories</div>
           <ul>
             {CategoryList.map((item, index) => (
-              <CategoryCard
-                name={item.name}
-                category_img={item.categoryImg}
-                id={item._id}
-              />
+              // <CategoryCard
+              //   name={item.name}
+              //   category_img={item.categoryImg}
+              //   id={item._id}
+              // />
+              <></>
             ))}
           </ul>
         </div>

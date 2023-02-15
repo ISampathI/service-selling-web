@@ -40,7 +40,7 @@ function App() {
   const [user, setUser] = useState({});
   const [showChatBox, setShowChatBox] = useState(false);
   const [changeHeaderNavColor, setChangeHeaderNavColor] = useState(false);
-
+  
   return (
     <CookiesProvider>
       <div className="App">
@@ -123,8 +123,8 @@ function App() {
                       <Route path="sellerinfo" element={<EditSellerInfo />} />
                     </Route>
 
-                    <Route path="services/view" element={<ServiceDetails />} />
-                    <Route path="services/edit" element={<EditService />} />
+                    <Route path="services/view/:id" element={<ServiceDetails />} />
+                    <Route path="services/edit/:id" element={<EditService />} />
                     <Route
                       path="services/new"
                       element={<EditService type="new" />}
