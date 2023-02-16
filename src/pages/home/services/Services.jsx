@@ -43,14 +43,14 @@ export default function Services(props) {
   }, [searchCategory]);
 
   const fetchMoreData = () => {
-    console.log(searchCategory, searchCategory == "")
+    console.log(searchCategory, searchCategory == "");
     if (searchCategory == "") {
       api.get("/services").then((res) => {
         setServicesList(servicesList.concat(res.data.services));
-        console.log(res.data,"LLL")
+        console.log(res.data, "LLL");
       });
     } else {
-      setSearchCategory("")
+      setSearchCategory("");
       api.get(`/services/category/${searchCategory}`).then((res) => {
         setServicesList(servicesList.concat(res.data.services));
       });
@@ -96,6 +96,7 @@ export default function Services(props) {
                 profile_img={item.proPic}
                 service_img={`http://${API_IP_2}/${item.serviceImg}`}
                 title={item.title}
+                location={item.location}
                 id={item._id}
                 type="0"
               />

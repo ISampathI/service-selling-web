@@ -226,6 +226,7 @@ export default function Home(props) {
         </div>
         <div className="services-list">
           {populerServicesList.map((item, index) => (
+            index < 6 &&
             <ServiceCard
               name={item.name}
               profile_img={item.proPic}
@@ -239,6 +240,7 @@ export default function Home(props) {
         </div>
         <div className="services-list">
           {populerServicesList.map((item, index) => (
+            index >= 6 &&
             <ServiceCard
               name={item.name}
               profile_img={item.proPic}
