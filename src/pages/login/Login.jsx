@@ -36,16 +36,11 @@ function Login() {
           setUser(res.data.user);
           setLoggedIn(true);
           navigate("/");
-          console.log(res.data)
         }
       });
   };
 
   useEffect(() => {
-    api.get("/login").then((res) => {
-      if (res.data.loggedIn) {
-      }
-    });
   }, []);
 
   return (

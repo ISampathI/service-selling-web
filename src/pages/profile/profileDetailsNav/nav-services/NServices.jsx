@@ -17,13 +17,13 @@ function NServices() {
   const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
-    fetchData();
-  }, []);
-
+    user && fetchData();
+  }, [user]);
+  
   const fetchData = () => {
-    api.get(`/services/seller-services/${user.username}`).then((res) => {
-      setServicesList(res.data.services);
-    });
+    // api.get(`/services/seller-services/${user.username}`).then((res) => {
+    //   setServicesList(res.data.services);
+    // });
   };
 
   return (

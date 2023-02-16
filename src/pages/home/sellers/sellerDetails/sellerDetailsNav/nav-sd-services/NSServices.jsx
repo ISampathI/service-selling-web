@@ -29,7 +29,6 @@ function NSServices() {
     <div className="SellerDetailsNav">
       <div className="services">
         {servicesList.map((item, index) => {
-          console.log(item._id);
           return (
             <ServiceCard
               service_img={item.serviceImg}

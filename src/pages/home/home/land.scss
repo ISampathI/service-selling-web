@@ -258,10 +258,12 @@
                     background-position: center;
                     background-size: cover;
                     background-repeat: no-repeat;
-                    // border-bottom: 5px solid $primary-color;
 
                     img {
-                        height: 50%;
+                        height: 100%;
+                        width: 100%;
+                        position: absolute;
+                        z-index: 0;
                     }
 
                     .cat-name {
@@ -269,6 +271,10 @@
                         color: white;
                         font-size: 20px;
                         font-weight: 600;
+                        position: 0;
+                        z-index: 1;
+                        margin-bottom: 25px;
+                        text-align: center;
                     }
 
                     // &::before{

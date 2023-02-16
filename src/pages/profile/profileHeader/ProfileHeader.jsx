@@ -21,22 +21,6 @@ export default function ProfileHeader(props) {
   const [cookies, setCookie] = useCookies(["token"]);
 
   useEffect(() => {
-    api
-      .post(
-        "/api/users/check-token",
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${cookies.token}`,
-          },
-        }
-      )
-      .then((res) => {
-        if (res.data) {
-          setUser(res.data);
-          setLoggedIn(true);
-        }
-      });
   }, []);
 
   const doLogout = () => {

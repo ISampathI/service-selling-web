@@ -49,7 +49,7 @@ export default function Profile(props) {
           setUser(res.data);
           setLoggedIn(true);
           //navigate("/");
-          console.log(res.data)
+          console.log(res.data,"....")
         }
       });
   }, []);

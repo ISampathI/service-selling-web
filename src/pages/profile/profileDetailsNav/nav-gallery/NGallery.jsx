@@ -6,38 +6,62 @@ import ServiceCard from "../../../../components/serviceCard/ServiceCard";
 import ProfileCard from "../../components/ProfileCard";
 import "./nGallery.scss";
 import { API_IP, API_IP_2, UserContext } from "../../../../helper/Context";
+import { Cookies } from "react-cookie";
 
 const api = axios.create({
   baseURL: `http://${API_IP_2}/api/`,
 });
 
 function NGallery() {
-  const [servicesList, setServicesList] = useState([]);
+  const [gallery, setGallery] = useState([]);
   const { user, setUser } = useContext(UserContext);
+  const [image, setImage] = useState();
+  const [imageFile, setImageFile] = useState({});
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    user && fetchData();
+  }, [user]);
 
   const fetchData = () => {
-    api.get(`/services/seller-services/${user.username}`).then((res) => {
-      setServicesList(res.data.services);
-    });
+    // api.get(`/gallery/${user.username}`).then((res) => {
+    //   setGallery(res.data.images.images);
+    // });
   };
 
   return (
     <div className="NGallery">
       <ProfileCard />
       <div className="Gallery">
-        <div to="new" className="add-new-image">
+        <label to="new" className="add-new-image">
+          <input
+            type="file"
+            id="myFile"
+            name="filename"
+            accept="image/*"
+            onChange={(e) => {
+              // setImage(URL.createObjectURL(e.target.files[0]));
+              setImageFile(e.target.files[0]);
+              api
+                .post(
+                  `/gallery`,
+                  { img: imageFile, username: user.username },
+                  {
+                    headers: {
+                      Authorization: `Bearer ${Cookies.token}`,
+                      "Content-Type": "multipart/form-data",
+                    },
+                  }
+                )
+                .then((res) => {
+                  setUser(res.data);
+                });
+            }}
+          />
           <i class="fa-solid fa-circle-plus"></i>
           <p>Add New Image</p>
-        </div>
-        {servicesList.map((item, index) => (
-          <img
-            src="https://www.paintzen.com/wp-content/uploads/2019/12/interior-paint-contractors-painting-paintzen.jpg"
-            alt=""
-          />
+        </label>
+        {gallery && gallery.map((item, index) => (
+          <img src={gallery.img} alt="" />
         ))}
         <div className="add-new-image add-new-image-h"></div>
         <div className="add-new-image add-new-image-h"></div>

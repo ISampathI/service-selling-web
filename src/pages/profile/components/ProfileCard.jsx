@@ -1,21 +1,23 @@
-import React, { useContext } from "react";
-import { LoginContext, UserContext } from "../../../helper/Context";
+import React, { useContext, useEffect } from "react";
+import { API_IP_2, LoginContext, UserContext } from "../../../helper/Context";
 import "./profileCard.scss";
 
 function Profile() {
   const { loggedIn } = useContext(LoginContext);
   const { user } = useContext(UserContext);
 
+  console.log(user.firstName,"000")
+
   return (
     <div className="Profile">
       <div className="profile-img">
         <img
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdXrN5H9Es9LsjxqNrUFbuEXtdc6q1457prQ&usqp=CAU"
+          src={`http://${API_IP_2}/${user.proPic}`}
           alt=""
         />
       </div>
       <div className="container1">
-        <div className="name">Lernal heral</div>
+        <div className="name">{user.firstname} {user.lastname}</div>
         <div className="row">
           <div className="rating-num">4.5</div>
           <div className="rating-sub">

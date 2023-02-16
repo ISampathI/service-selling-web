@@ -49,7 +49,6 @@ export default function ServiceCard(props) {
       </Link>
     );
   } else if (props.type == "2") {
-    console.log(props, "LL");
     return createContent(props);
   } else {
     return (

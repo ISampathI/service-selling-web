@@ -15,7 +15,8 @@ function EditService(props) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState([]);
-  const [category, setCategory] = useState("");
+  const [imageFile, setImageFile] = useState({});
+  const [category, setCategory] = useState("Other");
   const [cookies, setCookie] = useCookies(["token"]);
 
   const { user, setUser } = useContext(UserContext);
@@ -23,19 +24,19 @@ function EditService(props) {
   var { id } = useParams();
 
   useEffect(() => {
-    fetchData();
+    if (props.type != "New") {
+      fetchData();
+    }
   }, [id]);
 
   const updateService = () => {
-    // console.log([
-    //   { propName: "title", value: title },
-    //   { propName: "description", value: description },
-    // ]);
     api
       .patch(
         `/services/${id}`,
         [
           { propName: "title", value: title },
+          { propName: "img", value: imageFile },
+          { propName: "category", value: category },
           { propName: "description", value: description },
         ],
         {
@@ -50,17 +51,14 @@ function EditService(props) {
   };
 
   const createService = () => {
-    // console.log({
-    //   title: title,
-    //   description: description,
-    //   provider: user._id,
-    // });
     api
       .post(
         `/services`,
         {
           title: title,
           description: description,
+          serviceImg: imageFile,
+          category: category,
           provider: user._id,
         },
         {
@@ -78,10 +76,10 @@ function EditService(props) {
       setServiceDetails(res.data.service);
       setTitle(res.data.service.service.title);
       setDescription(res.data.service.service.description);
+      setImage(res.data.service.service.serviceImg);
     });
   };
   const onChange = (image, addUpdateIndex) => {
-    console.log(image, addUpdateIndex);
     setImage(image);
   };
   return (
@@ -109,20 +107,37 @@ function EditService(props) {
             />
             <label htmlFor="">Category</label>
             <select
-            className="category-select"
-                name="category"
-                value={category}
-                onChange={(e) => {
-                  setCategory(e.target.value);
-                }}
-              >
-                <option value="Full Time">Full Time</option>
-                <option value="Part Time">Part Time</option>
-              </select>
+              className="category-select"
+              name="category"
+              value={category}
+              onChange={(e) => {
+                setCategory(e.target.value);
+              }}
+            >
+              <option value="Full Time">Full Time</option>
+              <option value="Part Time">Part Time</option>
+            </select>
             <label htmlFor="">Service image</label>
 
             <div className="service-img">
-              <ImageUploading
+              {image != "" && <img src={image} />}
+
+              <label class="upload-np-btn">
+                <i class="fa-solid fa-cloud-arrow-up"></i>
+                Upload New Photo
+                <input
+                  type="file"
+                  id="myFile"
+                  name="filename"
+                  accept="image/*"
+                  style={{ display: "none" }}
+                  onChange={(e) => {
+                    setImage(URL.createObjectURL(e.target.files[0]));
+                    setImageFile(e.target.files[0]);
+                  }}
+                />
+              </label>
+              {/* <ImageUploading
                 value={image}
                 onChange={onChange}
                 maxNumber={1}
@@ -159,7 +174,7 @@ function EditService(props) {
                     </p>
                   </>
                 )}
-              </ImageUploading>
+              </ImageUploading> */}
             </div>
 
             <div className="buttons">
