@@ -26,7 +26,6 @@ const api = axios.create({
 // };
 
 const refresh = (setItems) => {
-  console.log("hello");
 };
 
 export default function Services(props) {
@@ -43,7 +42,7 @@ export default function Services(props) {
   const fetchMoreData = () => {
     api.get("/services/suggested").then((res) => {
       setServicesList(servicesList.concat(res.data.services));
-      console.log(res.data.services);
+
     });
   };
 
@@ -84,7 +83,7 @@ export default function Services(props) {
               <ServiceCard
                 name={item.name}
                 profile_img={item.proPic}
-                service_img={item.serviceImg}
+                service_img={`http://${API_IP_2}/${item.serviceImg}`}
                 title={item.title}
                 id={item._id}
                 type="0"

@@ -16,7 +16,7 @@ function createContent(props) {
               <div className="seller-name">{props.name}</div>
               <div className="seller-location">
                 <i class="fa-solid fa-location-dot"></i>
-                <div className="seller-city">Galle, Sri lanka</div>
+                <div className="seller-city">{props.location}, Sri lanka</div>
               </div>
             </div>
             <div className="seller-price">5000LKR</div>

@@ -30,7 +30,7 @@ function NOrder() {
           <div className="cart-header">
             <div className="order-nav">
               <ul>
-                {user.userType == "seller"  && user.isSellerActivated == true ? (
+                {user.userType == "seller" && user.isSellerActivated == true ? (
                   <NavLink
                     to={"/profile/orders/neworders"}
                     className={({ isActive }) =>
@@ -40,9 +40,15 @@ function NOrder() {
                     <li>New</li>
                   </NavLink>
                 ) : (
-                  <></>
+                  <NavLink
+                    to={"/profile/orders/pendingorders"}
+                    className={({ isActive }) =>
+                      isActive ? "active-seller-nav" : "seller-nav"
+                    }
+                  >
+                    <li>Pending</li>
+                  </NavLink>
                 )}
-
                 <NavLink
                   to={"/profile/orders/activeorders"}
                   className={({ isActive }) =>

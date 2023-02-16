@@ -1,9 +1,13 @@
+import axios from "axios";
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { UserContext } from "../../helper/Context";
+import { API_IP_2, UserContext } from "../../helper/Context";
 import Modal from "../modal/Modal";
 import "./orderItem.scss";
 
+const api = axios.create({
+  baseURL: `http://${API_IP_2}/api/`,
+});
 function OrderItem(props) {
   const { user, setUser } = useContext(UserContext);
   const [acceptModal, setAcceptModal] = useState(false);
@@ -44,7 +48,7 @@ function OrderItem(props) {
           </div>
         </Link>
         <div className="buttons">
-          {props.active != "1" && props.active != "2" ? (
+          {props.active != "1" && props.active != "2" && props.active != "3" ? (
             <>
               <button
                 onClick={() => {
@@ -76,6 +80,13 @@ function OrderItem(props) {
               className="complete-accept-btn"
             >
               Complete
+            </button>
+          ) : (
+            <></>
+          )}
+          {props.active == "3" ? (
+            <button disabled className="pending-accept-btn">
+              Pending...
             </button>
           ) : (
             <></>

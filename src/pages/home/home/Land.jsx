@@ -52,6 +52,7 @@ export default function Home(props) {
     });
     api.get("/api/services/suggested").then((res) => {
       setSuggestedServicesList(res.data.services);
+      console.log(res.data.services)
     });
     api.get("/api/services/popular").then((res) => {
       setPopulerServices(res.data.services);
@@ -195,9 +196,10 @@ export default function Home(props) {
             <ServiceCard
               name={item.name}
               profile_img={item.proPic}
-              service_img={item.serviceImg}
+              service_img={`http://${API_IP_2}/${item.serviceImg}`}
               title={item.title}
               id={item._id}
+              location = {item.location}
               type="0"
             />
           ))}
@@ -207,9 +209,10 @@ export default function Home(props) {
             <ServiceCard
               name={item.name}
               profile_img={item.proPic}
-              service_img={item.serviceImg}
+              service_img={`http://${API_IP_2}/${item.serviceImg}`}
               title={item.title}
               id={item._id}
+              location = {item.location}
               type="0"
             />
           ))}
@@ -224,9 +227,10 @@ export default function Home(props) {
             <ServiceCard
               name={item.name}
               profile_img={item.proPic}
-              service_img={item.serviceImg}
+              service_img={`http://${API_IP_2}/${item.serviceImg}`}
               title={item.title}
               id={item._id}
+              location = {item.location}
               type="0"
             />
           ))}
@@ -236,9 +240,10 @@ export default function Home(props) {
             <ServiceCard
               name={item.name}
               profile_img={item.proPic}
-              service_img={item.serviceImg}
+              service_img={`http://${API_IP_2}/${item.serviceImg}`}
               title={item.title}
               id={item._id}
+              location = {item.location}
               type="0"
             />
           ))}

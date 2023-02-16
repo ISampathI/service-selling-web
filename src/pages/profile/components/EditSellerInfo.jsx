@@ -19,11 +19,11 @@ function EditSellerInfo() {
   const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
-    setImage(`http://${API_IP_2}/${user.proPic}`);
-    setJob(user.job);
-    setAbout(user.about);
-    setAvailability(user.availability);
-    setLocation(user.location);
+    setImage(user.proPic && `http://${API_IP_2}/${user.proPic}`);
+    setJob(user.job && user.job);
+    setAbout(user.about && user.about);
+    setAvailability(user.availability && user.availability);
+    setLocation(user.location && user.location);
   }, [user]);
 
   const updateSeller = () => {
@@ -39,7 +39,6 @@ function EditSellerInfo() {
     api
       .patch(`/users/${user.username}`, userObject, {
         headers: {
-          Authorization: `Bearer ${Cookies.token}`,
           "Content-Type": "multipart/form-data",
         },
       })

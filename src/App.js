@@ -34,6 +34,7 @@ import ActiveOrdersNav from "./pages/profile/profileDetailsNav/navOrder/ActiveOr
 import CompletedOrdersNav from "./pages/profile/profileDetailsNav/navOrder/CompletedOrdersNav";
 import OrderServiceDetails from "./pages/profile/profileDetailsNav/navOrder/orderServiceDetails/OrderServiceDetails";
 import { CookiesProvider } from "react-cookie";
+import PendingOrderNav from "./pages/profile/profileDetailsNav/navOrder/PendingOrderNav";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -108,6 +109,10 @@ function App() {
                       <Route
                         path="completedorders"
                         element={<CompletedOrdersNav />}
+                      />
+                      <Route
+                        path="pendingorders"
+                        element={<PendingOrderNav />}
                       />
 
                       <Route

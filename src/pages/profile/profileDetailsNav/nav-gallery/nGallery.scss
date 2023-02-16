@@ -35,10 +35,11 @@
 
         .add-new-image,
         img {
-            min-width: 280px;
-            min-height: 210px;
-            max-width: 280px;
+            min-width: 200px;
+            min-height: 170px;
+            max-width: 260px;
             max-height: 300px;
+            max-height: 0px;
             margin-right: 2px;
             margin-bottom: 25px;
             overflow: hidden;
@@ -52,6 +53,7 @@
             justify-content: center;
             cursor: pointer;
             text-decoration: none;
+            object-fit: cover;
             box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
 
             i {

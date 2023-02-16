@@ -17,13 +17,14 @@ function NServices() {
   const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
-    user && fetchData();
+    fetchData();
+    console.log(servicesList, "????");
   }, [user]);
-  
+
   const fetchData = () => {
-    // api.get(`/services/seller-services/${user.username}`).then((res) => {
-    //   setServicesList(res.data.services);
-    // });
+    api.get(`/services/seller-services/${user._id}`).then((res) => {
+      setServicesList(res.data.services);
+    });
   };
 
   return (
@@ -34,9 +35,9 @@ function NServices() {
           <i class="fa-solid fa-circle-plus"></i>
           <p>Create New Service</p>
         </Link>
-        {servicesList.length !=0 && servicesList.map((item, index) => (
+        {servicesList.map((item, index) => (
           <ServiceCard
-            service_img={item.serviceImg}
+            service_img={`http://${API_IP_2}/${item.serviceImg}`}
             title={item.title}
             id={item._id}
             type="2"

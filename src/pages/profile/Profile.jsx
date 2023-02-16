@@ -30,17 +30,19 @@ export default function Profile(props) {
   const { loggedIn, setLoggedIn } = useContext(LoginContext);
   const { user, setUser } = useContext(UserContext);
   const { showChatBox, setShowChatBox } = useContext(ChatBoxContext);
+  const [cookies, setCookie] = useCookies();
 
   const [showProfileCard, setShowProfileCard] = useState(false);
 
   useEffect(() => {
+    console.log(user,cookies.token,"/????")
     api
       .post(
         "/api/users/check-token",
         {},
         {
           headers: {
-            Authorization: `Bearer ${Cookies.token}`,
+            Authorization: `Bearer ${cookies.token}`,
           },
         }
       )
@@ -49,7 +51,7 @@ export default function Profile(props) {
           setUser(res.data);
           setLoggedIn(true);
           //navigate("/");
-          console.log(res.data,"....")
+          console.log(res.data)
         }
       });
   }, []);

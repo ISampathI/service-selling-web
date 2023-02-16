@@ -6,18 +6,19 @@ function Profile() {
   const { loggedIn } = useContext(LoginContext);
   const { user } = useContext(UserContext);
 
-  console.log(user.firstName,"000")
+  useEffect(() => {
+    console.log(user)
+  }, [user]);
 
   return (
     <div className="Profile">
       <div className="profile-img">
-        <img
-          src={`http://${API_IP_2}/${user.proPic}`}
-          alt=""
-        />
+        <img src={user.proPic && `http://${API_IP_2}/${user.proPic}`} alt="" />
       </div>
       <div className="container1">
-        <div className="name">{user.firstname} {user.lastname}</div>
+        <div className="name">
+          {user.firstName} {user.lastName}
+        </div>
         <div className="row">
           <div className="rating-num">4.5</div>
           <div className="rating-sub">
@@ -40,20 +41,15 @@ function Profile() {
           <li>Location</li>
         </ul>
         <ul>
-          <li>Gardner</li>
-          <li>Full time</li>
+          <li>{user.job}</li>
+          <li>{user.availability}</li>
           <li>25</li>
-          <li>Kegalle</li>
+          <li>{user.location}</li>
         </ul>
       </div>
       <div className="seller-about-text">About</div>
       <div className="seller-about">
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Libero debitis
-        ab asperiores dicta officiis nam maiores temporibus iste, enim illum
-        reprehenderit sint magnam impedit hic aut quibusdam vel nihil
-        accusantium dignissimos quaerat mollitia numquam. Incidunt, suscipit
-        quidem. Laborum, alias aliquam sit laudantium accusantium hic non
-        distinctio cumque! Perspiciatis, labore quis!
+        {user.about}
       </div>
     </div>
   );

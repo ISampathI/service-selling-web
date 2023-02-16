@@ -27,7 +27,7 @@ function Home() {
   const { loggedIn, setLoggedIn } = useContext(LoginContext);
   const { user, setUser } = useContext(UserContext);
   const { showChatBox, setShowChatBox } = useContext(ChatBoxContext);
-  const [cookies, setCookie] = useCookies(["token"]);
+  const [cookies, setCookie] = useCookies();
 
   useEffect(() => {
     api
@@ -42,9 +42,12 @@ function Home() {
       )
       .then((res) => {
         if (res.data) {
-          setUser(res.data);
-          setLoggedIn(true);
-          //navigate("/");
+          console.log(res.data);
+          if (!res.data.message) {
+            console.log(res.data,"???");
+            setUser(res.data);
+            setLoggedIn(true);
+          }
         }
       });
   }, []);

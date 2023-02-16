@@ -19,13 +19,14 @@ function NGallery() {
   const [imageFile, setImageFile] = useState({});
 
   useEffect(() => {
-    user && fetchData();
+    fetchData();
   }, [user]);
 
   const fetchData = () => {
-    // api.get(`/gallery/${user.username}`).then((res) => {
-    //   setGallery(res.data.images.images);
-    // });
+    console.log("hiiii");
+    api.get(`/gallery/${user._id}`).then((res) => {
+      setGallery(res.data.images);
+    });
   };
 
   return (
@@ -41,27 +42,25 @@ function NGallery() {
             onChange={(e) => {
               // setImage(URL.createObjectURL(e.target.files[0]));
               setImageFile(e.target.files[0]);
+              console.log("jjjjj");
               api
                 .post(
                   `/gallery`,
                   { img: imageFile, username: user.username },
                   {
                     headers: {
-                      Authorization: `Bearer ${Cookies.token}`,
                       "Content-Type": "multipart/form-data",
                     },
                   }
                 )
-                .then((res) => {
-                  setUser(res.data);
-                });
+                .then((res) => {});
             }}
           />
           <i class="fa-solid fa-circle-plus"></i>
           <p>Add New Image</p>
         </label>
-        {gallery && gallery.map((item, index) => (
-          <img src={gallery.img} alt="" />
+        {gallery.map((item, index) => (
+          <img src={`http://${API_IP_2}/${item.img}`} alt="" />
         ))}
         <div className="add-new-image add-new-image-h"></div>
         <div className="add-new-image add-new-image-h"></div>

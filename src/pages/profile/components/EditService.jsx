@@ -16,35 +16,37 @@ function EditService(props) {
   const [description, setDescription] = useState("");
   const [image, setImage] = useState([]);
   const [imageFile, setImageFile] = useState({});
+  const [categoryList, setCategoryList] = useState([]);
   const [category, setCategory] = useState("Other");
-  const [cookies, setCookie] = useCookies(["token"]);
+  const [cookies, setCookie] = useCookies();
 
   const { user, setUser } = useContext(UserContext);
 
   var { id } = useParams();
 
   useEffect(() => {
-    if (props.type != "New") {
+    if (props.type != "new") {
       fetchData();
     }
+    api.get(`/categories`).then((res) => {
+      console.log(res.data.categories);
+      setCategoryList(res.data.categories);
+    });
   }, [id]);
 
   const updateService = () => {
+    const serviceObject = {
+      title: title,
+      serviceImg: imageFile,
+      category: category,
+      description: description,
+    };
     api
-      .patch(
-        `/services/${id}`,
-        [
-          { propName: "title", value: title },
-          { propName: "img", value: imageFile },
-          { propName: "category", value: category },
-          { propName: "description", value: description },
-        ],
-        {
-          headers: {
-            Authorization: `Bearer ${cookies.token}`,
-          },
-        }
-      )
+      .patch(`/services/${id}`, serviceObject, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
       .then((res) => {
         console.log(res);
       });
@@ -63,7 +65,7 @@ function EditService(props) {
         },
         {
           headers: {
-            Authorization: `Bearer ${cookies.token}`,
+            "Content-Type": "multipart/form-data",
           },
         }
       )
@@ -114,8 +116,9 @@ function EditService(props) {
                 setCategory(e.target.value);
               }}
             >
-              <option value="Full Time">Full Time</option>
-              <option value="Part Time">Part Time</option>
+              {categoryList?.map((item, index) => (
+                <option value={item._id}>{item.name}</option>
+              ))}
             </select>
             <label htmlFor="">Service image</label>
 
@@ -191,7 +194,12 @@ function EditService(props) {
                   Caution: Deleting this service is permanent and cannot be
                   recovered.
                 </p>
-                <div className="delete-service button">
+                <div
+                  className="delete-service button"
+                  onClick={() => {
+                    api.delete(`services/${id}`).then((res) => {});
+                  }}
+                >
                   <i className="fa-solid fa-trash-can"></i>Delete
                 </div>
               </div>

@@ -13,7 +13,7 @@ function Signup() {
   const { loggedIn, setLoggedIn } = useContext(LoginContext);
   const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
-  const [cookies, setCookie] = useCookies(["token"]);
+  const [cookies, setCookie] = useCookies();
 
   const [userName, setuserName] = useState("");
   const [firstName, setFirstName] = useState("");

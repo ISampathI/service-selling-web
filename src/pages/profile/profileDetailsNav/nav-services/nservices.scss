@@ -11,7 +11,7 @@
     padding-inline: 150px;
     background-color: $sub-backgorund-color-2;
 
-    @include xl{
+    @include xl {
         padding-inline: 5%;
     }
 
@@ -34,34 +34,39 @@
 
 
         .add-new-service {
-            min-width: 280px;
-            min-height: 210px;
-            max-width: 280px;
-            max-height: 300px;
+            min-width: 200px;
+            min-height: 170px;
+            max-width: 260px;
+            max-height: 2230px;
             margin-bottom: 25px;
+            margin: 10px;
             overflow: hidden;
-            border: 2px dashed $primary-color;
-            border-radius: 5px;
+            border-radius: 25px;
             display: flex;
             flex-direction: column;
             background-color: white;
             position: relative;
+            box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+            padding-bottom: 10px;
+            border: 2px dashed $primary-color;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            text-decoration:none;
-            box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+            text-decoration: none;
+            border: 2px dashed $primary-color;
 
             i {
                 font-size: 40px;
                 margin-bottom: 15px;
                 color: $text-color-2;
             }
-            p{
+
+            p {
                 color: $text-color;
             }
         }
-        .add-new-service-h{
+
+        .add-new-service-h {
             opacity: 0;
             min-height: 1px;
             margin-bottom: 0px;

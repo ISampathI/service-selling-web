@@ -1,11 +1,15 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { TailSpin } from "react-loader-spinner";
 import { useParams } from "react-router-dom";
 import CartItem from "../../../../components/cartItem/CartItem";
 import ReviewList from "../../../../components/reviewList/ReviewList";
-import { API_IP_2, PopUpScreenContext } from "../../../../helper/Context";
+import {
+  API_IP_2,
+  PopUpScreenContext,
+  UserContext,
+} from "../../../../helper/Context";
 import "./serviceDetails.scss";
 
 const api = axios.create({
@@ -14,8 +18,10 @@ const api = axios.create({
 
 export default function ServiceDetails(props) {
   const [showPopup, setShowPopup] = useState(false);
+  const [orderDetails, setOrderDetails] = useState("");
   const [orderComplete, setOrderComplete] = useState(0);
   const [serviceDetails, setServiceDetails] = useState({});
+  const { user, setUser } = useContext(UserContext);
 
   var { id } = useParams();
 
@@ -24,9 +30,9 @@ export default function ServiceDetails(props) {
   }, [id]);
 
   const fetchData = () => {
+    console.log(id);
     api.get(`/services/${id}`).then((res) => {
       setServiceDetails(res.data.service);
-      console.log(res.data.service);
     });
   };
 
@@ -37,7 +43,10 @@ export default function ServiceDetails(props) {
           <div className="seller">
             <div className="profile-img">
               <img
-                src={serviceDetails.seller && serviceDetails.seller.proPic}
+                src={
+                  serviceDetails.seller &&
+                  `http://${API_IP_2}/${serviceDetails.seller.proPic}`
+                }
                 alt=""
               />
             </div>
@@ -68,7 +77,10 @@ export default function ServiceDetails(props) {
 
           <img
             className="service-img"
-            src={serviceDetails.service && serviceDetails.service.serviceImg}
+            src={
+              serviceDetails.service &&
+              `http://${API_IP_2}/${serviceDetails.service.serviceImg}`
+            }
             alt=""
           />
           <h1>About</h1>
@@ -96,7 +108,14 @@ export default function ServiceDetails(props) {
             <CartItem type="hire" />
             <div className="popup-content">
               <label htmlFor="">Additional Details</label>
-              <textarea name="" id=""></textarea>
+              <textarea
+                value={orderDetails}
+                onChange={(e) => {
+                  setOrderDetails(e.target.value);
+                }}
+                name=""
+                id=""
+              ></textarea>
               <div className="row">
                 <div className="loader-container">
                   {orderComplete == 2 ? (
@@ -117,6 +136,23 @@ export default function ServiceDetails(props) {
                 <button
                   onClick={() => {
                     setOrderComplete(1);
+                    console.log({
+                      buyerId: user._id,
+                      sellerId: serviceDetails.seller._id,
+                      serviceId: id,
+                      message: orderDetails,
+                    });
+                    api
+                      .post("/orders", {
+                        buyerId: user._id,
+                        sellerId: serviceDetails.seller._id,
+                        serviceId: id,
+                        message: orderDetails,
+                      })
+                      .then((res) => {
+                        res.status == 201 && setOrderComplete(1);
+                        setShowPopup(false);
+                      });
                   }}
                   className="place-order-btn"
                 >

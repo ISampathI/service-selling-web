@@ -18,7 +18,7 @@ export default function ProfileHeader(props) {
   let navigate = useNavigate();
   const { loggedIn, setLoggedIn } = useContext(LoginContext);
   const { user, setUser } = useContext(UserContext);
-  const [cookies, setCookie] = useCookies(["token"]);
+  const [cookies, setCookie] = useCookies();
 
   useEffect(() => {
   }, []);
@@ -38,7 +38,6 @@ export default function ProfileHeader(props) {
         { isSellerActivated: toSeller },
         {
           headers: {
-            Authorization: `Bearer ${Cookies.token}`,
             "Content-Type": "multipart/form-data",
           },
         }

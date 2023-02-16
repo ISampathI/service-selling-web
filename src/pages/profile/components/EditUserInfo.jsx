@@ -24,15 +24,15 @@ function EditUserInfo() {
   const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
-    setImage(`http://${API_IP_2}/${user.proPic}`);
+    setImage(user.proPic && `http://${API_IP_2}/${user.proPic}`);
     setFirstName(user.firstName);
     setLastName(user.lastName);
     setEmail(user.email);
-    setMobileNumber(user.phoneNumber);
-    setAddressLine1(user.address.addressLine1);
-    setAddressLine2(user.address.addressLine2);
-    setCity(user.address.city);
-    setProvince(user.address.province);
+    setMobileNumber(user.phoneNumber && user.phoneNumber);
+    setAddressLine1(user.address.addressLine1 && user.address.addressLine1);
+    setAddressLine2(user.address.addressLine2 && user.address.addressLine2);
+    setCity(user.address.city && user.address.city);
+    setProvince(user.address.province && user.address.province);
   }, [user]);
 
   const updateUserData = () => {
@@ -50,9 +50,8 @@ function EditUserInfo() {
       proPic: imageFile,
     };
     api
-      .patch(`/users/${user.username}`, userObject, {
+      .patch(`/users/${user._id}`, userObject, {
         headers: {
-          Authorization: `Bearer ${Cookies.token}`,
           "Content-Type": "multipart/form-data",
         },
       })
