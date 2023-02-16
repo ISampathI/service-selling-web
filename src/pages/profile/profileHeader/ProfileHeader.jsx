@@ -10,6 +10,7 @@ import {
 } from "../../../helper/Context";
 import Footer from "../../../layouts/Footer";
 import { Cookies, useCookies } from "react-cookie";
+import defaultImg from "../../../assets/img/defaultpropic.jpg";
 
 const api = axios.create({
   baseURL: `http://${API_IP_2}/`,
@@ -24,10 +25,9 @@ export default function ProfileHeader(props) {
   }, []);
 
   const doLogout = () => {
-    // api.get("/logout").then((res) => {
-    //   setLoggedIn(false);
-    //   setUser({});
-    // });
+    setCookie("token", "expired", { path: "/" });
+    setLoggedIn(false);
+    navigate("/");
   };
 
   const switchSeller = (toSeller = true) => {
@@ -161,7 +161,7 @@ export default function ProfileHeader(props) {
               </Link>
               <div className="profile-img">
                 <img
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdXrN5H9Es9LsjxqNrUFbuEXtdc6q1457prQ&usqp=CAU"
+                  src={user.proPic ? `http://${API_IP_2}/${user.proPic}` : defaultImg}
                   alt=""
                 />
                 <div className="account-hover-list">

@@ -7,6 +7,7 @@ import axios from "axios";
 import {
   API_IP,
   API_IP_2,
+  CategorySearchContext,
   ChangeHeaderNavColorContext,
 } from "../../../helper/Context";
 import Footer from "../../../layouts/Footer";
@@ -25,10 +26,12 @@ const api = axios.create({
 //   setItems(items.concat(Array.from({ length: 3 })));
 // };
 
-const refresh = (setItems) => {
-};
+const refresh = (setItems) => {};
 
 export default function Services(props) {
+  const { searchCategory, setSearchCategory } = useContext(
+    CategorySearchContext
+  );
   const [servicesList, setServicesList] = useState([]);
   const { changeHeaderNavColor, setChangeHeaderNavColor } = useContext(
     ChangeHeaderNavColorContext
@@ -37,13 +40,21 @@ export default function Services(props) {
   useEffect(() => {
     setChangeHeaderNavColor(true);
     fetchMoreData();
-  }, []);
+  }, [searchCategory]);
 
   const fetchMoreData = () => {
-    api.get("/services/suggested").then((res) => {
-      setServicesList(servicesList.concat(res.data.services));
-
-    });
+    console.log(searchCategory, searchCategory == "")
+    if (searchCategory == "") {
+      api.get("/services").then((res) => {
+        setServicesList(servicesList.concat(res.data.services));
+        console.log(res.data,"LLL")
+      });
+    } else {
+      setSearchCategory("")
+      api.get(`/services/category/${searchCategory}`).then((res) => {
+        setServicesList(servicesList.concat(res.data.services));
+      });
+    }
   };
 
   return (

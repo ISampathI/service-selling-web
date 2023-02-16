@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./serviceCard.scss";
+import defaultImg from "../../assets/img/defaultpropic.jpg";
+import { API_IP_2 } from "../../helper/Context";
 
 function createContent(props) {
   return (
@@ -10,7 +12,11 @@ function createContent(props) {
       <div className="seller">
         {props.type == "0" ? (
           <>
-            <img src={props.profile_img} alt="" className="seller-propic" />
+            <img
+              src={props.profile_img ? `http://${API_IP_2}/${props.profile_img}` : defaultImg}
+              alt=""
+              className="seller-propic"
+            />
 
             <div className="seller-details">
               <div className="seller-name">{props.name}</div>

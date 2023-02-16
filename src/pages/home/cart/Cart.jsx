@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import CartItem from "../../../components/cartItem/CartItem";
 import "./cart.scss";
 import axios from "axios";
-import { API_IP } from "../../../helper/Context";
+import { API_IP, API_IP_2, UserContext } from "../../../helper/Context";
 import Footer from "../../../layouts/Footer";
 
 const api = axios.create({
-  baseURL: `http://${API_IP}/`,
+  baseURL: `http://${API_IP_2}}/`,
 });
 
 function Cart() {
+  const { user, setUser } = useContext(UserContext);
   const [checkedAll, setCheckedAll] = useState(false);
   const [cartList, setCartList] = useState([]);
 
@@ -18,7 +19,7 @@ function Cart() {
   }, []);
 
   const fetchData = () => {
-    api.get("/api/suggestedServices").then((res) => {
+    api.get(`/api/suggestedServices/${user._id}`).then((res) => {
       setCartList(res.data);
     });
   };
@@ -57,7 +58,6 @@ function Cart() {
               cart_id={index}
               onClickRemove={() => {
                 cartList.pop(index);
-                console.log(cartList);
                 setCartList(cartList);
               }}
               checked={checkedAll}

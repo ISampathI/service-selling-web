@@ -95,7 +95,7 @@ function App() {
                               user.userType == "seller" && user.isSellerActivated == true
                                 ? "neworders"
                                 : user.userType == "buyer" || user.userType == "seller"
-                                ? "activeorders"
+                                ? "pendingorders"
                                 : ""
                             }
                           />

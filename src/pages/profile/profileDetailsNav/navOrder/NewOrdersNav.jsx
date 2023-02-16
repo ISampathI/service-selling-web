@@ -13,18 +13,23 @@ function NewOrdersNav() {
 
   useEffect(() => {
     fetchData();
-    console.log(orderList, "?????????");
   }, [user]);
 
   const fetchData = () => {
     api.get(`/orders/seller-pending-orders/${user._id}`).then((res) => {
       setOrderList(res.data.orders);
+      console.log(orderList, "?????????");
     });
   };
   return (
     <>
-      {orderList.map((item, index) => (
-        <OrderItem />
+      {orderList && orderList.map((item, index) => (
+        <OrderItem
+          orderId={item._id}
+          name={item.name}
+          serviceImg={item.serviceImg}
+          title={item.title}
+        />
       ))}
     </>
   );

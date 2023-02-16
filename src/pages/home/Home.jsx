@@ -10,6 +10,7 @@ import { Link, Outlet } from "react-router-dom";
 import {
   API_IP,
   API_IP_2,
+  CategorySearchContext,
   ChatBoxContext,
   LoginContext,
   UserContext,
@@ -28,6 +29,7 @@ function Home() {
   const { user, setUser } = useContext(UserContext);
   const { showChatBox, setShowChatBox } = useContext(ChatBoxContext);
   const [cookies, setCookie] = useCookies();
+  const [searchCategory, setSearchCategory] = useState("");
 
   useEffect(() => {
     api
@@ -42,9 +44,8 @@ function Home() {
       )
       .then((res) => {
         if (res.data) {
-          console.log(res.data);
-          if (!res.data.message) {
-            console.log(res.data,"???");
+          console.log(res.data,"!!!!!!!!!!!!!!");
+          if (res.data.status) {
             setUser(res.data);
             setLoggedIn(true);
           }
@@ -54,34 +55,38 @@ function Home() {
 
   return (
     <>
-      <div
-        onClick={(e) => {
-          if (e.target.className != "contact-now-btn") {
-            setShowChatBox(false);
-          } else {
-            setShowChatBox(true);
-          }
-        }}
+      <CategorySearchContext.Provider
+        value={{ searchCategory, setSearchCategory }}
       >
-        <AppHeader />
-        <Outlet />
-      </div>
-      {showChatBox && <Chat className="Chat" />}
-      {loggedIn && !showChatBox ? (
         <div
-          className="float-chat"
-          onClick={() => {
-            setShowChatBox(true);
+          onClick={(e) => {
+            if (e.target.className != "contact-now-btn") {
+              setShowChatBox(false);
+            } else {
+              setShowChatBox(true);
+            }
           }}
         >
-          <div className="sub-float-div">
-            <div className="chat-dec"></div>
-            <i className="fa-solid fa-message"></i>
-          </div>
+          <AppHeader />
+          <Outlet />
         </div>
-      ) : (
-        <></>
-      )}
+        {showChatBox && <Chat className="Chat" />}
+        {loggedIn && !showChatBox ? (
+          <div
+            className="float-chat"
+            onClick={() => {
+              setShowChatBox(true);
+            }}
+          >
+            <div className="sub-float-div">
+              <div className="chat-dec"></div>
+              <i className="fa-solid fa-message"></i>
+            </div>
+          </div>
+        ) : (
+          <></>
+        )}
+      </CategorySearchContext.Provider>
     </>
   );
 }

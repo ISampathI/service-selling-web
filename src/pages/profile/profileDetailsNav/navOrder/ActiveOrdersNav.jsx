@@ -16,14 +16,26 @@ function ActiveOrdersNav() {
   }, [user]);
 
   const fetchData = () => {
-    api.get(`/seller-pending-orders/${user._id}`).then((res) => {
-      setOrderList(res.data.orders);
-    });
+    if (user.userType == "seller" && user.isSellerActivated) {
+      api.get(`/orders/seller-active-orders/${user._id}`).then((res) => {
+        setOrderList(res.data.orders);
+      });
+    } else if (user.userType == "buyer" || user.isSellerActivated == false) {
+      api.get(`/orders/buyer-active-orders/${user._id}`).then((res) => {
+        setOrderList(res.data.orders);
+      });
+    }
   };
   return (
     <>
-      {orderList.map((item, index) => (
-        <OrderItem active="1" />
+      {orderList && orderList.map((item, index) => (
+        <OrderItem
+          orderId={item._id}
+          name={item.name}
+          serviceImg={item.serviceImg}
+          title={item.title}
+          active="1"
+        />
       ))}
     </>
   );

@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { Cookies } from "react-cookie";
 import { API_IP_2, UserContext } from "../../../helper/Context";
+import defaultImg from "../../../assets/img/defaultpropic.jpg";
 
 const api = axios.create({
   baseURL: `http://${API_IP_2}/api/`,
@@ -24,15 +25,15 @@ function EditUserInfo() {
   const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
-    setImage(user.proPic && `http://${API_IP_2}/${user.proPic}`);
+    setImage(user.proPic ? `http://${API_IP_2}/${user.proPic}` : defaultImg);
     setFirstName(user.firstName);
     setLastName(user.lastName);
     setEmail(user.email);
     setMobileNumber(user.phoneNumber && user.phoneNumber);
-    setAddressLine1(user.address.addressLine1 && user.address.addressLine1);
-    setAddressLine2(user.address.addressLine2 && user.address.addressLine2);
-    setCity(user.address.city && user.address.city);
-    setProvince(user.address.province && user.address.province);
+    setAddressLine1(user.address && user.address.addressLine1);
+    setAddressLine2(user.address && user.address.addressLine2);
+    setCity(user.address && user.address.city);
+    setProvince(user.address && user.address.province);
   }, [user]);
 
   const updateUserData = () => {

@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { API_IP_2 } from "../helper/Context";
+import { API_IP_2, CategorySearchContext } from "../helper/Context";
 import categoryImg from "../assets/img/category.png";
 
 export default function CategoryCard(props) {
+  const { searchCategory, setSearchCategory } = useContext(CategorySearchContext);
   let navigate = useNavigate();
   return (
     <div

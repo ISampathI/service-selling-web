@@ -22,8 +22,14 @@ function PendingOrderNav() {
   };
   return (
     <>
-      {orderList.map((item, index) => (
-        <OrderItem active="3"/>
+      {orderList && orderList.map((item, index) => (
+        <OrderItem
+          orderId={item._id}
+          name={item.name}
+          serviceImg={item.serviceImg}
+          title={item.title}
+          active="3"
+        />
       ))}
     </>
   );

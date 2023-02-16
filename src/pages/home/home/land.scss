@@ -258,6 +258,7 @@
                     background-position: center;
                     background-size: cover;
                     background-repeat: no-repeat;
+                    cursor: pointer;
 
                     img {
                         height: 100%;
@@ -296,7 +297,7 @@
     }
 
     .services {
-        width: calc(100% - 14%);
+        width: 100%;
         height: fit-content;
         margin-top: 100px;
         padding: 20px;

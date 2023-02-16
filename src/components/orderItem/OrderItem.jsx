@@ -10,6 +10,7 @@ const api = axios.create({
 });
 function OrderItem(props) {
   const { user, setUser } = useContext(UserContext);
+  const [orderPrice, setOrderPrice] = useState(0);
   const [acceptModal, setAcceptModal] = useState(false);
   const [denyModal, setDenyModal] = useState(0);
   const [completeModal, setCompleteModal] = useState(0);
@@ -25,7 +26,7 @@ function OrderItem(props) {
             />
           </div>
           <div className="container">
-            <div className="name">Lernal heral</div>
+            <div className="name">{props.name}</div>
           </div>
           {/* <input type="checkbox" name="" id="" /> */}
         </div>
@@ -35,13 +36,12 @@ function OrderItem(props) {
         <Link to="/profile/orders/servicedetails" className="react-link">
           <div className="service-view">
             <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5o1JEx5HkuIza83FgPMcXYA5aylxAwGXGyA&usqp=CAU"
+              src={`http://${API_IP_2}/${props.serviceImg}`}
               alt=""
             />
             <div className="column">
               <div className="title">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                Tempora, ipsum?
+                {props.title}
               </div>
               <div className="price">RS:2000</div>
             </div>
@@ -53,6 +53,11 @@ function OrderItem(props) {
               <button
                 onClick={() => {
                   setAcceptModal(true);
+                  api
+                    .patch(`/orders/${props.orderId}`, [
+                      { propName: "status", value: "active" },
+                    ])
+                    .then((res) => {});
                 }}
                 className="order-accept-btn"
               >
@@ -73,7 +78,7 @@ function OrderItem(props) {
           {props.active == "1" ? (
             <button
               onClick={() => {
-                user.type == "seller"
+                user.userType == "seller" && user.isSellerActivated
                   ? setCompleteModal(1)
                   : setCompleteModal(2);
               }}
@@ -174,10 +179,28 @@ function OrderItem(props) {
                 </div>
                 <div className="payment-amount">
                   <p>Payment</p>{" "}
-                  <input placeholder="Enter Amount" type="text" />
+                  <input
+                    value={orderPrice}
+                    onChange={(e) => {
+                      setOrderPrice(e.target.value);
+                    }}
+                    placeholder="Enter Amount"
+                    type="text"
+                  />
                 </div>
                 <div className="buttons">
-                  <button>Submit</button>
+                  <button
+                    onClick={() => {
+                      api
+                        .patch(`/orders/${props.orderId}`, [
+                          { propName: "status", value: "completed" },
+                          { propName: "price", value: orderPrice },
+                        ])
+                        .then((res) => {});
+                    }}
+                  >
+                    Submit
+                  </button>
                 </div>
                 {/* <i class="fa-regular fa-circle-check"></i>
                 <span>Order Completed !</span> */}
@@ -208,10 +231,29 @@ function OrderItem(props) {
                   <p>payment amount</p> <span>5000</span>
                 </div>
                 <div className="buttons">
-                  <button>
+                  <button
+                    onClick={() => {
+                      api
+                        .patch(`/orders/${props.orderId}`, [
+                          { propName: "status", value: "completed" },
+                          { propName: "paid", value: true },
+                          { propName: "method", value: "online" },
+                        ])
+                        .then((res) => {});
+                    }}
+                  >
                     <i class="fa-regular fa-credit-card"></i>Pay Online
                   </button>
-                  <button>
+                  <button
+                    onClick={() => {
+                      api
+                        .patch(`/orders/${props.orderId}`, [
+                          { propName: "status", value: "completed" },
+                          { propName: "method", value: "cash" },
+                        ])
+                        .then((res) => {});
+                    }}
+                  >
                     <i class="fa-regular fa-handshake"></i>Cash
                   </button>
                 </div>
