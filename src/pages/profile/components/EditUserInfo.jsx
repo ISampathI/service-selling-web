@@ -1,4 +1,11 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useContext, useEffect, useState } from "react";
+import { Cookies } from "react-cookie";
+import { API_IP_2, UserContext } from "../../../helper/Context";
+
+const api = axios.create({
+  baseURL: `http://${API_IP_2}/api/`,
+});
 
 function EditUserInfo() {
   const [firstName, setFirstName] = useState("");
@@ -12,9 +19,24 @@ function EditUserInfo() {
 
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [image, setImage] = useState();
+  const [imageFile, setImageFile] = useState({});
+  const { user, setUser } = useContext(UserContext);
+
+  useEffect(() => {
+    setImage(`http://${API_IP_2}/${user.proPic}`);
+    setFirstName(user.firstName);
+    setLastName(user.lastName);
+    setEmail(user.email);
+    setMobileNumber(user.phoneNumber);
+    setAddressLine1(user.address.addressLine1);
+    setAddressLine2(user.address.addressLine2);
+    setCity(user.address.city);
+    setProvince(user.address.province);
+  }, [user]);
 
   const updateUserData = () => {
-    console.log({
+    const userObject = {
       firstName: firstName,
       lastName: lastName,
       email: email,
@@ -25,13 +47,24 @@ function EditUserInfo() {
         city: city,
         province: province,
       },
-    });
+      proPic: imageFile,
+    };
+    api
+      .patch(`/users/${user.username}`, userObject, {
+        headers: {
+          Authorization: `Bearer ${Cookies.token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        setUser(res.data);
+      });
   };
 
   return (
     <div className="EditUserInfo">
       <div className="edit-left">
-        <div className="userinfo-form">
+        <from className="userinfo-form">
           <div className="row">
             <div className="column">
               <label htmlFor="">
@@ -40,6 +73,7 @@ function EditUserInfo() {
               <input
                 type="text"
                 value={firstName}
+                name="firstName"
                 onChange={(e) => {
                   setFirstName(e.target.value);
                 }}
@@ -53,6 +87,7 @@ function EditUserInfo() {
               <input
                 type="text"
                 value={lastName}
+                name="lastName"
                 onChange={(e) => {
                   setLastName(e.target.value);
                 }}
@@ -67,6 +102,8 @@ function EditUserInfo() {
               <input
                 type="text"
                 value={email}
+                name="email"
+                disabled
                 onChange={(e) => {
                   setEmail(e.target.value);
                 }}
@@ -79,6 +116,7 @@ function EditUserInfo() {
               </label>
               <input
                 type="text"
+                name="mobileNumber"
                 value={mobileNumber}
                 onChange={(e) => {
                   setMobileNumber(e.target.value);
@@ -96,6 +134,7 @@ function EditUserInfo() {
               </label>
               <input
                 type="text"
+                name="addressLine1"
                 value={addressLine1}
                 onChange={(e) => {
                   setAddressLine1(e.target.value);
@@ -106,6 +145,7 @@ function EditUserInfo() {
               </label>
               <input
                 type="text"
+                name="addressLine2"
                 value={addressLine2}
                 onChange={(e) => {
                   setAddressLine2(e.target.value);
@@ -119,6 +159,7 @@ function EditUserInfo() {
                 </label>
                 <input
                   type="text"
+                  name="city"
                   value={city}
                   onChange={(e) => {
                     setCity(e.target.value);
@@ -130,49 +171,73 @@ function EditUserInfo() {
                 <label htmlFor="">
                   Province <span>*</span>
                 </label>
-                <select>
-                  <option>Colombo</option>
-                  <option>Gampaha</option>
-                  <option>Kalutara</option>
-                  <option>Kandy</option>
-                  <option>Matale</option>
-                  <option>Nuwara Eliya</option>
-                  <option>Galle</option>
-                  <option>Matara</option>
-                  <option>Hambantota</option>
-                  <option>Jaffna</option>
-                  <option>Kilinochchi</option>
-                  <option>Mannar</option>
-                  <option>Vavuniya</option>
-                  <option>Mullaitivu</option>
-                  <option>Batticaloa</option>
-                  <option>Ampara</option>
-                  <option>Trincomalee</option>
-                  <option>Kurunegala</option>
-                  <option>Puttalam</option>
-                  <option>Anuradhapura</option>
-                  <option>Polonnaruwa</option>
-                  <option>Badulla</option>
-                  <option>Moneragala</option>
-                  <option>Ratnapura</option>
-                  <option>Kegalle</option>
+                <select
+                  name="province"
+                  value={province}
+                  onChange={(e) => {
+                    setCity(e.target.value);
+                  }}
+                >
+                  <option value="Colombo">Colombo</option>
+                  <option value="Gampaha">Gampaha</option>
+                  <option value="Kalutara">Kalutara</option>
+                  <option value="Kandy">Kandy</option>
+                  <option value="Matale">Matale</option>
+                  <option value="Nuwara Eliya">Nuwara Eliya</option>
+                  <option value="Galle">Galle</option>
+                  <option value="Matara">Matara</option>
+                  <option value="Hambantota">Hambantota</option>
+                  <option value="Jaffna">Jaffna</option>
+                  <option value="Kilinochchi">Kilinochchi</option>
+                  <option value="Mannar">Mannar</option>
+                  <option value="Vavuniya">Vavuniya</option>
+                  <option value="Mullaitivu">Mullaitivu</option>
+                  <option value="Batticaloa">Batticaloa</option>
+                  <option value="Ampara">Ampara</option>
+                  <option value="Trincomalee">Trincomalee</option>
+                  <option value="Kurunegala">Kurunegala</option>
+                  <option value="Puttalam">Puttalam</option>
+                  <option value="Anuradhapura">Anuradhapura</option>
+                  <option value="Polonnaruwa">Polonnaruwa</option>
+                  <option value="Badulla">Badulla</option>
+                  <option value="Moneragala">Moneragala</option>
+                  <option value="Ratnapura">Ratnapura</option>
+                  <option value="Kegalle">Kegalle</option>
                 </select>
               </div>
             </div>
-            <button onClick={updateUserData} className="update-btn">
+            <button className="update-btn" onClick={updateUserData}>
               Update
             </button>
+            {/* <button type="submit">aaa</button> */}
           </div>
-        </div>
+        </from>
       </div>
       <div className="edit-right">
         <div className="profile-img">
           <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdXrN5H9Es9LsjxqNrUFbuEXtdc6q1457prQ&usqp=CAU"
+            src={
+              image != ""
+                ? image
+                : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdXrN5H9Es9LsjxqNrUFbuEXtdc6q1457prQ&usqp=CAU"
+            }
             alt=""
           />
         </div>
-        <button className="upload-np-btn">Upload New Photo</button>
+        <label class="upload-np-btn">
+          Upload New Photo
+          <input
+            type="file"
+            id="myFile"
+            name="filename"
+            accept="image/*"
+            onChange={(e) => {
+              setImage(URL.createObjectURL(e.target.files[0]));
+              setImageFile(e.target.files[0]);
+              console.log(e.target.files[0]);
+            }}
+          />
+        </label>
       </div>
     </div>
   );

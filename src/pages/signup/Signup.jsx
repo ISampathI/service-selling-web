@@ -1,5 +1,7 @@
 import axios from "axios";
 import React, { Component, useContext, useState } from "react";
+import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
 import { API_IP_2, LoginContext, UserContext } from "../../helper/Context";
 import "./signup.scss";
 
@@ -10,6 +12,8 @@ const api = axios.create({
 function Signup() {
   const { loggedIn, setLoggedIn } = useContext(LoginContext);
   const { user, setUser } = useContext(UserContext);
+  const navigate = useNavigate();
+  const [cookies, setCookie] = useCookies(["token"]);
 
   const [userName, setuserName] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -30,10 +34,8 @@ function Signup() {
         })
         .then((res) => {
           if (res.data) {
-            console.log(res.data);
-            // setLoggedIn(true);
-            // setUser(res.data.user);
-            // navigate("/");
+            navigate("/login");
+            console.log(res.data)
           }
         });
     } else {

@@ -3,13 +3,14 @@ import { Link, Navigate, NavLink, useNavigate } from "react-router-dom";
 import "./appHeader.scss";
 import axios from "axios";
 import {
+  API_IP_2,
   ChangeHeaderNavColorContext,
   LoginContext,
   UserContext,
 } from "../helper/Context";
 
 const api = axios.create({
-  baseURL: "http://localhost:5001/",
+  baseURL: `http://${API_IP_2}/`,
 });
 export default function AppHeader(props) {
   let navigate = useNavigate();
@@ -42,7 +43,6 @@ export default function AppHeader(props) {
             placeholder="What services are you looking for?"
             onKeyUp={(event) => {
               if (event.key == "Enter") {
-                console.log(event.target.value);
                 navigate("/services");
               }
             }}
@@ -110,9 +110,9 @@ export default function AppHeader(props) {
                   <ul>
                     <Link
                       to={
-                        user.userType == "seller"
+                        user.userType == "seller" && user.isSellerActivated == true
                           ? "/profile/services"
-                          : user.userType == "buyer"
+                          : user.userType == "buyer" || user.userType == "seller"
                           ? "/profile/orders"
                           : "/"
                       }

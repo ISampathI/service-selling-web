@@ -15,6 +15,7 @@ function EditService(props) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState([]);
+  const [category, setCategory] = useState("");
   const [cookies, setCookie] = useCookies(["token"]);
 
   const { user, setUser } = useContext(UserContext);
@@ -106,6 +107,18 @@ function EditService(props) {
                 setDescription(e.target.value);
               }}
             />
+            <label htmlFor="">Category</label>
+            <select
+            className="category-select"
+                name="category"
+                value={category}
+                onChange={(e) => {
+                  setCategory(e.target.value);
+                }}
+              >
+                <option value="Full Time">Full Time</option>
+                <option value="Part Time">Part Time</option>
+              </select>
             <label htmlFor="">Service image</label>
 
             <div className="service-img">

@@ -28,7 +28,6 @@ export default function SellerDetails(props) {
   const fetchData = () => {
     api.get(`/users/${username}`).then((res) => {
       setSellerDetails(res.data);
-      console.log(res.data);
     });
   };
 

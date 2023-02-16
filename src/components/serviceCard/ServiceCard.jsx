@@ -6,6 +6,7 @@ function createContent(props) {
   return (
     <div className="ServiceCard">
       <img src={props.service_img} alt="" />
+      <div className="service-title">{props.title}</div>
       <div className="seller">
         {props.type == "0" ? (
           <>
@@ -13,13 +14,17 @@ function createContent(props) {
 
             <div className="seller-details">
               <div className="seller-name">{props.name}</div>
+              <div className="seller-location">
+                <i class="fa-solid fa-location-dot"></i>
+                <div className="seller-city">Galle, Sri lanka</div>
+              </div>
             </div>
+            <div className="seller-price">5000LKR</div>
           </>
         ) : (
           <></>
         )}
       </div>
-      <div className="service-title">{props.title}</div>
       <button className="hire-now-btn">Hire Now</button>
       {props.type == "2" ? (
         <div className="hover-container">

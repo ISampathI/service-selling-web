@@ -20,7 +20,7 @@ import ProfileCard from "./components/ProfileCard";
 import { useState } from "react";
 import axios from "axios";
 import Footer from "../../layouts/Footer";
-import { useCookies } from "react-cookie";
+import { Cookies, useCookies } from "react-cookie";
 
 const api = axios.create({
   baseURL: `http://${API_IP_2}/`,
@@ -33,6 +33,26 @@ export default function Profile(props) {
 
   const [showProfileCard, setShowProfileCard] = useState(false);
 
+  useEffect(() => {
+    api
+      .post(
+        "/api/users/check-token",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.token}`,
+          },
+        }
+      )
+      .then((res) => {
+        if (res.data) {
+          setUser(res.data);
+          setLoggedIn(true);
+          //navigate("/");
+          console.log(res.data)
+        }
+      });
+  }, []);
   return (
     <>
       <ProfileHeader />

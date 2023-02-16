@@ -91,9 +91,9 @@ function App() {
                         element={
                           <Navigate
                             to={
-                              user.userType == "seller"
+                              user.userType == "seller" && user.isSellerActivated == true
                                 ? "neworders"
-                                : user.userType == "buyer"
+                                : user.userType == "buyer" || user.userType == "seller"
                                 ? "activeorders"
                                 : ""
                             }

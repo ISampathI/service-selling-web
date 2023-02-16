@@ -69,7 +69,7 @@ function OrderItem(props) {
           {props.active == "1" ? (
             <button
               onClick={() => {
-                user.role == "seller"
+                user.type == "seller"
                   ? setCompleteModal(1)
                   : setCompleteModal(2);
               }}

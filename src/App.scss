@@ -24,6 +24,7 @@
     height: 100vh;
     background-color: $backgorund-color;
     overflow: hidden;
+    scroll-behavior: smooth;
 
     .float-chat {
         position: absolute;

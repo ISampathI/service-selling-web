@@ -1,10 +1,12 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import CategoryCard from "../../../components/CategoryCard";
 import ServiceCard from "../../../components/serviceCard/ServiceCard";
 import "./land.scss";
 import heroimg from "../../../assets/img/workers/hero.png";
+import icon1 from "../../../assets/img/icons/icon1.png";
 // import herosvg from "../../../assets/svg/hero.svg";
 import dec1 from "../../../assets/img/dec1.png";
+import dec2 from "../../../assets/img/dec2.png";
 import playstoreimg from "../../../assets/img/buttons/playstore.png";
 import appstoreimg from "../../../assets/img/buttons/appstore.png";
 import axios from "axios";
@@ -21,6 +23,7 @@ const api = axios.create({
 });
 export default function Home(props) {
   const [loginStatus, setloginStatus] = useState(false);
+  const scrollElement = useRef(null);
 
   const [CategoryList, setCategoryList] = useState([]);
   const [suggestedServicesList, setSuggestedServicesList] = useState([]);
@@ -107,70 +110,198 @@ export default function Home(props) {
       </div>
       <div className="category-section">
         <div className="categories">
-          <div className="title">Categories</div>
-          <ul>
-            {CategoryList.map((item, index) => (
-              // <CategoryCard
-              //   name={item.name}
-              //   category_img={item.categoryImg}
-              //   id={item._id}
-              // />
-              <></>
-            ))}
-          </ul>
-        </div>
-        <div className="app-promotion">
-          <div className="left">
-            <div className="title">Try our Mobile app today</div>
-            <p>
-              The app is designed to be simple and easy-to-use, so you can focus
-              on what you do best - providing services. You can create a
-              professional profile, add your services, set your prices, and
-              start accepting payments through the app.
-            </p>
-            <div className="buttons">
-              <div className="playstore">
-                <img src={playstoreimg} alt="" />
-              </div>
-              <div className="appstore">
-                <img src={appstoreimg} alt="" srcset="" />
-              </div>
+          <div className="title">
+            You'll find many available <span>categories</span>
+            <br /> on <span>Hire</span> Now!
+          </div>
+          <div className="ul-cat-wrap">
+            <div
+              className="slid-btn slid-btn-l"
+              onClick={() => {
+                scrollElement.current.scrollLeft -= 50;
+              }}
+            >
+              <i class="fa-solid fa-angle-left"></i>
             </div>
-          </div>
-          <div className="right"></div>
-        </div>
-        <div className="services">
-          <div className="titile">Suggested Services for you</div>
-          <div className="services-list">
-            {suggestedServicesList.map((item, index) => (
-              <ServiceCard
-                name={item.name}
-                profile_img={item.proPic}
-                service_img={item.serviceImg}
-                title={item.title}
-                id={item._id}
-                type="0"
-              />
-            ))}
-          </div>
-        </div>
-        <div className="services">
-          <div className="titile">Populer Services</div>
-          <div className="services-list">
-            {populerServicesList.map((item, index) => (
-              <ServiceCard
-                name={item.name}
-                profile_img={item.proPic}
-                service_img={item.serviceImg}
-                title={item.title}
-                id={item._id}
-                type="0"
-              />
-            ))}
+            <div
+              className="slid-btn slid-btn-r"
+              onClick={() => {
+                scrollElement.current.scrollLeft += 50;
+              }}
+            >
+              <i class="fa-solid fa-angle-right"></i>
+            </div>
+            <ul ref={scrollElement}>
+              {CategoryList.map((item, index) => (
+                <CategoryCard
+                  name={item.name}
+                  category_img={`http://${API_IP_2}/${item.categoryImg}`}
+                  id={item._id}
+                />
+              ))}
+            </ul>
           </div>
         </div>
       </div>
-      <div className="about-section">
+      <div className="why-hire-now-section">
+        <div className="title">
+          Why choose <span>Hire</span> Now for your <span>needs</span>?
+        </div>
+        <div className="why-hire-list">
+          <div className="why-hire">
+            <img src={icon1} alt="" />
+            <p>
+              <span>High Quality Services</span>
+              <div className="why-details">
+                High-quality services available at every price point
+              </div>
+            </p>
+          </div>
+          <div className="why-hire">
+            <img src={icon1} alt="" />
+            <p>
+              <span>High Quality Services</span>
+              <div className="why-details">
+                High-quality services available at every price point
+              </div>
+            </p>
+          </div>
+          <div className="why-hire">
+            <img src={icon1} alt="" />
+            <p>
+              <span>High Quality Services</span>
+              <div className="why-details">
+                High-quality services available at every price point
+              </div>
+            </p>
+          </div>
+          <div className="why-hire">
+            <img src={icon1} alt="" />
+            <p>
+              <span>High Quality Services</span>
+              <div className="why-details">
+                High-quality services available at every price point
+              </div>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div className="services">
+        <div className="titile">
+          Suggested Services <span>for you</span>
+        </div>
+        <div className="services-list">
+          {suggestedServicesList.map((item, index) => (
+            <ServiceCard
+              name={item.name}
+              profile_img={item.proPic}
+              service_img={item.serviceImg}
+              title={item.title}
+              id={item._id}
+              type="0"
+            />
+          ))}
+        </div>
+        <div className="services-list">
+          {suggestedServicesList.map((item, index) => (
+            <ServiceCard
+              name={item.name}
+              profile_img={item.proPic}
+              service_img={item.serviceImg}
+              title={item.title}
+              id={item._id}
+              type="0"
+            />
+          ))}
+        </div>
+      </div>
+      <div className="services">
+        <div className="titile">
+          <span>Populer</span> Services
+        </div>
+        <div className="services-list">
+          {populerServicesList.map((item, index) => (
+            <ServiceCard
+              name={item.name}
+              profile_img={item.proPic}
+              service_img={item.serviceImg}
+              title={item.title}
+              id={item._id}
+              type="0"
+            />
+          ))}
+        </div>
+        <div className="services-list">
+          {populerServicesList.map((item, index) => (
+            <ServiceCard
+              name={item.name}
+              profile_img={item.proPic}
+              service_img={item.serviceImg}
+              title={item.title}
+              id={item._id}
+              type="0"
+            />
+          ))}
+        </div>
+      </div>
+      {/* <div className="what-p-saying">
+        <div className="title">
+          What Are People Saying <span>About Us</span>{" "}
+        </div>
+        <div className="sub-text">
+          We're thrilled to hear that you're satisfied with our service and
+          products! Feel free to read genuine reviews who have purchased our
+          products.
+        </div>
+        <div className="comment-card-list">
+          <div className="CommentCard">
+            <img className="pro-pic" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsynwv-5qtogtOwJbIjaPFJUmHpzhxgqIAug&usqp=CAU" alt="" srcset="" />
+            <div className="name">Sampath Guruge</div>
+            <p>
+              The salad is fresh!!! Don't ask about the sauce again, it's really
+              delicious, it's going to be routine. I recommend this salad to all
+              of you guys!
+            </p>
+          </div>
+          <div className="CommentCard">
+            <img className="pro-pic" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsynwv-5qtogtOwJbIjaPFJUmHpzhxgqIAug&usqp=CAU" alt="" srcset="" />
+            <div className="name">Sampath Guruge</div>
+            <p>
+              The salad is fresh!!! Don't ask about the sauce again, it's really
+              delicious, it's going to be routine. I recommend this salad to all
+              of you guys!
+            </p>
+          </div>
+          <div className="CommentCard">
+            <img className="pro-pic" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsynwv-5qtogtOwJbIjaPFJUmHpzhxgqIAug&usqp=CAU" alt="" srcset="" />
+            <div className="name">Sampath Guruge</div>
+            <p>
+              The salad is fresh!!! Don't ask about the sauce again, it's really
+              delicious, it's going to be routine. I recommend this salad to all
+              of you guys!
+            </p>
+          </div>
+          <div className="CommentCard">
+            <img className="pro-pic" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsynwv-5qtogtOwJbIjaPFJUmHpzhxgqIAug&usqp=CAU" alt="" srcset="" />
+            <div className="name">Sampath Guruge</div>
+            <p>
+              The salad is fresh!!! Don't ask about the sauce again, it's really
+              delicious, it's going to be routine. I recommend this salad to all
+              of you guys!
+            </p>
+          </div>
+          <div className="CommentCard">
+            <img className="pro-pic" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsynwv-5qtogtOwJbIjaPFJUmHpzhxgqIAug&usqp=CAU" alt="" srcset="" />
+            <div className="name">Sampath Guruge</div>
+            <p>
+              The salad is fresh!!! Don't ask about the sauce again, it's really
+              delicious, it's going to be routine. I recommend this salad to all
+              of you guys!
+            </p>
+          </div>
+        </div>
+      </div> */}
+      {/* <div className="about-section">
         <div className="about-left">
           <span>ABOUT US</span>
           <h1>Lorem ipsum dolor sit amet.</h1>
@@ -183,6 +314,28 @@ export default function Home(props) {
           <button>More Details</button>
         </div>
         <div className="about-right"></div>
+      </div> */}
+      <div
+        className="app-promotion"
+        style={{ backgroundImage: `url(${dec2})` }}
+      >
+        <div className="left">
+          <div className="title">
+            <div className="sub-text">Our Mobile App</div>
+            Try our <span>Hire</span> Now Mobile App Today!
+          </div>
+          <p>
+            The app is designed to be simple and easy-to-use, so you can focus
+            on what you do best - providing services. You can create a
+            professional profile, add your services, set your prices, and start
+            accepting payments through the app.
+          </p>
+          <div className="buttons">
+            <div className="playstore">Android App</div>
+            <div className="appstore">IOS App</div>
+          </div>
+        </div>
+        <div className="right"></div>
       </div>
       <Footer />
     </div>

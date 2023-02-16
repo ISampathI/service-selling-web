@@ -32,11 +32,11 @@ function Login() {
       })
       .then((res) => {
         if (res.data) {
-          console.log(res.data);
           setCookie("token", res.data.token, { path: "/" });
           setUser(res.data.user);
           setLoggedIn(true);
           navigate("/");
+          console.log(res.data)
         }
       });
   };

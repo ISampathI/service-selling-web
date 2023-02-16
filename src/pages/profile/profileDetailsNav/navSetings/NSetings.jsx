@@ -20,7 +20,7 @@ function NSetings() {
               >
                 <li>User Info</li>
               </NavLink>
-              {user.role == "seller" ?<NavLink
+              {user.userType == "seller"  && user.isSellerActivated == true ?<NavLink
                 to={"/profile/settings/sellerinfo"}
                 className={({ isActive }) =>
                   isActive ? "active-seller-nav" : "seller-nav"

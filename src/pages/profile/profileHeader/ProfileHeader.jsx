@@ -9,7 +9,7 @@ import {
   UserContext,
 } from "../../../helper/Context";
 import Footer from "../../../layouts/Footer";
-import { useCookies } from "react-cookie";
+import { Cookies, useCookies } from "react-cookie";
 
 const api = axios.create({
   baseURL: `http://${API_IP_2}/`,
@@ -33,7 +33,6 @@ export default function ProfileHeader(props) {
       )
       .then((res) => {
         if (res.data) {
-          console.log(res.data, "??")
           setUser(res.data);
           setLoggedIn(true);
         }
@@ -45,6 +44,24 @@ export default function ProfileHeader(props) {
     //   setLoggedIn(false);
     //   setUser({});
     // });
+  };
+
+  const switchSeller = (toSeller = true) => {
+    console.log("eeeee");
+    api
+      .patch(
+        `api/users/${user.username}`,
+        { isSellerActivated: toSeller },
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
+      .then((res) => {
+        setUser(res.data);
+      });
   };
   return (
     <>
@@ -79,7 +96,7 @@ export default function ProfileHeader(props) {
           >
             <nav>Home</nav>
           </NavLink> */}
-          {user.userType == "seller" ? (
+          {user.userType == "seller" && user.isSellerActivated == true ? (
             <NavLink
               to="/profile/services"
               className={({ isActive }) =>
@@ -91,7 +108,7 @@ export default function ProfileHeader(props) {
           ) : (
             <></>
           )}
-          {user.userType == "seller" ? (
+          {user.userType == "seller" && user.isSellerActivated == true ? (
             <NavLink
               to="/profile/gallery"
               className={({ isActive }) =>
@@ -132,12 +149,22 @@ export default function ProfileHeader(props) {
             </>
           ) : (
             <>
-              {user.userType == "seller" ? (
-                <Link to="/">
+              {user.userType == "seller" && user.isSellerActivated == true ? (
+                <Link
+                  to="/"
+                  onClick={() => {
+                    switchSeller(false);
+                  }}
+                >
                   <button className="signup switch-btn">Switch to Buyer</button>
                 </Link>
               ) : (
-                <Link to="/profile">
+                <Link
+                  to="/"
+                  onClick={() => {
+                    switchSeller(true);
+                  }}
+                >
                   <button className="signup switch-btn">
                     Switch to Seller
                   </button>

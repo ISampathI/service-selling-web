@@ -88,6 +88,15 @@
             padding-left: 20px;
             border-radius: 10px;
 
+            .category-select {
+                width: 100%;
+                height: 40px;
+                margin-bottom: 35px;
+                border: 2px solid $border-color-2;
+                border-radius: 5px;
+                font-size: 17px;
+            }
+
             input[type=text] {
                 width: 100%;
                 height: 40px;
@@ -130,9 +139,11 @@
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
-                img{
+
+                img {
                     margin-block: 10px;
                 }
+
                 i {
                     font-size: 40px;
                     margin-bottom: 5px;

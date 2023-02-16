@@ -3,10 +3,10 @@ import OrderItem from "../../../../components/orderItem/OrderItem";
 import "./nOrder.scss";
 import axios from "axios";
 import { NavLink, Outlet } from "react-router-dom";
-import { API_IP, UserContext } from "../../../../helper/Context";
+import { API_IP, API_IP_2, UserContext } from "../../../../helper/Context";
 
 const api = axios.create({
-  baseURL: `http://${API_IP}/api/`,
+  baseURL: `http://${API_IP_2}/api/`,
 });
 
 function NOrder() {
@@ -30,7 +30,7 @@ function NOrder() {
           <div className="cart-header">
             <div className="order-nav">
               <ul>
-                {user.role == "seller" ? (
+                {user.userType == "seller"  && user.isSellerActivated == true ? (
                   <NavLink
                     to={"/profile/orders/neworders"}
                     className={({ isActive }) =>

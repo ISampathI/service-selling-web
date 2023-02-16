@@ -1,6 +1,53 @@
-import React from "react";
+import axios from "axios";
+import React, { useContext, useEffect, useState } from "react";
+import { Cookies } from "react-cookie";
+import { API_IP_2, UserContext } from "../../../helper/Context";
+
+const api = axios.create({
+  baseURL: `http://${API_IP_2}/api/`,
+});
 
 function EditSellerInfo() {
+  const [image, setImage] = useState();
+  const [imageFile, setImageFile] = useState({});
+  const [job, setJob] = useState("");
+  const [dob, setDob] = useState("");
+  const [location, setLocation] = useState("");
+  const [availability, setAvailability] = useState("Full Time");
+  const [about, setAbout] = useState("");
+
+  const { user, setUser } = useContext(UserContext);
+
+  useEffect(() => {
+    setImage(`http://${API_IP_2}/${user.proPic}`);
+    setJob(user.job);
+    setAbout(user.about);
+    setAvailability(user.availability);
+    setLocation(user.location);
+  }, [user]);
+
+  const updateSeller = () => {
+    const userObject = {
+      job: job,
+      dob: dob,
+      location: location,
+      availability: availability,
+      about: about,
+      proPic: imageFile,
+    };
+    console.log(userObject);
+    api
+      .patch(`/users/${user.username}`, userObject, {
+        headers: {
+          Authorization: `Bearer ${Cookies.token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        setUser(res.data);
+      });
+  };
+
   return (
     <div className="EditSellerInfo">
       <div className="edit-left">
@@ -10,30 +57,99 @@ function EditSellerInfo() {
               <label htmlFor="">
                 Job Title <span>*</span>
               </label>
-              <input type="text" />
+              <input
+                type="text"
+                value={job}
+                name="job"
+                onChange={(e) => {
+                  setJob(e.target.value);
+                }}
+              />
             </div>
             <div className="spacer"></div>
             <div className="column">
               <label htmlFor="">
                 Date of Birth <span>*</span>
               </label>
-              <input type="text" />
+              <input
+                type="date"
+                value={dob}
+                name="dob"
+                onChange={(e) => {
+                  setDob(e.target.value);
+                }}
+              />
+            </div>
+          </div>
+          <div className="row">
+            <div className="column">
+              <label htmlFor="">
+                Location <span>*</span>
+              </label>
+              <input
+                type="text"
+                value={location}
+                name="locaiton"
+                onChange={(e) => {
+                  setLocation(e.target.value);
+                }}
+              />
+            </div>
+            <div className="spacer"></div>
+            <div className="column">
+              <label htmlFor="">
+                Availability <span>*</span>
+              </label>
+              <select
+                name="availability"
+                value={availability}
+                onChange={(e) => {
+                  setAvailability(e.target.value);
+                }}
+              >
+                <option value="Full Time">Full Time</option>
+                <option value="Part Time">Part Time</option>
+              </select>
             </div>
           </div>
           <label htmlFor="">
             About <span>*</span>
           </label>
-          <textarea name="" id=""></textarea>
+          <textarea
+            value={about}
+            name="about"
+            onChange={(e) => {
+              setAbout(e.target.value);
+            }}
+          ></textarea>
+          <button className="update-btn" onClick={updateSeller}>
+            Update
+          </button>
         </div>
       </div>
       <div className="edit-right">
         <div className="profile-img">
           <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdXrN5H9Es9LsjxqNrUFbuEXtdc6q1457prQ&usqp=CAU"
-            alt=""
+            src={
+              image != ""
+                ? image
+                : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdXrN5H9Es9LsjxqNrUFbuEXtdc6q1457prQ&usqp=CAU"
+            }
           />
         </div>
-        <button className="upload-np-btn">Upload New Photo</button>
+        <label class="upload-np-btn">
+          Upload New Photo
+          <input
+            type="file"
+            id="myFile"
+            name="filename"
+            accept="image/*"
+            onChange={(e) => {
+              setImage(URL.createObjectURL(e.target.files[0]));
+              setImageFile(e.target.files[0]);
+            }}
+          />
+        </label>
       </div>
     </div>
   );
