@@ -16,6 +16,7 @@ import {
   ChangeHeaderNavColorContext,
   ChatBoxContext,
   LoginContext,
+  ProgressBarContext,
   UserContext,
 } from "./helper/Context";
 import { useEffect, useState } from "react";
@@ -35,112 +36,127 @@ import CompletedOrdersNav from "./pages/profile/profileDetailsNav/navOrder/Compl
 import OrderServiceDetails from "./pages/profile/profileDetailsNav/navOrder/orderServiceDetails/OrderServiceDetails";
 import { CookiesProvider } from "react-cookie";
 import PendingOrderNav from "./pages/profile/profileDetailsNav/navOrder/PendingOrderNav";
+import LoadingBar from "react-top-loading-bar";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [user, setUser] = useState({});
   const [showChatBox, setShowChatBox] = useState(false);
   const [changeHeaderNavColor, setChangeHeaderNavColor] = useState(false);
-  
+  const [progress, setProgress] = useState(0);
+
   return (
     <CookiesProvider>
-      <div className="App">
-        <LoginContext.Provider value={{ loggedIn, setLoggedIn }}>
-          <UserContext.Provider value={{ user, setUser }}>
-            <ChatBoxContext.Provider value={{ showChatBox, setShowChatBox }}>
-              <ChangeHeaderNavColorContext.Provider
-                value={{ changeHeaderNavColor, setChangeHeaderNavColor }}
-              >
-                <Routes>
-                  <Route path="/" element={<Home />}>
-                    <Route path="" element={<Land />} />
-                    <Route path="/cart" element={<Cart />} />
-                    <Route path="/services" element={<Services />}>
+      <ProgressBarContext.Provider value={{ progress, setProgress }}>
+        <div className="App">
+          <LoginContext.Provider value={{ loggedIn, setLoggedIn }}>
+            <UserContext.Provider value={{ user, setUser }}>
+              <ChatBoxContext.Provider value={{ showChatBox, setShowChatBox }}>
+                <ChangeHeaderNavColorContext.Provider
+                  value={{ changeHeaderNavColor, setChangeHeaderNavColor }}
+                >
+                  <Routes>
+                    <Route path="/" element={<Home />}>
+                      <Route path="" element={<Land />} />
+                      <Route path="/cart" element={<Cart />} />
+                      <Route path="/services" element={<Services />}>
+                        <Route
+                          path="servicedetails/:id"
+                          element={<ServiceDetails />}
+                        />
+                      </Route>
+                      <Route path="/sellers" element={<Sellers />}>
+                        <Route
+                          path="servicedetails/:id"
+                          element={<ServiceDetails />}
+                        />
+                      </Route>
                       <Route
-                        path="servicedetails/:id"
-                        element={<ServiceDetails />}
-                      />
+                        path="sellers/:username"
+                        element={<SellerDetails />}
+                      >
+                        <Route
+                          path="services"
+                          element={<SellerDetailsNav name="services" />}
+                        />
+                        <Route
+                          path="gallery"
+                          element={<SellerDetailsNav name="gallery" />}
+                        />
+                        <Route
+                          path="chat"
+                          element={<SellerDetailsNav name="chat" />}
+                        />
+                      </Route>
                     </Route>
-                    <Route path="/sellers" element={<Sellers />}>
-                      <Route
-                        path="servicedetails/:id"
-                        element={<ServiceDetails />}
-                      />
-                    </Route>
-                    <Route path="sellers/:username" element={<SellerDetails />}>
-                      <Route
-                        path="services"
-                        element={<SellerDetailsNav name="services" />}
-                      />
-                      <Route
-                        path="gallery"
-                        element={<SellerDetailsNav name="gallery" />}
-                      />
-                      <Route
-                        path="chat"
-                        element={<SellerDetailsNav name="chat" />}
-                      />
-                    </Route>
-                  </Route>
-                  <Route path="/login" element={<Login />} />
-                  <Route path="/signup" element={<Signup />} />
-                  <Route path="/profile" element={<Profile />}>
-                    <Route path="services" element={<NServices />} />
-                    <Route path="orders" element={<NOrder />}>
-                      <Route
-                        path=""
-                        element={
-                          <Navigate
-                            to={
-                              user.userType == "seller" && user.isSellerActivated == true
-                                ? "neworders"
-                                : user.userType == "buyer" || user.userType == "seller"
-                                ? "pendingorders"
-                                : ""
-                            }
-                          />
-                        }
-                      />
-                      <Route path="neworders" element={<NewOrdersNav />} />
-                      <Route
-                        path="activeorders"
-                        element={<ActiveOrdersNav />}
-                      />
-                      <Route
-                        path="completedorders"
-                        element={<CompletedOrdersNav />}
-                      />
-                      <Route
-                        path="pendingorders"
-                        element={<PendingOrderNav />}
-                      />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/signup" element={<Signup />} />
+                    <Route path="/profile" element={<Profile />}>
+                      <Route path="services" element={<NServices />} />
+                      <Route path="orders" element={<NOrder />}>
+                        <Route
+                          path=""
+                          element={
+                            <Navigate
+                              to={
+                                user.userType == "seller" &&
+                                user.isSellerActivated == true
+                                  ? "neworders"
+                                  : user.userType == "buyer" ||
+                                    user.userType == "seller"
+                                  ? "pendingorders"
+                                  : ""
+                              }
+                            />
+                          }
+                        />
+                        <Route path="neworders" element={<NewOrdersNav />} />
+                        <Route
+                          path="activeorders"
+                          element={<ActiveOrdersNav />}
+                        />
+                        <Route
+                          path="completedorders"
+                          element={<CompletedOrdersNav />}
+                        />
+                        <Route
+                          path="pendingorders"
+                          element={<PendingOrderNav />}
+                        />
+
+                        <Route
+                          path="servicedetails"
+                          element={<OrderServiceDetails type="order" />}
+                        />
+                      </Route>
+                      <Route path="gallery" element={<NGallery />} />
+                      <Route path="cart" element={<Cart />} />
+                      <Route path="settings" element={<NSetings />}>
+                        <Route path="" element={<Navigate to="userinfo" />} />
+                        <Route path="userinfo" element={<EditUserInfo />} />
+                        <Route path="sellerinfo" element={<EditSellerInfo />} />
+                      </Route>
 
                       <Route
-                        path="servicedetails"
-                        element={<OrderServiceDetails type="order" />}
+                        path="services/view/:id"
+                        element={<ServiceDetails />}
+                      />
+                      <Route
+                        path="services/edit/:id"
+                        element={<EditService />}
+                      />
+                      <Route
+                        path="services/new"
+                        element={<EditService type="new" />}
                       />
                     </Route>
-                    <Route path="gallery" element={<NGallery />} />
-                    <Route path="cart" element={<Cart />} />
-                    <Route path="settings" element={<NSetings />}>
-                      <Route path="" element={<Navigate to="userinfo" />} />
-                      <Route path="userinfo" element={<EditUserInfo />} />
-                      <Route path="sellerinfo" element={<EditSellerInfo />} />
-                    </Route>
-
-                    <Route path="services/view/:id" element={<ServiceDetails />} />
-                    <Route path="services/edit/:id" element={<EditService />} />
-                    <Route
-                      path="services/new"
-                      element={<EditService type="new" />}
-                    />
-                  </Route>
-                </Routes>
-              </ChangeHeaderNavColorContext.Provider>
-            </ChatBoxContext.Provider>
-          </UserContext.Provider>
-        </LoginContext.Provider>
-      </div>
+                  </Routes>
+                </ChangeHeaderNavColorContext.Provider>
+              </ChatBoxContext.Provider>
+            </UserContext.Provider>
+          </LoginContext.Provider>
+        </div>
+      </ProgressBarContext.Provider>
     </CookiesProvider>
   );
 }

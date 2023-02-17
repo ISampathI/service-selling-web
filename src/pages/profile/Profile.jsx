@@ -11,6 +11,7 @@ import {
   API_IP_2,
   ChatBoxContext,
   LoginContext,
+  ProgressBarContext,
   UserContext,
 } from "../../helper/Context";
 import AppHeader from "../../layouts/AppHeader";
@@ -21,6 +22,7 @@ import { useState } from "react";
 import axios from "axios";
 import Footer from "../../layouts/Footer";
 import { Cookies, useCookies } from "react-cookie";
+import LoadingBar from "react-top-loading-bar";
 
 const api = axios.create({
   baseURL: `http://${API_IP_2}/`,
@@ -30,12 +32,13 @@ export default function Profile(props) {
   const { loggedIn, setLoggedIn } = useContext(LoginContext);
   const { user, setUser } = useContext(UserContext);
   const { showChatBox, setShowChatBox } = useContext(ChatBoxContext);
+  const { progress, setProgress } = useContext(ProgressBarContext);
   const [cookies, setCookie] = useCookies();
 
   const [showProfileCard, setShowProfileCard] = useState(false);
 
   useEffect(() => {
-    console.log(user,cookies.token,"/????")
+    setProgress(20)
     api
       .post(
         "/api/users/check-token",
@@ -54,9 +57,17 @@ export default function Profile(props) {
           console.log(res.data)
         }
       });
+      setProgress(100)
   }, []);
   return (
     <>
+    <LoadingBar
+          className="loading-bar"
+          progress={progress}
+          height="5px"
+          shadowStyle={{ display: "none" }}
+          onLoaderFinished={() => setProgress(0)}
+        />
       <ProfileHeader />
       <div
         className="ProfileDetails"

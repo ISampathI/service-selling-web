@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Outlet, useOutletContext } from "react-router-dom";
 import SellerCard from "../../../components/sellerCard/SellerCard";
 import "./sellers.scss";
@@ -6,7 +6,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { API_IP, API_IP_2 } from "../../../helper/Context";
+import { API_IP, API_IP_2, ProgressBarContext } from "../../../helper/Context";
 import Footer from "../../../layouts/Footer";
 
 const api = axios.create({
@@ -15,15 +15,19 @@ const api = axios.create({
 
 function Sellers(props) {
   const [sellersList, setSellersList] = useState([]);
+  const { progress, setProgress } = useContext(ProgressBarContext);
 
   useEffect(() => {
+    setProgress(20)
     fetchMoreData();
   }, []);
 
-  const fetchMoreData = () => {
-    api.get("/users/sellers").then((res) => {
+  const fetchMoreData = async() => {
+    await api.get("/users/sellers").then((res) => {
       setSellersList(sellersList.concat(res.data.users));
+      console.log(sellersList,"##")
     });
+    setProgress(100)
   };
 
   return (
@@ -31,7 +35,7 @@ function Sellers(props) {
       <Outlet />
       <div className="sellers-list" id="sellers-list-id">
         <InfiniteScroll
-          dataLength={sellersList.length}
+          dataLength={sellersList && sellersList.length}
           next={fetchMoreData}
           hasMore={true}
           loader={
@@ -47,13 +51,13 @@ function Sellers(props) {
           }
           className="infinite-scroll"
         >
-          {sellersList.map((item, index) => (
+          {sellersList && sellersList.map((item, index) => (
             <>
               <SellerCard
                 username={item.username}
                 last_name={""}
                 profile_img={item.proPic}
-                about={item.description}
+                about={item.about}
                 rating={item.rating}
               />
             </>

@@ -9,6 +9,7 @@ import {
   API_IP_2,
   CategorySearchContext,
   ChangeHeaderNavColorContext,
+  ProgressBarContext,
 } from "../../../helper/Context";
 import Footer from "../../../layouts/Footer";
 
@@ -32,29 +33,32 @@ export default function Services(props) {
   const { searchCategory, setSearchCategory } = useContext(
     CategorySearchContext
   );
+  const { progress, setProgress } = useContext(ProgressBarContext);
   const [servicesList, setServicesList] = useState([]);
   const { changeHeaderNavColor, setChangeHeaderNavColor } = useContext(
     ChangeHeaderNavColorContext
   );
 
   useEffect(() => {
+    setProgress(50)
     setChangeHeaderNavColor(true);
     fetchMoreData();
   }, [searchCategory]);
 
-  const fetchMoreData = () => {
+  const fetchMoreData = async() => {
     console.log(searchCategory, searchCategory == "");
     if (searchCategory == "") {
-      api.get("/services").then((res) => {
+      await api.get("/services").then((res) => {
         setServicesList(servicesList.concat(res.data.services));
         console.log(res.data, "LLL");
       });
     } else {
       setSearchCategory("");
-      api.get(`/services/category/${searchCategory}`).then((res) => {
+      await api.get(`/services/category/${searchCategory}`).then((res) => {
         setServicesList(servicesList.concat(res.data.services));
       });
     }
+    setProgress(100)
   };
 
   return (

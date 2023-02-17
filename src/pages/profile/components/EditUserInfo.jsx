@@ -50,6 +50,7 @@ function EditUserInfo() {
       },
       proPic: imageFile,
     };
+    console.log(userObject)
     api
       .patch(`/users/${user._id}`, userObject, {
         headers: {

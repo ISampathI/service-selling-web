@@ -13,6 +13,7 @@ import {
   CategorySearchContext,
   ChatBoxContext,
   LoginContext,
+  ProgressBarContext,
   UserContext,
 } from "../../helper/Context";
 import AppHeader from "../../layouts/AppHeader";
@@ -20,6 +21,7 @@ import Chat from "../../components/chat/Chat";
 import "./home.scss";
 import Footer from "../../layouts/Footer";
 import { useCookies } from "react-cookie";
+import LoadingBar from "react-top-loading-bar";
 
 const api = axios.create({
   baseURL: `http://${API_IP_2}/`,
@@ -28,6 +30,7 @@ function Home() {
   const { loggedIn, setLoggedIn } = useContext(LoginContext);
   const { user, setUser } = useContext(UserContext);
   const { showChatBox, setShowChatBox } = useContext(ChatBoxContext);
+  const { progress, setProgress } = useContext(ProgressBarContext);
   const [cookies, setCookie] = useCookies();
   const [searchCategory, setSearchCategory] = useState("");
 
@@ -44,7 +47,7 @@ function Home() {
       )
       .then((res) => {
         if (res.data) {
-          console.log(res.data,"!!!!!!!!!!!!!!");
+          console.log(res.data, "!!!!!!!!!!!!!!");
           if (res.data.status) {
             setUser(res.data);
             setLoggedIn(true);
@@ -67,6 +70,13 @@ function Home() {
             }
           }}
         >
+          <LoadingBar
+            className="loading-bar"
+            progress={progress}
+            height="5px"
+            shadowStyle={{"display":"none"}}
+            onLoaderFinished={() => setProgress(0)}
+          />
           <AppHeader />
           <Outlet />
         </div>

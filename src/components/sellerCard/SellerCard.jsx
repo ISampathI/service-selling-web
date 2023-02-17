@@ -1,15 +1,16 @@
 import React, { Component } from "react";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { ChatBoxContext } from "../../helper/Context";
+import { API_IP_2, ChatBoxContext } from "../../helper/Context";
 import "./sellerCard.scss";
+import defaultImg from "../../assets/img/defaultpropic.jpg";
 
 function SellerCard(props) {
   const { showChatBox, setShowChatBox } = useContext(ChatBoxContext);
   return (
     <Link to={`/sellers/${props.username}/services`} className="reactLink">
       <div className="SellerCard">
-        <img src={props.profile_img} alt="" />
+        <img src={props.profile_img ? `http://${API_IP_2}/${props.profile_img}` : defaultImg} alt="" />
         <div className="seller-name">
           {props.username}
         </div>
@@ -21,7 +22,7 @@ function SellerCard(props) {
           <i class="fa-solid fa-star"></i>
         </div>
         <div className="seller-details-container">
-          {props.about.slice(0, 130)}...
+          {props.about && props.about.slice(0, 60)}...
         </div>
         {/* <div className="buttons">
           <button className="view-profile-btn">

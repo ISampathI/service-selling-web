@@ -59,7 +59,7 @@ function NGallery() {
           <i class="fa-solid fa-circle-plus"></i>
           <p>Add New Image</p>
         </label>
-        {gallery.map((item, index) => (
+        {gallery && gallery.map((item, index) => (
           <img src={`http://${API_IP_2}/${item.img}`} alt="" />
         ))}
         <div className="add-new-image add-new-image-h"></div>

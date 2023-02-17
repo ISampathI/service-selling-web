@@ -6,6 +6,7 @@ import {
   API_IP_2,
   ChangeHeaderNavColorContext,
   LoginContext,
+  ProgressBarContext,
   UserContext,
 } from "../helper/Context";
 import { useCookies } from "react-cookie";
@@ -22,6 +23,7 @@ export default function AppHeader(props) {
     ChangeHeaderNavColorContext
   );
   const [cookies, setCookie] = useCookies(["token"]);
+  const { progress, setProgress } = useContext(ProgressBarContext);
   
   const doLogout = () => {
 
@@ -30,7 +32,7 @@ export default function AppHeader(props) {
     navigate("/");
   };
 
-  // useEffect(() => {}, [changeHeaderNavColor]);
+  useEffect(() => {}, [user]);
 
   return (
     <>

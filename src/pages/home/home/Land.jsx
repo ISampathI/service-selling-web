@@ -15,8 +15,10 @@ import {
   API_IP_2,
   ChangeHeaderNavColor,
   ChangeHeaderNavColorContext,
+  ProgressBarContext,
 } from "../../../helper/Context";
 import Footer from "../../../layouts/Footer";
+import { Link } from "react-router-dom";
 
 const api = axios.create({
   baseURL: `http://${API_IP_2}/`,
@@ -29,12 +31,14 @@ export default function Home(props) {
   const [suggestedServicesList, setSuggestedServicesList] = useState([]);
   const [populerServicesList, setPopulerServices] = useState([]);
   const [platformStatus, setPlatformStatus] = useState([]);
+  const { progress, setProgress } = useContext(ProgressBarContext);
 
   const { changeHeaderNavColor, setChangeHeaderNavColor } = useContext(
     ChangeHeaderNavColorContext
   );
 
   useEffect(() => {
+    setProgress(30);
     fetchData();
   }, []);
   var handleScroll = (event) => {
@@ -46,20 +50,22 @@ export default function Home(props) {
     }
   };
 
-  const fetchData = () => {
-    api.get("/api/categories").then((res) => {
+  const fetchData = async () => {
+    await api.get("/api/categories").then((res) => {
       setCategoryList(res.data.categories);
     });
-    api.get("/api/services/suggested").then((res) => {
+    await api.get("/api/services/suggested").then((res) => {
       setSuggestedServicesList(res.data.services);
-      console.log(res.data.services)
+      console.log(res.data.services);
     });
-    api.get("/api/services/popular").then((res) => {
+    setProgress(50);
+    await api.get("/api/services/popular").then((res) => {
       setPopulerServices(res.data.services);
     });
-    api.get("/api/users/platform-status").then((res) => {
+    await api.get("/api/users/platform-status").then((res) => {
       setPlatformStatus(res.data.status);
     });
+    setProgress(100);
   };
 
   return (
@@ -76,10 +82,12 @@ export default function Home(props) {
             Our platform makes it easy to find and hire talented professionals
             for all your needs.{" "}
           </div>
-          <button className="get-start-btn">
-            <p>Get Started</p>
-            <i class="fa-solid fa-circle-chevron-right"></i>
-          </button>
+          <Link className="react-link" to="/signup">
+            <button className="get-start-btn">
+              <p>Get Started</p>
+              <i class="fa-solid fa-circle-chevron-right"></i>
+            </button>
+          </Link>
           <div className="platform-status">
             <div className="platform-status-wrapper">
               <div className="p-status">
@@ -192,32 +200,36 @@ export default function Home(props) {
           Suggested Services <span>for you</span>
         </div>
         <div className="services-list">
-          {suggestedServicesList.map((item, index) => (
-            index < 6 &&
-            <ServiceCard
-              name={item.name}
-              profile_img={item.proPic}
-              service_img={`http://${API_IP_2}/${item.serviceImg}`}
-              title={item.title}
-              id={item._id}
-              location = {item.location}
-              type="0"
-            />
-          ))}
+          {suggestedServicesList.map(
+            (item, index) =>
+              index < 6 && (
+                <ServiceCard
+                  name={item.name}
+                  profile_img={item.proPic}
+                  service_img={`http://${API_IP_2}/${item.serviceImg}`}
+                  title={item.title}
+                  id={item._id}
+                  location={item.location}
+                  type="0"
+                />
+              )
+          )}
         </div>
         <div className="services-list">
-          {suggestedServicesList.map((item, index) => (
-            index >= 6 &&
-            <ServiceCard
-              name={item.name}
-              profile_img={item.proPic}
-              service_img={`http://${API_IP_2}/${item.serviceImg}`}
-              title={item.title}
-              id={item._id}
-              location = {item.location}
-              type="0"
-            />
-          ))}
+          {suggestedServicesList.map(
+            (item, index) =>
+              index >= 6 && (
+                <ServiceCard
+                  name={item.name}
+                  profile_img={item.proPic}
+                  service_img={`http://${API_IP_2}/${item.serviceImg}`}
+                  title={item.title}
+                  id={item._id}
+                  location={item.location}
+                  type="0"
+                />
+              )
+          )}
         </div>
       </div>
       <div className="services">
@@ -225,32 +237,36 @@ export default function Home(props) {
           <span>Populer</span> Services
         </div>
         <div className="services-list">
-          {populerServicesList.map((item, index) => (
-            index < 6 &&
-            <ServiceCard
-              name={item.name}
-              profile_img={item.proPic}
-              service_img={`http://${API_IP_2}/${item.serviceImg}`}
-              title={item.title}
-              id={item._id}
-              location = {item.location}
-              type="0"
-            />
-          ))}
+          {populerServicesList.map(
+            (item, index) =>
+              index < 6 && (
+                <ServiceCard
+                  name={item.name}
+                  profile_img={item.proPic}
+                  service_img={`http://${API_IP_2}/${item.serviceImg}`}
+                  title={item.title}
+                  id={item._id}
+                  location={item.location}
+                  type="0"
+                />
+              )
+          )}
         </div>
         <div className="services-list">
-          {populerServicesList.map((item, index) => (
-            index >= 6 &&
-            <ServiceCard
-              name={item.name}
-              profile_img={item.proPic}
-              service_img={`http://${API_IP_2}/${item.serviceImg}`}
-              title={item.title}
-              id={item._id}
-              location = {item.location}
-              type="0"
-            />
-          ))}
+          {populerServicesList.map(
+            (item, index) =>
+              index >= 6 && (
+                <ServiceCard
+                  name={item.name}
+                  profile_img={item.proPic}
+                  service_img={`http://${API_IP_2}/${item.serviceImg}`}
+                  title={item.title}
+                  id={item._id}
+                  location={item.location}
+                  type="0"
+                />
+              )
+          )}
         </div>
       </div>
       {/* <div className="what-p-saying">

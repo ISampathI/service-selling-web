@@ -18,7 +18,9 @@
     background: $primary-color;
     border-radius: 0.25em;
 }
-
+.loading-bar{
+    background-color: $primary-color !important;
+}
 .App {
     width: 100vw;
     height: 100vh;

@@ -8,6 +8,7 @@ import ReviewList from "../../../../components/reviewList/ReviewList";
 import {
   API_IP_2,
   PopUpScreenContext,
+  ProgressBarContext,
   UserContext,
 } from "../../../../helper/Context";
 import "./serviceDetails.scss";
@@ -22,6 +23,7 @@ export default function ServiceDetails(props) {
   const [orderComplete, setOrderComplete] = useState(0);
   const [serviceDetails, setServiceDetails] = useState({});
   const { user, setUser } = useContext(UserContext);
+  const { progress, setProgress } = useContext(ProgressBarContext);
 
   var { id } = useParams();
 
@@ -29,11 +31,12 @@ export default function ServiceDetails(props) {
     fetchData();
   }, [id]);
 
-  const fetchData = () => {
-    console.log(id);
-    api.get(`/services/${id}`).then((res) => {
+  const fetchData = async() => {
+    setProgress(30)
+    await api.get(`/services/${id}`).then((res) => {
       setServiceDetails(res.data.service);
     });
+    setProgress(100)
   };
 
   return (
@@ -99,7 +102,7 @@ export default function ServiceDetails(props) {
             </button>
             <button className="contact-now-btn">Contact now</button>
           </div>
-          <ReviewList />
+          {/* <ReviewList /> */}
         </div>
       </div>
       {showPopup ? (

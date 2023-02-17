@@ -6,36 +6,45 @@
 }
 
 .SellerCard {
-    min-width: 280px;
-    min-height: 300px;
-    max-width: 280px;
-    max-height: 350px;
-    margin-right: 25px;
+    width: 230px;
+    height: 275px;
+    // min-width: 180px;
+    // min-height: 170px;
+    // max-width: 260px;
+    // max-height: 2230px;
     margin-bottom: 25px;
+    margin: 10px;
     overflow: hidden;
-    border: 1px solid $line-color-1;
-    border-radius: 5px;
+    border-radius: 25px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding: 15px;
-    padding-block: 10px;
     background-color: white;
     position: relative;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    padding-bottom: 10px;
+    align-items: center;
+    padding: 10px;
+    padding-inline: 15px;
+    position: relative;
 
     img {
         width: 150px;
         aspect-ratio: 1/1;
-        padding: 2px;
         border-radius: 50%;
-        border: 3px solid $primary-color
+        border: 1px solid $border-color-2
     }
 
     .seller-name {
-        color: $primary-color;
+        width: 90%;
+        display: flex;
+        margin-inline: 10px;
+        color: $text-color;
         font-weight: 600;
         margin-top: 5px;
+        border-bottom: 2px solid $border-color-2;
+        justify-content: center;
+        padding-top: 10px;
+        padding-bottom: 3px;
     }
 
     .seller-rank {
@@ -46,22 +55,19 @@
         i {
             color: $primary-color;
             opacity: 0.6;
+            display: none;
         }
     }
 
     .seller-details-container {
+        font-size: 13.5px;
+        text-align: center;
+        height: 80px;
         margin-top: auto;
         margin-bottom: 8px;
-        font-size: 0.9em;
-        opacity: 0.7;
-        text-align: justify;
-        height: 80px;
-        width: 100%;
-        overflow: hidden;
-        overflow-wrap:break-word;
-        text-overflow: ellipsis;
-        display: flex;
-        align-items: center;
+        margin-top: 10px;
+        color: $text-color;
+        font-weight: 500;
     }
 
     .buttons {
@@ -80,7 +86,8 @@
             font-size: 15px;
             color: white;
             background-color: $primary-color;
-            border-radius: 5px;cursor: pointer;
+            border-radius: 5px;
+            cursor: pointer;
         }
 
         .view-profile-btn {

@@ -1,8 +1,9 @@
 import axios from "axios";
-import React, { Component, useContext, useState } from "react";
+import React, { Component, useContext, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
-import { API_IP_2, LoginContext, UserContext } from "../../helper/Context";
+import LoadingBar from "react-top-loading-bar";
+import { API_IP_2, LoginContext, ProgressBarContext, UserContext } from "../../helper/Context";
 import "./signup.scss";
 
 const api = axios.create({
@@ -12,6 +13,8 @@ const api = axios.create({
 function Signup() {
   const { loggedIn, setLoggedIn } = useContext(LoginContext);
   const { user, setUser } = useContext(UserContext);
+  const { progress, setProgress } = useContext(ProgressBarContext);
+
   const navigate = useNavigate();
   const [cookies, setCookie] = useCookies();
 
@@ -23,6 +26,7 @@ function Signup() {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const doRegister = () => {
+    setProgress(10)
     if (password == confirmPassword) {
       api
         .post("/users/signup", {
@@ -41,11 +45,21 @@ function Signup() {
     } else {
       console.log("password not matching");
     }
+    setProgress(100)
   };
-
+  useEffect(()=>{
+    setProgress(100)
+  },[])
   return (
     <>
       <div className="Signup">
+      <LoadingBar
+          className="loading-bar"
+          progress={progress}
+          height="5px"
+          shadowStyle={{ display: "none" }}
+          onLoaderFinished={() => setProgress(0)}
+        />
         <div className="container">
           <div className="left">
             <div className="form">

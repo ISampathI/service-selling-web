@@ -6,9 +6,11 @@ import {
   API_IP,
   API_IP_2,
   LoginContext,
+  ProgressBarContext,
   UserContext,
 } from "../../helper/Context";
 import { useCookies } from "react-cookie";
+import LoadingBar from "react-top-loading-bar";
 
 const api = axios.create({
   baseURL: `http://${API_IP_2}/api/`,
@@ -23,9 +25,11 @@ function Login() {
   const { loggedIn, setLoggedIn } = useContext(LoginContext);
   const { user, setUser } = useContext(UserContext);
   const [cookies, setCookie] = useCookies(["token"]);
+  const { progress, setProgress } = useContext(ProgressBarContext);
 
-  const doLogin = () => {
-    api
+  const doLogin = async() => {
+    setProgress(30)
+    await api
       .post("/users/get-token", {
         email: userName,
         password: password,
@@ -38,14 +42,21 @@ function Login() {
           navigate("/");
         }
       });
+      setProgress(100)
   };
 
-  useEffect(() => {
-  }, []);
+  useEffect(() => {setProgress(100)}, []);
 
   return (
     <>
       <div className="Login">
+        <LoadingBar
+          className="loading-bar"
+          progress={progress}
+          height="5px"
+          shadowStyle={{ display: "none" }}
+          onLoaderFinished={() => setProgress(0)}
+        />
         <div className="container">
           <div className="left">
             <div className="form">

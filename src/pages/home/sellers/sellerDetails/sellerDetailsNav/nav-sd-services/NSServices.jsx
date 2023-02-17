@@ -22,16 +22,17 @@ function NSServices() {
   const fetchData = () => {
     api.get(`/services/seller-services/${username}`).then((res) => {
       setServicesList(res.data.services);
+      console.log(res.data,"????")
     });
   };
 
   return (
     <div className="SellerDetailsNav">
       <div className="services">
-        {servicesList.map((item, index) => {
+        {servicesList?.map((item, index) => {
           return (
             <ServiceCard
-              service_img={item.serviceImg}
+              service_img={`http://${API_IP_2}/${item.serviceImg}`}
               title={item.title}
               id={item._id}
               type="1"

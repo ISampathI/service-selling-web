@@ -4,10 +4,12 @@ import { Outlet, NavLink, useOutletContext, useParams } from "react-router-dom";
 import {
   API_IP_2,
   LoginContext,
+  ProgressBarContext,
   UserContext,
 } from "../../../../helper/Context";
 import Footer from "../../../../layouts/Footer";
 import "./sellerDetails.scss";
+import defaultImg from "../../../../assets/img/defaultpropic.jpg";
 
 const api = axios.create({
   baseURL: `http://${API_IP_2}/api/`,
@@ -18,6 +20,7 @@ export default function SellerDetails(props) {
 
   const { loggedIn } = useContext(LoginContext);
   const { user } = useContext(UserContext);
+  const { progress, setProgress } = useContext(ProgressBarContext);
 
   var { username } = useParams();
 
@@ -26,9 +29,12 @@ export default function SellerDetails(props) {
   }, [username]);
 
   const fetchData = () => {
+    setProgress(30)
     api.get(`/users/${username}`).then((res) => {
       setSellerDetails(res.data);
+      console.log(res.data,"?????")
     });
+    setProgress(100)
   };
 
   return (
@@ -36,14 +42,14 @@ export default function SellerDetails(props) {
       <div className="seller-details-wrapper">
         <div className="profile">
           <div className="profile-img">
-            <img src={sellerDetails.proPic} alt="" />
+            <img src={sellerDetails.proPic ? `http://${API_IP_2}/${sellerDetails.proPic}` : defaultImg} alt="" />
           </div>
           <div className="container1">
             <div className="name">
-              {sellerDetails.firstname} {sellerDetails.lastname}
+              {sellerDetails && sellerDetails.firstname} {sellerDetails && sellerDetails.lastname}
             </div>
             <div className="row">
-              <div className="rating-num">{sellerDetails.rating}</div>
+              <div className="rating-num">{sellerDetails && sellerDetails.rating}</div>
               <div className="rating-sub">
                 <div className="rating-star">
                   <i class="fa-solid fa-star"></i>
@@ -64,15 +70,15 @@ export default function SellerDetails(props) {
               <li>Location</li>
             </ul>
             <ul>
-              <li>{sellerDetails.job}</li>
-              <li>{sellerDetails.availability}</li>
-              <li>25</li>
-              <li>{sellerDetails.city}</li>
+              <li>{sellerDetails ? sellerDetails.job: "-"}</li>
+              <li>{sellerDetails ? sellerDetails.availability:"-"}</li>
+              <li>{sellerDetails ? sellerDetails.age:"-"}25</li>
+              <li>{sellerDetails ? sellerDetails.city:"-"}</li>
             </ul>
           </div>
           <div className="seller-about-text">About</div>
           <div className="seller-about">
-            {sellerDetails.about}
+            {sellerDetails && sellerDetails.about}
           </div>
           <button className="contact-now-btn">Private Chat</button>
         </div>
