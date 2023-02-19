@@ -16,7 +16,7 @@ function EditUserInfo() {
   const [addressLine1, setAddressLine1] = useState("");
   const [addressLine2, setAddressLine2] = useState("");
   const [city, setCity] = useState("");
-  const [province, setProvince] = useState("");
+  const [district, setDistrict] = useState("");
 
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -33,7 +33,8 @@ function EditUserInfo() {
     setAddressLine1(user.address && user.address.addressLine1);
     setAddressLine2(user.address && user.address.addressLine2);
     setCity(user.address && user.address.city);
-    setProvince(user.address && user.address.province);
+    setDistrict(user.address && user.address.district);
+    console.log(user.address);
   }, [user]);
 
   const updateUserData = () => {
@@ -46,11 +47,10 @@ function EditUserInfo() {
         addressLine1: addressLine1,
         addressLine2: addressLine2,
         city: city,
-        province: province,
+        district: district,
       },
       proPic: imageFile,
     };
-    console.log(userObject)
     api
       .patch(`/users/${user._id}`, userObject, {
         headers: {
@@ -58,7 +58,8 @@ function EditUserInfo() {
         },
       })
       .then((res) => {
-        setUser(res.data);
+        setUser(res.data.user);
+        console.log(res.data);
       });
   };
 
@@ -170,11 +171,11 @@ function EditUserInfo() {
               <div className="spacer"></div>
               <div className="column">
                 <label htmlFor="">
-                  Province <span>*</span>
+                  District <span>*</span>
                 </label>
                 <select
-                  name="province"
-                  value={province}
+                  name="district"
+                  value={district}
                   onChange={(e) => {
                     setCity(e.target.value);
                   }}
@@ -235,7 +236,6 @@ function EditUserInfo() {
             onChange={(e) => {
               setImage(URL.createObjectURL(e.target.files[0]));
               setImageFile(e.target.files[0]);
-              console.log(e.target.files[0]);
             }}
           />
         </label>

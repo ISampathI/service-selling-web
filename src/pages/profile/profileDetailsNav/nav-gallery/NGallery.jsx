@@ -23,7 +23,6 @@ function NGallery() {
   }, [user]);
 
   const fetchData = () => {
-    console.log("hiiii");
     api.get(`/gallery/${user._id}`).then((res) => {
       setGallery(res.data.images);
     });
@@ -42,7 +41,6 @@ function NGallery() {
             onChange={(e) => {
               // setImage(URL.createObjectURL(e.target.files[0]));
               setImageFile(e.target.files[0]);
-              console.log("jjjjj");
               api
                 .post(
                   `/gallery`,

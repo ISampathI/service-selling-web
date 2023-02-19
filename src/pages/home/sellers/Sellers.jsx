@@ -25,7 +25,6 @@ function Sellers(props) {
   const fetchMoreData = async() => {
     await api.get("/users/sellers").then((res) => {
       setSellersList(sellersList.concat(res.data.users));
-      console.log(sellersList,"##")
     });
     setProgress(100)
   };

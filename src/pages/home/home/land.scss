@@ -57,13 +57,22 @@
                 text-align: justify;
                 color: $text-color-3;
             }
-
-            .get-start-btn {
+            .riple-btn{
                 width: 40%;
                 height: 60px;
-                border: 0;
                 margin-top: 50px;
+                position: relative;
                 border-radius: 30px;
+
+                .react-link{
+                    width: 100%;
+                }
+            }
+
+            .get-start-btn {
+                width: 100%;
+                height: 100%;
+                border: 0;         
                 font-size: 20px;
                 color: white;
                 background-color: $primary-color;
@@ -72,6 +81,7 @@
                 justify-content: center;
                 transition: transform 0.2s;
                 cursor: pointer;
+
 
                 &:hover {
                     transform: scale(99%);
@@ -215,6 +225,11 @@
                     font-size: 35px;
                     color: white;
                     cursor: pointer;
+                    transition: transform 1s;
+
+                    &:hover{
+                        transform: scale(105%);
+                    }
                 }
 
                 .slid-btn-l {
@@ -235,6 +250,7 @@
                 overflow-x: auto;
                 position: relative;
                 margin-inline: 7%;
+                scroll-behavior: smooth;
 
                 &::-webkit-scrollbar {
                     height: 0px;
@@ -331,6 +347,10 @@
             &::-webkit-scrollbar {
                 height: 0px;
             }
+
+            .ServiceCard{
+                margin-right: 30px;
+            }
         }
     }
 
@@ -426,7 +446,6 @@
 
                 p {
                     padding: 20px;
-
                     span {
                         font-size: 25px;
                         font-weight: 500;

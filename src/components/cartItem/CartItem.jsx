@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import defaultImg from "../../assets/img/defaultpropic.jpg";
+import { API_IP_2 } from "../../helper/Context";
 import "./cartItem.scss";
 
 function CartItem(props) {
@@ -14,12 +16,16 @@ function CartItem(props) {
         <div className="seller">
           <div className="profile-img">
             <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdXrN5H9Es9LsjxqNrUFbuEXtdc6q1457prQ&usqp=CAU"
+              src={
+                props.service.seller.proPic
+                  ? `http://${API_IP_2}/${props.service.seller.proPic}`
+                  : defaultImg
+              }
               alt=""
             />
           </div>
           <div className="container">
-            <div className="name">Lernal heral {props.cart_id}</div>
+            <div className="name">{props.service.seller.name}</div>
           </div>
           {props.type != "hire" ? (
             <input
@@ -46,14 +52,11 @@ function CartItem(props) {
       )}
       <div className="down">
         <img
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5o1JEx5HkuIza83FgPMcXYA5aylxAwGXGyA&usqp=CAU"
+          src={`http://${API_IP_2}/${props.service.service.serviceImg}`}
           alt=""
         />
         <div className="column">
-          <div className="title">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempora,
-            ipsum?
-          </div>
+          <div className="title">{props.service.service.title}</div>
           <div className="price">RS:2000</div>
         </div>
       </div>

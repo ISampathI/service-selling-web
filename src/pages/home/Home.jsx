@@ -6,7 +6,7 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import {
   API_IP,
   API_IP_2,
@@ -27,6 +27,7 @@ const api = axios.create({
   baseURL: `http://${API_IP_2}/`,
 });
 function Home() {
+  const navigate = useNavigate();
   const { loggedIn, setLoggedIn } = useContext(LoginContext);
   const { user, setUser } = useContext(UserContext);
   const { showChatBox, setShowChatBox } = useContext(ChatBoxContext);
@@ -63,10 +64,19 @@ function Home() {
       >
         <div
           onClick={(e) => {
-            if (e.target.className != "contact-now-btn") {
+            if (
+              e.target.className != "contact-now-btn" ||
+              user.userType == "guest"
+            ) {
               setShowChatBox(false);
             } else {
               setShowChatBox(true);
+            }
+            if (
+              e.target.className == "contact-now-btn" &&
+              user.userType == "guest"
+            ) {
+              user.userType == "guest" && navigate("/login");
             }
           }}
         >
@@ -74,7 +84,7 @@ function Home() {
             className="loading-bar"
             progress={progress}
             height="5px"
-            shadowStyle={{"display":"none"}}
+            shadowStyle={{ display: "none" }}
             onLoaderFinished={() => setProgress(0)}
           />
           <AppHeader />

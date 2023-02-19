@@ -13,7 +13,8 @@
         display: flex;
         justify-content: center;
         overflow-y: auto;
-        @include md{
+
+        @include md {
             padding-inline: 5px;
         }
     }
@@ -34,7 +35,7 @@
         background-color: white;
         border-radius: 5px;
 
-        @include lg{
+        @include lg {
             width: 100%;
         }
 
@@ -124,9 +125,43 @@
 
         .service-img {
             width: 100%;
-            height: 70%;
-            object-fit: cover;
+            height: fit-content;
             margin-bottom: 5px;
+            position: relative;
+
+            img {
+                width: 100%;
+                aspect-ratio: 1/0.6;
+                object-fit: cover;
+            }
+
+            &::before {
+                top: 0;
+                left: 0;
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                background-color: red;
+            }
+
+
+            // &:empty {
+            //     background-color: $border-color-3;
+            // }
+
+            // &:hover::after {
+            //     animation: skeletonAnim 5s;
+            // }
+
+            // @keyframes skeletonAnim {
+            //     from {
+            //         left: -100%;
+            //     }
+
+            //     to {
+            //         left: 0;
+            //     }
+            // }
         }
 
         .title {
@@ -143,16 +178,21 @@
             margin-bottom: 10px;
             justify-content: space-between;
 
-            button {
+            .riple-btn{
                 width: 47%;
                 height: 55px;
+                margin-top: 15px;
+            }
+
+            button {
+                width: 100%;
+                height: 100%;
                 border: 0;
                 font-size: 18px;
                 color: white;
                 background-color: $primary-color;
                 border-radius: 5px;
                 cursor: pointer;
-                margin-top: 15px;
             }
 
             .view-profile-btn {}
@@ -185,6 +225,68 @@
         }
     }
 
+    .link-share-modal {
+        position: relative;
+        width: 400px;
+        height: 230px;
+        display: flex;
+        padding: 20px;
+        padding-top: 0px;
+        padding-bottom: 0px;
+        flex-direction: column;
+
+        .links {
+            display: flex;
+            width: 100%;
+            height: 100px;
+            justify-content: space-around;
+        }
+
+        .title {
+            font-size: 18px;
+        }
+
+        .copy-row {
+            width: 100%;
+            height: 40px;
+            display: flex;
+            margin-top: 20px;
+            align-items: center;
+            border: 1px solid $border-color-2;
+            padding-inline: 5px;
+            border-radius: 10px;
+
+            i {
+                margin-left: 15px;
+            }
+
+            input {
+                width: 70%;
+                height: 100%;
+                border: 0;
+                margin-left: 10px;
+
+                &:focus {
+                    outline: 0;
+                }
+            }
+            .riple-btn{
+                width: 80px;
+                height: 80%;
+                border: 0;
+            }
+            button {
+                width: 100%;
+                height: 100%;
+                border: 0;
+                background-color: $primary-color;
+                color: white;
+                border-radius: 10px;
+                margin-left: 10px;
+            }
+        }
+    }
+
     .popup-screen {
         width: 100%;
         height: 100%;
@@ -199,6 +301,7 @@
 
         .popup-container {
             width: 100%;
+            min-width: 600px;
             display: flex;
             flex-direction: column;
             height: fit-content;
@@ -304,6 +407,40 @@
 
                 }
             }
+        }
+    }
+
+    .seller-to-buyer {
+        position: relative;
+        width: 400px;
+        height: 100px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        .riple-btn {
+            width: 80%;
+            height: 50px;
+            margin-bottom: 10px;
+        }
+
+        .title{
+            font-size: 20;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        button {
+            width: 100%;
+            height: 50px;
+            border-radius: 10px;
+            font-size: 20px;
+            border: 0;
+            background-color: $primary-color;
+            color: white;
+            position: relative;
+            overflow: hidden;
         }
     }
 }

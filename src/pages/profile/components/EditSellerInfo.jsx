@@ -21,6 +21,7 @@ function EditSellerInfo() {
   useEffect(() => {
     setImage(user.proPic && `http://${API_IP_2}/${user.proPic}`);
     setJob(user.job && user.job);
+    setDob(user.dob && user.dob.split("T")[0])
     setAbout(user.about && user.about);
     setAvailability(user.availability && user.availability);
     setLocation(user.location && user.location);
@@ -35,7 +36,6 @@ function EditSellerInfo() {
       about: about,
       proPic: imageFile,
     };
-    console.log(userObject);
     api
       .patch(`/users/${user.username}`, userObject, {
         headers: {
@@ -44,6 +44,7 @@ function EditSellerInfo() {
       })
       .then((res) => {
         setUser(res.data);
+        console.log(res.data.user);
       });
   };
 

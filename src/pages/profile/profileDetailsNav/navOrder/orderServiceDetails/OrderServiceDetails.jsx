@@ -1,16 +1,17 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { createContext, useState } from "react";
 import { TailSpin } from "react-loader-spinner";
+import { useParams } from "react-router-dom";
 import CartItem from "../../../../../components/cartItem/CartItem";
 import "./orderServiceDetails.scss";
 
 export default function OrderServiceDetails(props) {
+  var { id } = useParams();
   return (
     <div className="OrderServiceDetails">
       <div className="service-details-wrap">
         <div className="service-container">
-          <div className="seller">
-          </div>
+          <div className="seller"></div>
           <div className="title">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem,
             necessitatibus.

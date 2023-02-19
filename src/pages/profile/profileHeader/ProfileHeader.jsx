@@ -21,8 +21,7 @@ export default function ProfileHeader(props) {
   const { user, setUser } = useContext(UserContext);
   const [cookies, setCookie] = useCookies();
 
-  useEffect(() => {
-  }, []);
+  useEffect(() => {}, []);
 
   const doLogout = () => {
     setCookie("token", "expired", { path: "/" });
@@ -31,10 +30,9 @@ export default function ProfileHeader(props) {
   };
 
   const switchSeller = (toSeller = true) => {
-    console.log("eeeee");
     api
       .patch(
-        `api/users/${user.username}`,
+        `/api/users/${user.username}`,
         { isSellerActivated: toSeller },
         {
           headers: {
@@ -43,7 +41,7 @@ export default function ProfileHeader(props) {
         }
       )
       .then((res) => {
-        setUser(res.data);
+        console.log(res.data, toSeller, "!!!");
       });
   };
   return (
@@ -132,22 +130,23 @@ export default function ProfileHeader(props) {
             </>
           ) : (
             <>
-              {user.userType == "seller" && user.isSellerActivated == true ? (
+              {user.userType == "seller" ? (
                 <Link
                   to="/"
                   onClick={() => {
-                    switchSeller(false);
+                    user.isSellerActivated == true
+                      ? switchSeller(false)
+                      : switchSeller(true);
                   }}
                 >
-                  <button className="signup switch-btn">Switch to Buyer</button>
+                  <button className="signup switch-btn">
+                    {user.isSellerActivated == true
+                      ? "Switch to Buyer"
+                      : "Switch to Seller"}
+                  </button>
                 </Link>
               ) : (
-                <Link
-                  to="/"
-                  onClick={() => {
-                    switchSeller(true);
-                  }}
-                >
+                <Link to="/profile/sellerregistration">
                   <button className="signup switch-btn">
                     Switch to Seller
                   </button>
@@ -161,7 +160,11 @@ export default function ProfileHeader(props) {
               </Link>
               <div className="profile-img">
                 <img
-                  src={user.proPic ? `http://${API_IP_2}/${user.proPic}` : defaultImg}
+                  src={
+                    user.proPic
+                      ? `http://${API_IP_2}/${user.proPic}`
+                      : defaultImg
+                  }
                   alt=""
                 />
                 <div className="account-hover-list">

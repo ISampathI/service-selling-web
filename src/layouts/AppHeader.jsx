@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, Navigate, NavLink, useNavigate } from "react-router-dom";
 import "./appHeader.scss";
 import axios from "axios";
@@ -22,11 +22,12 @@ export default function AppHeader(props) {
   const { changeHeaderNavColor, setChangeHeaderNavColor } = useContext(
     ChangeHeaderNavColorContext
   );
+
+  const [searchKey, setSearchKey] = useState("");
   const [cookies, setCookie] = useCookies(["token"]);
   const { progress, setProgress } = useContext(ProgressBarContext);
-  
-  const doLogout = () => {
 
+  const doLogout = () => {
     setCookie("token", "expired", { path: "/" });
     setLoggedIn(false);
     navigate("/");
@@ -37,9 +38,11 @@ export default function AppHeader(props) {
   return (
     <>
       <div className={changeHeaderNavColor ? "Header header-scroll" : "Header"}>
-        <div className="logo">
-          <span>Hire</span> Now
-        </div>
+        <Link to="" className="react-link">
+          <div className="logo">
+            <span>Hire</span> Now
+          </div>
+        </Link>
         <div className="logo-md">
           <i class="fa-solid fa-bars"></i>
         </div>
@@ -47,9 +50,13 @@ export default function AppHeader(props) {
           <input
             type="text"
             placeholder="What services are you looking for?"
+            value={searchKey}
+            onChange={(e) => {
+              setSearchKey(e.target.value);
+            }}
             onKeyUp={(event) => {
               if (event.key == "Enter") {
-                navigate("/services");
+                navigate(`/services/search/${searchKey}`, { searchKey });
               }
             }}
           />
@@ -108,7 +115,11 @@ export default function AppHeader(props) {
               </Link>
               <div className="profile-img">
                 <img
-                  src={user.proPic ? `http://${API_IP_2}/${user.proPic}`: defaultImg}
+                  src={
+                    user.proPic
+                      ? `http://${API_IP_2}/${user.proPic}`
+                      : defaultImg
+                  }
                   alt=""
                 />
                 <div className="account-hover-list">

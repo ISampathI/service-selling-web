@@ -19,6 +19,7 @@ import {
 } from "../../../helper/Context";
 import Footer from "../../../layouts/Footer";
 import { Link } from "react-router-dom";
+import Ripples from "react-ripples";
 
 const api = axios.create({
   baseURL: `http://${API_IP_2}/`,
@@ -56,7 +57,6 @@ export default function Home(props) {
     });
     await api.get("/api/services/suggested").then((res) => {
       setSuggestedServicesList(res.data.services);
-      console.log(res.data.services);
     });
     setProgress(50);
     await api.get("/api/services/popular").then((res) => {
@@ -82,12 +82,18 @@ export default function Home(props) {
             Our platform makes it easy to find and hire talented professionals
             for all your needs.{" "}
           </div>
-          <Link className="react-link" to="/signup">
-            <button className="get-start-btn">
-              <p>Get Started</p>
-              <i class="fa-solid fa-circle-chevron-right"></i>
-            </button>
-          </Link>
+          <Ripples
+            className="riple-btn"
+            color="rgba(255,255,255, 0.5)"
+            during={1200}
+          >
+            <Link className="react-link" to="/signup">
+              <button className="get-start-btn">
+                <p>Get Started</p>
+                <i class="fa-solid fa-circle-chevron-right"></i>
+              </button>
+            </Link>
+          </Ripples>
           <div className="platform-status">
             <div className="platform-status-wrapper">
               <div className="p-status">
@@ -127,7 +133,7 @@ export default function Home(props) {
             <div
               className="slid-btn slid-btn-l"
               onClick={() => {
-                scrollElement.current.scrollLeft -= 50;
+                scrollElement.current.scrollLeft -= 200;
               }}
             >
               <i class="fa-solid fa-angle-left"></i>
@@ -135,7 +141,7 @@ export default function Home(props) {
             <div
               className="slid-btn slid-btn-r"
               onClick={() => {
-                scrollElement.current.scrollLeft += 50;
+                scrollElement.current.scrollLeft += 200;
               }}
             >
               <i class="fa-solid fa-angle-right"></i>

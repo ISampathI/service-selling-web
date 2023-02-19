@@ -1,9 +1,5 @@
 @import "../assets/styles/variables";
 
-.react-link {
-    text-decoration: none;
-    color: black;
-}
 
 .Footer {
     margin-top: 100px;
@@ -14,6 +10,11 @@
     padding-inline: 7%;
     padding-block: 10px;
     padding-top: 30px;
+
+    .react-link {
+        text-decoration: none;
+        color: black;
+    }
 
     .footer-column {
         display: flex;
@@ -97,8 +98,14 @@
             list-style: none;
 
             li {
+                height: 30px;
                 color: $text-color-2;
-                margin-bottom: 10px;
+                padding-bottom: 25px;
+                cursor:default;
+
+                &:hover{
+                    border-bottom: 2px solid $primary-color;
+                }
             }
         }
     }

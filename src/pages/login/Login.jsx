@@ -11,6 +11,7 @@ import {
 } from "../../helper/Context";
 import { useCookies } from "react-cookie";
 import LoadingBar from "react-top-loading-bar";
+import Ripples from "react-ripples";
 
 const api = axios.create({
   baseURL: `http://${API_IP_2}/api/`,
@@ -27,9 +28,16 @@ function Login() {
   const [cookies, setCookie] = useCookies(["token"]);
   const { progress, setProgress } = useContext(ProgressBarContext);
 
-  const doLogin = async() => {
-    setProgress(30)
-    await api
+  const [errorDetails, setErrorDetails] = useState([]);
+
+  const doLogin = () => {
+    setProgress(0);
+    // axios.get("https://social-jobs-stay-103-247-50-166.loca.lt/",{
+
+    // }).then((res)=>{
+    //   console.log(res);
+    // })
+    api
       .post("/users/get-token", {
         email: userName,
         password: password,
@@ -41,11 +49,17 @@ function Login() {
           setLoggedIn(true);
           navigate("/");
         }
+      })
+      .catch((e) => {
+        setErrorDetails(e);
+        //console.log(e.response.data);
       });
-      setProgress(100)
+    setProgress(100);
   };
 
-  useEffect(() => {setProgress(100)}, []);
+  useEffect(() => {
+    setProgress(100);
+  }, []);
 
   return (
     <>
@@ -65,6 +79,11 @@ function Login() {
               <div className="input-row">
                 <input
                   value={userName}
+                  style={
+                    errorDetails.response?.status == 401
+                      ? { border: "1px solid red" }
+                      : {}
+                  }
                   onChange={(e) => {
                     setuserName(e.target.value);
                   }}
@@ -75,6 +94,11 @@ function Login() {
               <div className="input-row">
                 <input
                   value={password}
+                  style={
+                    errorDetails.response?.status == 401
+                      ? { border: "1px solid red" }
+                      : {}
+                  }
                   onChange={(e) => {
                     setpassword(e.target.value);
                   }}
@@ -82,7 +106,13 @@ function Login() {
                   placeholder="Password"
                 />
               </div>
-              <button onClick={doLogin}>LOGIN</button>
+              <Ripples
+                className="riple-btn"
+                color="rgba(255,255,255, 0.5)"
+                during={1200}
+              >
+                <button onClick={doLogin}>LOGIN</button>
+              </Ripples>
               <div className="row">
                 <div>
                   <input type="checkbox" name="" id="" />

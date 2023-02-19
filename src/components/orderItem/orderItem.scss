@@ -1,5 +1,8 @@
 @import "../../assets/styles/variables";
 
+.OrderItemSelected{
+    border:1px solid $primary-color
+}
 .OrderItem {
     width: 100%;
     max-height: 150px;
@@ -23,6 +26,7 @@
             align-items: center;
             border-bottom: 2px solid $sub-backgorund-color-2;
             position: relative;
+            cursor: pointer;
 
             .profile-img {
                 height: 100%;

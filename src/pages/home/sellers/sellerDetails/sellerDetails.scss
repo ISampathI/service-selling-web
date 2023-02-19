@@ -142,6 +142,7 @@
             align-items: center;
             justify-content: center;
 
+
             @include md {
                 display: none;
             }
@@ -150,13 +151,25 @@
                 margin-top: 20px;
                 margin-right: 10px;
                 list-style: none;
+                width: 100%;
+                display: flex;
+                flex-direction: column;
 
-                &:nth-child(1) {
-                    font-weight: 600;
-                }
+                li {
+                    display: flex;
+                    span {
+                        &:nth-child(1) {
+                            display: flex;
+                            width: 50%;
+                            font-weight: 600;
+                        }
 
-                &:nth-child(2) {
-                    color: rgb(49, 49, 49);
+                        &:nth-child(2) {
+                            width: 50%;
+                            color: rgb(49, 49, 49);
+                        }
+
+                    }
                 }
             }
         }

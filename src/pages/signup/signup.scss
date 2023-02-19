@@ -26,7 +26,7 @@
                 font-size: 35px;
                 color: $border-color;
                 font-weight: 500;
-                
+
             }
 
             .form {
@@ -71,6 +71,11 @@
                             color: $border-color;
                         }
                     }
+                }
+
+                .riple-btn {
+                    width: 100%;
+                    height: 50px;
                 }
 
                 button {
@@ -132,9 +137,10 @@
                 background-position: center;
                 background-repeat: no-repeat;
             }
-            @include lg{
+
+            @include lg {
                 display: none;
-             }
+            }
         }
     }
 }

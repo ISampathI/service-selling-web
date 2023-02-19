@@ -3,8 +3,14 @@ import React, { Component, useContext, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import LoadingBar from "react-top-loading-bar";
-import { API_IP_2, LoginContext, ProgressBarContext, UserContext } from "../../helper/Context";
+import {
+  API_IP_2,
+  LoginContext,
+  ProgressBarContext,
+  UserContext,
+} from "../../helper/Context";
 import "./signup.scss";
+import Ripples from "react-ripples";
 
 const api = axios.create({
   baseURL: `http://${API_IP_2}/api`,
@@ -25,8 +31,10 @@ function Signup() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  const [errorDetails, setErrorDetails] = useState({});
+
   const doRegister = () => {
-    setProgress(10)
+    setProgress(10);
     if (password == confirmPassword) {
       api
         .post("/users/signup", {
@@ -39,21 +47,23 @@ function Signup() {
         .then((res) => {
           if (res.data) {
             navigate("/login");
-            console.log(res.data)
           }
+        })
+        .catch((e) => {
+          setErrorDetails(e.response.data.error.errors);
         });
     } else {
       console.log("password not matching");
     }
-    setProgress(100)
+    setProgress(100);
   };
-  useEffect(()=>{
-    setProgress(100)
-  },[])
+  useEffect(() => {
+    setProgress(100);
+  }, []);
   return (
     <>
       <div className="Signup">
-      <LoadingBar
+        <LoadingBar
           className="loading-bar"
           progress={progress}
           height="5px"
@@ -67,6 +77,7 @@ function Signup() {
               <div className="input-row">
                 <input
                   type="text"
+                  style={errorDetails.username && { border: "1px solid red" }}
                   placeholder="User Name"
                   value={userName}
                   onChange={(e) => {
@@ -77,6 +88,7 @@ function Signup() {
               <div className="input-row">
                 <input
                   type="text"
+                  style={errorDetails.firstName && { border: "1px solid red" }}
                   placeholder="First Name"
                   value={firstName}
                   onChange={(e) => {
@@ -85,6 +97,7 @@ function Signup() {
                 />
                 <input
                   type="text"
+                  style={errorDetails.lastName && { border: "1px solid red" }}
                   placeholder="Last Name"
                   value={lastName}
                   onChange={(e) => {
@@ -95,6 +108,7 @@ function Signup() {
               <div className="input-row">
                 <input
                   type="text"
+                  style={errorDetails.email && { border: "1px solid red" }}
                   placeholder="Email Address"
                   value={email}
                   onChange={(e) => {
@@ -122,7 +136,13 @@ function Signup() {
                   }}
                 />
               </div>
-              <button onClick={doRegister}>SIGN UP</button>
+              <Ripples
+                className="riple-btn"
+                color="rgba(255,255,255, 0.5)"
+                during={1200}
+              >
+                <button onClick={doRegister}>SIGN UP</button>
+              </Ripples>
             </div>
           </div>
           <div className="right">

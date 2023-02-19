@@ -8,7 +8,6 @@ function Profile() {
   const { user } = useContext(UserContext);
 
   useEffect(() => {
-    console.log(user)
   }, [user]);
 
   return (

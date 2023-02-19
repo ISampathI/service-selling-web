@@ -5,6 +5,7 @@ import { API_IP_2, UserContext } from "../../../helper/Context";
 import ImageUploading from "react-images-uploading";
 import "./editService.scss";
 import { useCookies } from "react-cookie";
+import Ripples from "react-ripples";
 
 const api = axios.create({
   baseURL: `http://${API_IP_2}/api/`,
@@ -18,6 +19,8 @@ function EditService(props) {
   const [imageFile, setImageFile] = useState({});
   const [categoryList, setCategoryList] = useState([]);
   const [category, setCategory] = useState("Other");
+  const [ROP, setROP] = useState("Negotiable");
+  const [price, setPrice] = useState();
   const [cookies, setCookie] = useCookies();
 
   const { user, setUser } = useContext(UserContext);
@@ -29,7 +32,6 @@ function EditService(props) {
       fetchData();
     }
     api.get(`/categories`).then((res) => {
-      console.log(res.data.categories);
       setCategoryList(res.data.categories);
     });
   }, [id]);
@@ -40,6 +42,8 @@ function EditService(props) {
       serviceImg: imageFile,
       category: category,
       description: description,
+      rop: ROP,
+      price: price,
     };
     api
       .patch(`/services/${id}`, serviceObject, {
@@ -47,9 +51,7 @@ function EditService(props) {
           "Content-Type": "multipart/form-data",
         },
       })
-      .then((res) => {
-        console.log(res);
-      });
+      .then((res) => {});
   };
 
   const createService = () => {
@@ -62,6 +64,8 @@ function EditService(props) {
           serviceImg: imageFile,
           category: category,
           provider: user._id,
+          rop: ROP,
+          price: price,
         },
         {
           headers: {
@@ -69,9 +73,7 @@ function EditService(props) {
           },
         }
       )
-      .then((res) => {
-        console.log(res);
-      });
+      .then((res) => {});
   };
   const fetchData = () => {
     api.get(`/services/${id}`).then((res) => {
@@ -79,6 +81,7 @@ function EditService(props) {
       setTitle(res.data.service.service.title);
       setDescription(res.data.service.service.description);
       setImage(res.data.service.service.serviceImg);
+      console.log(res.data);
     });
   };
   const onChange = (image, addUpdateIndex) => {
@@ -100,13 +103,6 @@ function EditService(props) {
                 setTitle(e.target.value);
               }}
             />
-            <label htmlFor="">Description</label>
-            <textarea
-              value={description}
-              onChange={(e) => {
-                setDescription(e.target.value);
-              }}
-            />
             <label htmlFor="">Category</label>
             <select
               className="category-select"
@@ -120,10 +116,45 @@ function EditService(props) {
                 <option value={item._id}>{item.name}</option>
               ))}
             </select>
+            <div className="row">
+              <div className="column">
+                <label htmlFor="">Rate of Payment</label>
+                <select
+                  className="category-select price-type"
+                  name="price-type"
+                  value={ROP}
+                  onChange={(e) => {
+                    setROP(e.target.value);
+                  }}
+                >
+                  <option>Hourly</option>
+                  <option>Daily</option>
+                  <option>Monthly</option>
+                  <option>Negotiable</option>
+                </select>
+              </div>
+              <div className="column">
+                <label htmlFor="">Price</label>
+                <input
+                  type="text"
+                  value={price}
+                  onChange={(e) => {
+                    setPrice(e.target.value);
+                  }}
+                />
+              </div>
+            </div>
+            <label htmlFor="">Description</label>
+            <textarea
+              value={description}
+              onChange={(e) => {
+                setDescription(e.target.value);
+              }}
+            />
             <label htmlFor="">Service image</label>
 
             <div className="service-img">
-              {image != "" && <img src={image} />}
+              {image != "" && <img src={`http://${API_IP_2}/${image}`} />}
 
               <label class="upload-np-btn">
                 <i class="fa-solid fa-cloud-arrow-up"></i>
@@ -181,12 +212,18 @@ function EditService(props) {
             </div>
 
             <div className="buttons">
-              <div
-                className="update-service button"
-                onClick={props.type == "new" ? createService : updateService}
+              <Ripples
+                className="riple-btn"
+                color="rgba(255,255,255, 0.5)"
+                during={1200}
               >
-                {props.type == "new" ? "Save" : "Update"}
-              </div>
+                <button
+                  className="update-service button"
+                  onClick={props.type == "new" ? createService : updateService}
+                >
+                  {props.type == "new" ? "Save" : "Update"}
+                </button>
+              </Ripples>
             </div>
             {props.type != "new" ? (
               <div className="delete-service-dev">
@@ -194,14 +231,20 @@ function EditService(props) {
                   Caution: Deleting this service is permanent and cannot be
                   recovered.
                 </p>
-                <div
-                  className="delete-service button"
-                  onClick={() => {
-                    api.delete(`services/${id}`).then((res) => {});
-                  }}
+                <Ripples
+                  className="riple-btn"
+                  color="rgba(255,255,255, 0.5)"
+                  during={1200}
                 >
-                  <i className="fa-solid fa-trash-can"></i>Delete
-                </div>
+                  <button
+                    className="delete-service button"
+                    // onClick={() => {
+                    //   api.delete(`services/${id}`).then((res) => {});
+                    // }}
+                  >
+                    <i className="fa-solid fa-trash-can"></i>Delete
+                  </button>
+                </Ripples>
               </div>
             ) : (
               <></>

@@ -10,6 +10,7 @@ import {
 import Footer from "../../../../layouts/Footer";
 import "./sellerDetails.scss";
 import defaultImg from "../../../../assets/img/defaultpropic.jpg";
+import Rating from "../../../../components/rating/Rating";
 
 const api = axios.create({
   baseURL: `http://${API_IP_2}/api/`,
@@ -29,12 +30,11 @@ export default function SellerDetails(props) {
   }, [username]);
 
   const fetchData = () => {
-    setProgress(30)
+    setProgress(30);
     api.get(`/users/${username}`).then((res) => {
       setSellerDetails(res.data);
-      console.log(res.data,"?????")
     });
-    setProgress(100)
+    setProgress(100);
   };
 
   return (
@@ -42,38 +42,45 @@ export default function SellerDetails(props) {
       <div className="seller-details-wrapper">
         <div className="profile">
           <div className="profile-img">
-            <img src={sellerDetails.proPic ? `http://${API_IP_2}/${sellerDetails.proPic}` : defaultImg} alt="" />
+            <img
+              src={
+                sellerDetails.proPic
+                  ? `http://${API_IP_2}/${sellerDetails.proPic}`
+                  : defaultImg
+              }
+              alt=""
+            />
           </div>
           <div className="container1">
             <div className="name">
-              {sellerDetails && sellerDetails.firstname} {sellerDetails && sellerDetails.lastname}
+              {sellerDetails && sellerDetails.firstname}{" "}
+              {sellerDetails && sellerDetails.lastname}
             </div>
             <div className="row">
-              <div className="rating-num">{sellerDetails && sellerDetails.rating}</div>
+              <div className="rating-num">
+                {sellerDetails && sellerDetails.rating}
+              </div>
               <div className="rating-sub">
-                <div className="rating-star">
-                  <i class="fa-solid fa-star"></i>
-                  <i class="fa-solid fa-star"></i>
-                  <i class="fa-solid fa-star"></i>
-                  <i class="fa-solid fa-star"></i>
-                  <i class="fa-solid fa-star"></i>
-                </div>
+                <Rating rating="3.2" />
                 <div className="reviews">10 reviews</div>
               </div>
             </div>
           </div>
           <div className="container2">
+            
             <ul>
-              <li>Job</li>
-              <li>Availability</li>
-              <li>Age</li>
-              <li>Location</li>
-            </ul>
-            <ul>
-              <li>{sellerDetails ? sellerDetails.job: "-"}</li>
-              <li>{sellerDetails ? sellerDetails.availability:"-"}</li>
-              <li>{sellerDetails ? sellerDetails.age:"-"}25</li>
-              <li>{sellerDetails ? sellerDetails.city:"-"}</li>
+              <li>
+                <span>Job</span>
+                <span>
+                  {" "}
+                  {sellerDetails.job != undefined ? sellerDetails.job : "-"}
+                </span>
+              </li>
+              <li><span>Availability</span><span>{sellerDetails.availability != undefined
+                  ? sellerDetails.availability
+                  : "-"}</span></li>
+              <li><span>Age</span><span>{sellerDetails.age != undefined ? sellerDetails.age : "-"}</span></li>
+              <li><span>Location</span><span>{sellerDetails.city != undefined ? sellerDetails.city : "-"}</span></li>
             </ul>
           </div>
           <div className="seller-about-text">About</div>

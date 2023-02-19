@@ -37,10 +37,11 @@ import OrderServiceDetails from "./pages/profile/profileDetailsNav/navOrder/orde
 import { CookiesProvider } from "react-cookie";
 import PendingOrderNav from "./pages/profile/profileDetailsNav/navOrder/PendingOrderNav";
 import LoadingBar from "react-top-loading-bar";
+import BuyerToSeller from "./pages/profile/profileDetailsNav/BuyerToSeller/BuyerToSeller";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState({ userType: "guest" });
   const [showChatBox, setShowChatBox] = useState(false);
   const [changeHeaderNavColor, setChangeHeaderNavColor] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -65,6 +66,10 @@ function App() {
                           element={<ServiceDetails />}
                         />
                       </Route>
+                      <Route
+                        path="/services/search/:searchKey"
+                        element={<Services />}
+                      ></Route>
                       <Route path="/sellers" element={<Sellers />}>
                         <Route
                           path="servicedetails/:id"
@@ -125,12 +130,16 @@ function App() {
                         />
 
                         <Route
-                          path="servicedetails"
+                          path="servicedetails/:id"
                           element={<OrderServiceDetails type="order" />}
                         />
                       </Route>
                       <Route path="gallery" element={<NGallery />} />
                       <Route path="cart" element={<Cart />} />
+                      <Route
+                        path="sellerregistration"
+                        element={<BuyerToSeller />}
+                      />
                       <Route path="settings" element={<NSetings />}>
                         <Route path="" element={<Navigate to="userinfo" />} />
                         <Route path="userinfo" element={<EditUserInfo />} />

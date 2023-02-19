@@ -53,8 +53,8 @@ export default function Profile(props) {
         if (res.data) {
           setUser(res.data);
           setLoggedIn(true);
+          console.log(res.data);
           //navigate("/");
-          console.log(res.data)
         }
       });
       setProgress(100)

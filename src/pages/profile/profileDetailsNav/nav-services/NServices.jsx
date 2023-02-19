@@ -18,13 +18,11 @@ function NServices() {
 
   useEffect(() => {
     fetchData();
-    console.log(servicesList, "????");
   }, [user]);
 
   const fetchData = () => {
     api.get(`/services/seller-services/${user.username}`).then((res) => {
       setServicesList(res.data.services);
-      console.log(res.data, "????")
     });
   };
 

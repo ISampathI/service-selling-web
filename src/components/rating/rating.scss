@@ -1,0 +1,10 @@
+@import "../../assets/styles/variables";
+
+
+.Rating{
+    .rating-star{
+        i{
+            color: $primary-color;
+        }
+    }
+}

@@ -191,6 +191,11 @@
                     color: white;
                     background-color: $primary-color;
                     border-radius: 5px;
+
+                    &:disabled{
+                        color: $sub-backgorund-color-3;
+                        background-color: $sub-backgorund-color-4;
+                    }
                 }
             }
         }

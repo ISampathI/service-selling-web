@@ -7,7 +7,7 @@ import { API_IP_2 } from "../../helper/Context";
 function createContent(props) {
   return (
     <div className="ServiceCard">
-      <img src={props.service_img} alt="" />
+      <img src={props.service_img && props.service_img} alt="" />
       <div className="service-title">{props.title}</div>
       <div className="seller">
         {props.type == "0" ? (

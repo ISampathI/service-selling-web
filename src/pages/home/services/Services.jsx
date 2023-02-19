@@ -1,5 +1,5 @@
 import { React, setState, useContext, useEffect, useState } from "react";
-import { Outlet, useOutletContext } from "react-router-dom";
+import { Outlet, useOutletContext, useParams } from "react-router-dom";
 import ServiceCard from "../../../components/serviceCard/ServiceCard";
 import "./service.scss";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -39,26 +39,31 @@ export default function Services(props) {
     ChangeHeaderNavColorContext
   );
 
+  var { searchKey } = useParams();
+
   useEffect(() => {
-    setProgress(50)
+    setProgress(50);
     setChangeHeaderNavColor(true);
     fetchMoreData();
-  }, [searchCategory]);
+  }, [searchCategory, searchKey]);
 
-  const fetchMoreData = async() => {
-    console.log(searchCategory, searchCategory == "");
-    if (searchCategory == "") {
+  const fetchMoreData = async () => {
+    if (searchKey != undefined) {
+      await api.get(`/services/search/${searchKey}`).then((res) => {
+        setServicesList(servicesList.concat(res.data.services));
+        console.log(servicesList);
+      });
+    } else if (searchCategory == "") {
       await api.get("/services").then((res) => {
         setServicesList(servicesList.concat(res.data.services));
-        console.log(res.data, "LLL");
       });
     } else {
-      setSearchCategory("");
+      // setSearchCategory("");
       await api.get(`/services/category/${searchCategory}`).then((res) => {
         setServicesList(servicesList.concat(res.data.services));
       });
     }
-    setProgress(100)
+    setProgress(100);
   };
 
   return (

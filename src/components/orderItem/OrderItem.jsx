@@ -16,9 +16,11 @@ function OrderItem(props) {
   const [completeModal, setCompleteModal] = useState(0);
 
   return (
-    <div className="OrderItem">
+    <div
+      className={props.selected ? "OrderItem OrderItemSelected" : "OrderItem"}
+    >
       <div className="up">
-        <div className="seller">
+        <div className="seller" onClick={props.onClickOnHeader}>
           <div className="profile-img">
             <img
               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdXrN5H9Es9LsjxqNrUFbuEXtdc6q1457prQ&usqp=CAU"
@@ -33,16 +35,11 @@ function OrderItem(props) {
       </div>
       {/* <i className="fa-regular fa-trash-can"></i> */}
       <div className="down">
-        <Link to="/profile/orders/servicedetails" className="react-link">
+        <Link to={`/profile/orders/servicedetails/${props.id}`} className="react-link">
           <div className="service-view">
-            <img
-              src={`http://${API_IP_2}/${props.serviceImg}`}
-              alt=""
-            />
+            <img src={`http://${API_IP_2}/${props.serviceImg}`} alt="" />
             <div className="column">
-              <div className="title">
-                {props.title}
-              </div>
+              <div className="title">{props.title}</div>
               <div className="price">RS:2000</div>
             </div>
           </div>
@@ -102,6 +99,7 @@ function OrderItem(props) {
         <Modal
           onClick={() => {
             setAcceptModal(false);
+            props.onClickOnComplete();
           }}
           content={() => {
             return (
@@ -196,7 +194,9 @@ function OrderItem(props) {
                           { propName: "status", value: "completed" },
                           { propName: "price", value: orderPrice },
                         ])
-                        .then((res) => {});
+                        .then((res) => {
+                          props.onClickOnComplete();
+                        });
                     }}
                   >
                     Submit
@@ -239,7 +239,9 @@ function OrderItem(props) {
                           { propName: "paid", value: true },
                           { propName: "method", value: "online" },
                         ])
-                        .then((res) => {});
+                        .then((res) => {
+                          props.onClickOnComplete();
+                        });
                     }}
                   >
                     <i class="fa-regular fa-credit-card"></i>Pay Online
@@ -251,7 +253,9 @@ function OrderItem(props) {
                           { propName: "status", value: "completed" },
                           { propName: "method", value: "cash" },
                         ])
-                        .then((res) => {});
+                        .then((res) => {
+                          props.onClickOnComplete();
+                        });
                     }}
                   >
                     <i class="fa-regular fa-handshake"></i>Cash
