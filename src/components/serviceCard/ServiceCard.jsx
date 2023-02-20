@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./serviceCard.scss";
-import defaultImg from "../../assets/img/defaultpropic.jpg";
+import defaultImg from "../../assets/img/defaultpropic.png";
 import { API_IP_2 } from "../../helper/Context";
 
 function createContent(props) {
@@ -13,10 +13,20 @@ function createContent(props) {
         {props.type == "0" ? (
           <>
             <img
-              src={props.profile_img ? `http://${API_IP_2}/${props.profile_img}` : defaultImg}
+              src={
+                props.profile_img
+                  ? `http://${API_IP_2}/${props.profile_img}`
+                  : defaultImg
+              }
               alt=""
               className="seller-propic"
             />
+            {props.rating > 0 && (
+              <div className="rating">
+                <i class="fa-solid fa-star"></i>
+                <p>{props.rating}</p>
+              </div>
+            )}
 
             <div className="seller-details">
               <div className="seller-name">{props.name}</div>
@@ -25,7 +35,9 @@ function createContent(props) {
                 <div className="seller-city">{props.location}</div>
               </div>
             </div>
-            <div className="seller-price">5000LKR</div>
+            <div className="seller-price">
+              {props.price > 0 ? props.price + "LKR" : "N/D"}
+            </div>
           </>
         ) : (
           <></>

@@ -21,6 +21,8 @@ function Cart() {
   const fetchData = () => {
     api.get(`/api/suggestedServices/${user._id}`).then((res) => {
       setCartList(res.data);
+    }).catch((e)=>{
+      console.log(e);
     });
   };
 

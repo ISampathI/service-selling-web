@@ -38,6 +38,8 @@ import { CookiesProvider } from "react-cookie";
 import PendingOrderNav from "./pages/profile/profileDetailsNav/navOrder/PendingOrderNav";
 import LoadingBar from "react-top-loading-bar";
 import BuyerToSeller from "./pages/profile/profileDetailsNav/BuyerToSeller/BuyerToSeller";
+import AboutUs from "./pages/home/about/AboutUs";
+import EmailVerify from "./pages/signup/emailVerify/EmailVerify";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -60,6 +62,7 @@ function App() {
                     <Route path="/" element={<Home />}>
                       <Route path="" element={<Land />} />
                       <Route path="/cart" element={<Cart />} />
+                      <Route path="/aboutus" element={<AboutUs />} />
                       <Route path="/services" element={<Services />}>
                         <Route
                           path="servicedetails/:id"
@@ -95,6 +98,7 @@ function App() {
                       </Route>
                     </Route>
                     <Route path="/login" element={<Login />} />
+                    <Route path="/emailverify" element={<EmailVerify />} />
                     <Route path="/signup" element={<Signup />} />
                     <Route path="/profile" element={<Profile />}>
                       <Route path="services" element={<NServices />} />

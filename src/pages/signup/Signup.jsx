@@ -35,26 +35,29 @@ function Signup() {
 
   const doRegister = () => {
     setProgress(10);
-    if (password == confirmPassword) {
-      api
-        .post("/users/signup", {
-          username: userName,
-          firstName: firstName,
-          lastName: lastName,
-          email: email,
-          password: password,
-        })
-        .then((res) => {
-          if (res.data) {
-            navigate("/login");
-          }
-        })
-        .catch((e) => {
+    api
+      .post("/users/signup", {
+        username: userName,
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        password: password,
+      })
+      .then((res) => {
+        if (res.data) {
+          navigate("/login");
+        }
+      })
+      .catch((e) => {
+        if (password == confirmPassword && password != "") {
           setErrorDetails(e.response.data.error.errors);
-        });
-    } else {
-      console.log("password not matching");
-    }
+        } else {
+          let errors = e.response.data.error.errors;
+          errors["password"]="not mached"
+          setErrorDetails(errors);
+        }
+      });
+
     setProgress(100);
   };
   useEffect(() => {
@@ -119,6 +122,7 @@ function Signup() {
               <div className="input-row">
                 <input
                   type="text"
+                  style={errorDetails.password && { border: "1px solid red" }}
                   placeholder="Password"
                   value={password}
                   onChange={(e) => {
@@ -129,6 +133,7 @@ function Signup() {
               <div className="input-row">
                 <input
                   type="text"
+                  style={errorDetails.password && { border: "1px solid red" }}
                   placeholder="Confirm Password"
                   value={confirmPassword}
                   onChange={(e) => {

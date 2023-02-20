@@ -16,18 +16,22 @@ function CompletedOrdersNav() {
 
   useEffect(() => {
     fetchData();
-  }, [user, orderList]);
+  }, [user]);
 
   const fetchData = () => {
     if (user.userType == "seller" && user.isSellerActivated) {
       api.get(`/orders/seller-completed-orders/${user._id}`).then((res) => {
         setOrderList(res.data.orders);
         setActiveUser(res.data.orders ? res.data.orders[0] : null);
+      }).catch((e)=>{
+        console.log(e);
       });
     } else if (user.userType == "buyer" || user.isSellerActivated == false) {
       api.get(`/orders/buyer-completed-orders/${user._id}`).then((res) => {
         setOrderList(res.data.orders);
         setActiveUser(res.data.orders ? res.data.orders[0] : null);
+      }).catch((e)=>{
+        console.log(e);
       });
     }
 

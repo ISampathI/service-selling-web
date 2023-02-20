@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { API_IP, API_IP_2, ProgressBarContext } from "../../../helper/Context";
 import Footer from "../../../layouts/Footer";
+import SellerCardSkeleton from "../../../components/skeletons/SellerCardSkeleton";
 
 const api = axios.create({
   baseURL: `http://${API_IP_2}/api/`,
@@ -18,15 +19,17 @@ function Sellers(props) {
   const { progress, setProgress } = useContext(ProgressBarContext);
 
   useEffect(() => {
-    setProgress(20)
+    setProgress(20);
     fetchMoreData();
   }, []);
 
   const fetchMoreData = async() => {
     await api.get("/users/sellers").then((res) => {
       setSellersList(sellersList.concat(res.data.users));
+    }).catch((e)=>{
+      console.log(e);
     });
-    setProgress(100)
+    setProgress(100);
   };
 
   return (
@@ -50,20 +53,21 @@ function Sellers(props) {
           }
           className="infinite-scroll"
         >
-          {sellersList && sellersList.map((item, index) => (
-            <>
-              <SellerCard
-                username={item.username}
-                last_name={""}
-                profile_img={item.proPic}
-                about={item.about}
-                rating={item.rating}
-              />
-            </>
-          ))}
-          <div className="correct-margine"></div>
-          <div className="correct-margine"></div>
-          <div className="correct-margine"></div>
+          {sellersList.length > 0
+            ? sellersList.map((item, index) => (
+                <>
+                  <SellerCard
+                    username={item.username}
+                    last_name={""}
+                    profile_img={item.proPic}
+                    about={item.about}
+                    rating={item.rating}
+                  />
+                </>
+              ))
+            : Array(15)
+                .fill(1)
+                .map((item, index) => <SellerCardSkeleton />)}
         </InfiniteScroll>
       </div>
       <Footer />

@@ -15,12 +15,14 @@ function NewOrdersNav() {
 
   useEffect(() => {
     fetchData();
-  }, [user, orderList]);
+  }, [user]);
 
   const fetchData = () => {
     api.get(`/orders/seller-pending-orders/${user._id}`).then((res) => {
       setOrderList(res.data.orders);
-      setActiveUser(res.data.orders ? res.data.orders[0]: null);
+      setActiveUser(res.data.orders ? res.data.orders[0]: null).catch((e)=>{
+        console.log(e);
+      });
     });
   };
   return (

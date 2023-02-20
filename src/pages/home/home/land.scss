@@ -57,14 +57,16 @@
                 text-align: justify;
                 color: $text-color-3;
             }
-            .riple-btn{
+
+            .riple-btn {
                 width: 40%;
                 height: 60px;
                 margin-top: 50px;
                 position: relative;
                 border-radius: 30px;
+                background-color: $primary-color;
 
-                .react-link{
+                .react-link {
                     width: 100%;
                 }
             }
@@ -72,7 +74,7 @@
             .get-start-btn {
                 width: 100%;
                 height: 100%;
-                border: 0;         
+                border: 0;
                 font-size: 20px;
                 color: white;
                 background-color: $primary-color;
@@ -220,15 +222,23 @@
                     position: absolute;
                     border-radius: 50%;
                     z-index: 10;
-                    display: grid;
-                    place-content: center;
-                    font-size: 35px;
-                    color: white;
-                    cursor: pointer;
+                    overflow: hidden;
+
                     transition: transform 1s;
 
-                    &:hover{
+                    &:hover {
                         transform: scale(105%);
+                    }
+
+                    .riple-btn {
+                        width: 100%;
+                        height: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 35px;
+                        color: white;
+                        cursor: pointer;
                     }
                 }
 
@@ -348,7 +358,7 @@
                 height: 0px;
             }
 
-            .ServiceCard{
+            .ServiceCard {
                 margin-right: 30px;
             }
         }
@@ -446,6 +456,7 @@
 
                 p {
                     padding: 20px;
+
                     span {
                         font-size: 25px;
                         font-weight: 500;
@@ -493,13 +504,14 @@
                 text-align: center;
                 margin-bottom: 10px;
 
-    
-                .sub-text{
+
+                .sub-text {
                     font-size: 18px;
                     text-align: center;
                     color: $primary-color;
                     font-weight: 400;
                 }
+
                 span {
                     color: $primary-color;
                 }
@@ -518,15 +530,20 @@
                 width: 400px;
                 justify-content: space-between;
 
+                .riple-btn {
+                    margin-right: 10px;
+                    margin-top: 10px;
+                }
+
                 div {
                     height: 50px;
                     width: 150px;
-                    margin-right: 10px;
                     overflow: hidden;
-                    display: grid;
-                    place-content: center;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
                     cursor: pointer;
-                    margin-top: 10px;
+
                     border-radius: 25px;
                     background-color: $primary-color;
                     color: white;

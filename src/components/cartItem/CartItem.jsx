@@ -1,8 +1,12 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
-import defaultImg from "../../assets/img/defaultpropic.jpg";
+import defaultImg from "../../assets/img/defaultpropic.png";
 import { API_IP_2 } from "../../helper/Context";
 import "./cartItem.scss";
 
+const api = axios.create({
+  baseURL: `http://${API_IP_2}/api/`,
+});
 function CartItem(props) {
   const [checked, setChecked] = useState(false);
 

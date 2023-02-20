@@ -1,0 +1,136 @@
+@import "../../../assets/styles/variables";
+
+.AboutUs {
+    width: 100%;
+    height: 100vh;
+    overflow-y: auto;
+
+    .aboutus-wrapper {
+        width: 100%;
+        height: fit-content;
+        padding-inline: 5%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .about-us {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .title {
+            font-size: 45px;
+            font-weight: bold;
+            color: $text-color-3;
+            text-align: center;
+            margin-top: 100px;
+            margin-bottom: 30px;
+
+            span {
+                color: $primary-color;
+            }
+        }
+
+        .row {
+            display: flex;
+            width: 100%;
+            align-items: center;
+            justify-content: center;
+
+            img {
+                width: 30%;
+                aspect-ratio: 1/1;
+                object-fit: cover;
+                margin-right: 5%;
+
+                &:nth-child(2) {
+                    margin-left: 5%;
+                }
+            }
+
+            p {
+                width: 45%;
+                color: $text-color-3;
+                font-size: 20px;
+                padding: 10px;
+                padding-inline: 4%;
+                line-height: 35px;
+            }
+        }
+
+        .our-logo {
+            width: 100%;
+            padding-inline: 10%;
+            margin-top: 50px;
+
+            .logo-line {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 50px;
+
+                &:nth-child(2) {
+                    justify-content: center;
+
+                    img {
+                        margin-inline: 20px;
+                    }
+                }
+            }
+
+        }
+
+        .team {
+            .sub-text {
+                color: $text-color-2;
+                font-size: 17px;
+                text-align: center;
+            }
+
+            .team-members-list {
+                margin-top: 30px;
+                display: flex;
+                justify-content: center;
+
+                .member {
+                    width: 15%;
+                    height: 250px;
+                    padding: 20px;
+                    border-radius: 20px;
+                    background-color: white;
+                    box-shadow: rgba(0, 0, 0, 0.15) 3.4px 3.4px 10px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    margin: 10px;
+
+                    img {
+                        width: 70px;
+                        aspect-ratio: 1/1;
+                        border-radius: 50%;
+                    }
+
+                    .name {
+                        margin-top: 5px;
+                        font-size: 17px;
+                        font-weight: 500;
+                    }
+
+                    .age {
+                        font-size: 14px;
+                        color: $text-color-3;
+                        margin-bottom: 15px;
+                        opacity: 0.7;
+                    }
+
+                    .role {
+                        font-size: 15px;
+                        opacity: 0.9;
+                    }
+
+                }
+            }
+        }
+    }
+}

@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { Cookies } from "react-cookie";
 import { API_IP_2, UserContext } from "../../../helper/Context";
-import defaultImg from "../../../assets/img/defaultpropic.jpg";
+import defaultImg from "../../../assets/img/defaultpropic.png";
 
 const api = axios.create({
   baseURL: `http://${API_IP_2}/api/`,
@@ -16,7 +16,7 @@ function EditUserInfo() {
   const [addressLine1, setAddressLine1] = useState("");
   const [addressLine2, setAddressLine2] = useState("");
   const [city, setCity] = useState("");
-  const [district, setDistrict] = useState("");
+  const [district, setDistrict] = useState("colombo");
 
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -51,6 +51,7 @@ function EditUserInfo() {
       },
       proPic: imageFile,
     };
+    console.log(userObject);
     api
       .patch(`/users/${user._id}`, userObject, {
         headers: {
@@ -60,6 +61,9 @@ function EditUserInfo() {
       .then((res) => {
         setUser(res.data.user);
         console.log(res.data);
+      })
+      .catch((e) => {
+        console.log(e);
       });
   };
 
@@ -177,34 +181,34 @@ function EditUserInfo() {
                   name="district"
                   value={district}
                   onChange={(e) => {
-                    setCity(e.target.value);
+                    setDistrict(e.target.value);
                   }}
                 >
-                  <option value="Colombo">Colombo</option>
-                  <option value="Gampaha">Gampaha</option>
-                  <option value="Kalutara">Kalutara</option>
-                  <option value="Kandy">Kandy</option>
-                  <option value="Matale">Matale</option>
-                  <option value="Nuwara Eliya">Nuwara Eliya</option>
-                  <option value="Galle">Galle</option>
-                  <option value="Matara">Matara</option>
-                  <option value="Hambantota">Hambantota</option>
-                  <option value="Jaffna">Jaffna</option>
-                  <option value="Kilinochchi">Kilinochchi</option>
-                  <option value="Mannar">Mannar</option>
-                  <option value="Vavuniya">Vavuniya</option>
-                  <option value="Mullaitivu">Mullaitivu</option>
-                  <option value="Batticaloa">Batticaloa</option>
-                  <option value="Ampara">Ampara</option>
-                  <option value="Trincomalee">Trincomalee</option>
-                  <option value="Kurunegala">Kurunegala</option>
-                  <option value="Puttalam">Puttalam</option>
-                  <option value="Anuradhapura">Anuradhapura</option>
-                  <option value="Polonnaruwa">Polonnaruwa</option>
-                  <option value="Badulla">Badulla</option>
-                  <option value="Moneragala">Moneragala</option>
-                  <option value="Ratnapura">Ratnapura</option>
-                  <option value="Kegalle">Kegalle</option>
+                  <option value="colombo">Colombo</option>
+                  <option value="gampaha">Gampaha</option>
+                  <option value="kalutara">Kalutara</option>
+                  <option value="kandy">Kandy</option>
+                  <option value="matale">Matale</option>
+                  <option value="nuwara Eliya">Nuwara Eliya</option>
+                  <option value="galle">Galle</option>
+                  <option value="matara">Matara</option>
+                  <option value="hambantota">Hambantota</option>
+                  <option value="jaffna">Jaffna</option>
+                  <option value="kilinochchi">Kilinochchi</option>
+                  <option value="mannarama">Mannarama</option>
+                  <option value="vavuniya">Vavuniya</option>
+                  <option value="mullaitivu">Mullaitivu</option>
+                  <option value="batticaloa">Batticaloa</option>
+                  <option value="ampara">Ampara</option>
+                  <option value="trincomalee">Trincomalee</option>
+                  <option value="kurunegala">Kurunegala</option>
+                  <option value="puttalam">Puttalam</option>
+                  <option value="anuradhapura">Anuradhapura</option>
+                  <option value="polonnaruwa">Polonnaruwa</option>
+                  <option value="badulla">Badulla</option>
+                  <option value="moneragala">Moneragala</option>
+                  <option value="ratnapura">Ratnapura</option>
+                  <option value="kegalle">Kegalle</option>
                 </select>
               </div>
             </div>

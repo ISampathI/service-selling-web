@@ -21,7 +21,7 @@ function EditSellerInfo() {
   useEffect(() => {
     setImage(user.proPic && `http://${API_IP_2}/${user.proPic}`);
     setJob(user.job && user.job);
-    setDob(user.dob && user.dob.split("T")[0])
+    setDob(user.dob && user.dob.split("T")[0]);
     setAbout(user.about && user.about);
     setAvailability(user.availability && user.availability);
     setLocation(user.location && user.location);
@@ -37,14 +37,17 @@ function EditSellerInfo() {
       proPic: imageFile,
     };
     api
-      .patch(`/users/${user.username}`, userObject, {
+      .patch(`/users/${user._id}`, userObject, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       })
       .then((res) => {
         setUser(res.data);
-        console.log(res.data.user);
+        console.log(res.data.user, "LL");
+      })
+      .catch((e) => {
+        console.log(e);
       });
   };
 

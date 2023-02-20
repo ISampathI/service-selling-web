@@ -9,7 +9,7 @@ import {
 } from "../../../../helper/Context";
 import Footer from "../../../../layouts/Footer";
 import "./sellerDetails.scss";
-import defaultImg from "../../../../assets/img/defaultpropic.jpg";
+import defaultImg from "../../../../assets/img/defaultpropic.png";
 import Rating from "../../../../components/rating/Rating";
 
 const api = axios.create({
@@ -33,6 +33,8 @@ export default function SellerDetails(props) {
     setProgress(30);
     api.get(`/users/${username}`).then((res) => {
       setSellerDetails(res.data);
+    }).catch((e)=>{
+      console.log(e);
     });
     setProgress(100);
   };

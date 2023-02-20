@@ -55,9 +55,14 @@ export default function ServiceDetails(props) {
 
   const fetchData = async () => {
     setProgress(30);
-    await api.get(`/services/${id}`).then((res) => {
-      setServiceDetails(res.data.service);
-    });
+    await api
+      .get(`/services/specific/${id}`)//specific
+      .then((res) => {
+        setServiceDetails(res.data.service);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
     setProgress(100);
   };
   const switchBuyer = () => {
@@ -74,6 +79,9 @@ export default function ServiceDetails(props) {
       .then((res) => {
         setUser(res.data);
         console.log(res.data);
+      })
+      .catch((e) => {
+        console.log(e);
       });
   };
 
@@ -106,7 +114,13 @@ export default function ServiceDetails(props) {
               }}
               className="fa-solid fa-share-nodes"
             ></i>
-            <i onClick={() => {}} className="fa-solid fa-cart-shopping"></i>
+            <i
+              onClick={() => {
+                alert(id);
+                // api.post("/api/users/", {}).then(() => {alert(serviceDetails.service._id)});
+              }}
+              className="fa-solid fa-cart-shopping"
+            ></i>
           </div>
           <div className="title">
             {serviceDetails.service && serviceDetails.service.title}

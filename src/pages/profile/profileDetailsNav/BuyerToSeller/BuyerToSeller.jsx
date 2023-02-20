@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Cookies } from "react-cookie";
 import { API_IP_2, UserContext } from "../../../../helper/Context";
 import "./buyerToSeller.scss";
-import defaultImg from "../../../../assets/img/defaultpropic.jpg";
+import defaultImg from "../../../../assets/img/defaultpropic.png";
 
 const api = axios.create({
   baseURL: `http://${API_IP_2}/api/`,
@@ -62,6 +62,8 @@ function BuyerToSeller() {
       })
       .then((res) => {
         setUser(res.data);
+      }).catch((e)=>{
+        console.log(e);
       });
   };
 
@@ -99,6 +101,8 @@ function BuyerToSeller() {
       })
       .then((res) => {
         setUser(res.data);
+      }).catch((e)=>{
+        console.log(e);
       });
   };
 

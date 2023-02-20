@@ -38,7 +38,7 @@ export default function Profile(props) {
   const [showProfileCard, setShowProfileCard] = useState(false);
 
   useEffect(() => {
-    setProgress(20)
+    setProgress(20);
     api
       .post(
         "/api/users/check-token",
@@ -56,18 +56,21 @@ export default function Profile(props) {
           console.log(res.data);
           //navigate("/");
         }
+      })
+      .catch((e) => {
+        console.log(e);
       });
-      setProgress(100)
+    setProgress(100);
   }, []);
   return (
     <>
-    <LoadingBar
-          className="loading-bar"
-          progress={progress}
-          height="5px"
-          shadowStyle={{ display: "none" }}
-          onLoaderFinished={() => setProgress(0)}
-        />
+      <LoadingBar
+        className="loading-bar"
+        progress={progress}
+        height="5px"
+        shadowStyle={{ display: "none" }}
+        onLoaderFinished={() => setProgress(0)}
+      />
       <ProfileHeader />
       <div
         className="ProfileDetails"

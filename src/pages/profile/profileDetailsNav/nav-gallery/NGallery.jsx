@@ -23,9 +23,15 @@ function NGallery() {
   }, [user]);
 
   const fetchData = () => {
-    api.get(`/gallery/${user._id}`).then((res) => {
-      setGallery(res.data.images);
-    });
+    api
+      .get(`/gallery/${user._id}`)
+      .then((res) => {
+        setGallery(res.data.images);
+        console.log(res.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
 
   return (
@@ -44,22 +50,26 @@ function NGallery() {
               api
                 .post(
                   `/gallery`,
-                  { img: imageFile, username: user.username },
+                  { img: e.target.files[0], username: user.username },
                   {
                     headers: {
                       "Content-Type": "multipart/form-data",
                     },
                   }
                 )
-                .then((res) => {});
+                .then((res) => {console.log(res);})
+                .catch((e) => {
+                  console.log(e);
+                });
             }}
           />
           <i class="fa-solid fa-circle-plus"></i>
           <p>Add New Image</p>
         </label>
-        {gallery && gallery.map((item, index) => (
-          <img src={`http://${API_IP_2}/${item.img}`} alt="" />
-        ))}
+        {gallery &&
+          gallery.map((item, index) => (
+            <img src={`http://${API_IP_2}/${item.img}`} alt="" />
+          ))}
         <div className="add-new-image add-new-image-h"></div>
         <div className="add-new-image add-new-image-h"></div>
         <div className="add-new-image add-new-image-h"></div>

@@ -5,7 +5,7 @@ import axios from "axios";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import { API_IP, API_IP_2, UserContext } from "../../../../helper/Context";
 import { createContext } from "react";
-import defaultImg from "../../../../assets/img/defaultpropic.jpg";
+import defaultImg from "../../../../assets/img/defaultpropic.png";
 
 const api = axios.create({
   baseURL: `http://${API_IP_2}/api/`,
@@ -24,6 +24,8 @@ function NOrder() {
   const fetchData = () => {
     api.get("/services").then((res) => {
       setOrderList(res.data);
+    }).catch((e)=>{
+      console.log(e);
     });
   };
 

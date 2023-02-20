@@ -10,7 +10,8 @@ import {
   UserContext,
 } from "../helper/Context";
 import { useCookies } from "react-cookie";
-import defaultImg from "../assets/img/defaultpropic.jpg";
+import defaultImg from "../assets/img/defaultpropic.png";
+import Ripples from "react-ripples";
 
 const api = axios.create({
   baseURL: `http://${API_IP_2}/`,
@@ -60,7 +61,13 @@ export default function AppHeader(props) {
               }
             }}
           />
-          <i className="fa-solid fa-magnifying-glass"></i>
+          <Ripples
+            className="riple-btn"
+            color="rgba(255,255,255, 0.5)"
+            during={1200}
+          >
+            <i className="fa-solid fa-magnifying-glass"></i>
+          </Ripples>
         </div>
         <div className="nav-bar">
           <NavLink
@@ -88,7 +95,7 @@ export default function AppHeader(props) {
             <nav>Sellers</nav>
           </NavLink>
           <NavLink
-            to="/whyhirenow"
+            to="/aboutus"
             className={({ isActive }) =>
               isActive ? "active-nav" : "text-link"
             }
@@ -140,7 +147,9 @@ export default function AppHeader(props) {
                     >
                       <li>My Profile</li>
                     </Link>
-                    <li>My Cart</li>
+                    <Link className="react-link" to="/cart">
+                      <li>My Cart</li>
+                    </Link>
                     <li>Message Center</li>
                     <li onClick={doLogout}>Log Out</li>
                   </ul>

@@ -12,6 +12,7 @@ import {
   ProgressBarContext,
 } from "../../../helper/Context";
 import Footer from "../../../layouts/Footer";
+import ServiceCardSkeleton from "../../../components/skeletons/ServiceCardSkeleton";
 
 const api = axios.create({
   baseURL: `http://${API_IP_2}/api/`,
@@ -38,6 +39,7 @@ export default function Services(props) {
   const { changeHeaderNavColor, setChangeHeaderNavColor } = useContext(
     ChangeHeaderNavColorContext
   );
+  var servicePage = 1;
 
   var { searchKey } = useParams();
 
@@ -49,19 +51,35 @@ export default function Services(props) {
 
   const fetchMoreData = async () => {
     if (searchKey != undefined) {
-      await api.get(`/services/search/${searchKey}`).then((res) => {
-        setServicesList(servicesList.concat(res.data.services));
-        console.log(servicesList);
-      });
+      await api
+        .get(`/services/search/${searchKey}`)
+        .then((res) => {
+          setServicesList(servicesList.concat(res.data.services));
+          console.log(servicesList);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     } else if (searchCategory == "") {
-      await api.get("/services").then((res) => {
-        setServicesList(servicesList.concat(res.data.services));
-      });
+      await api
+        .get(`/services/${servicesList.length + 1}`)
+        .then((res) => {
+          console.log(res);
+          setServicesList(servicesList.concat(res.data.services));
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     } else {
       // setSearchCategory("");
-      await api.get(`/services/category/${searchCategory}`).then((res) => {
-        setServicesList(servicesList.concat(res.data.services));
-      });
+      await api
+        .get(`/services/category/${searchCategory}`)
+        .then((res) => {
+          setServicesList(servicesList.concat(res.data.services));
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     }
     setProgress(100);
   };
@@ -98,22 +116,29 @@ export default function Services(props) {
           // }
           className="infinite-scroll"
         >
-          {servicesList.map((item, index) => (
-            <>
-              <ServiceCard
-                name={item.name}
-                profile_img={item.proPic}
-                service_img={`http://${API_IP_2}/${item.serviceImg}`}
-                title={item.title}
-                location={item.location}
-                id={item._id}
-                type="0"
-              />
-            </>
-          ))}
-          <div className="correct-margine"></div>
-          <div className="correct-margine"></div>
-          <div className="correct-margine"></div>
+          {servicesList.length > 0
+            ? servicesList.map((item, index) => (
+                <>
+                  <ServiceCard
+                    name={item.name}
+                    profile_img={item.proPic}
+                    service_img={`http://${API_IP_2}/${item.serviceImg}`}
+                    title={item.title}
+                    location={item.location}
+                    id={item._id}
+                    type="0"
+                    price={item.price}
+                    rating={item.rating}
+                  />
+                </>
+              ))
+            : Array(15)
+                .fill(1)
+                .map((item, index) => (
+                  <>
+                    <ServiceCardSkeleton type="0" />
+                  </>
+                ))}
         </InfiniteScroll>
       </div>
       <Footer />

@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Await, useNavigate, useParams } from "react-router-dom";
 import { API_IP_2, UserContext } from "../../../helper/Context";
 import ImageUploading from "react-images-uploading";
 import "./editService.scss";
@@ -12,14 +12,15 @@ const api = axios.create({
 });
 
 function EditService(props) {
+  const navigate = useNavigate();
   const [serviceDetails, setServiceDetails] = useState({});
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState([]);
   const [imageFile, setImageFile] = useState({});
   const [categoryList, setCategoryList] = useState([]);
-  const [category, setCategory] = useState("Other");
-  const [ROP, setROP] = useState("Negotiable");
+  const [category, setCategory] = useState("");
+  const [ROP, setROP] = useState("negotiable");
   const [price, setPrice] = useState();
   const [cookies, setCookie] = useCookies();
 
@@ -31,12 +32,18 @@ function EditService(props) {
     if (props.type != "new") {
       fetchData();
     }
-    api.get(`/categories`).then((res) => {
-      setCategoryList(res.data.categories);
-    });
+    api
+      .get(`/categories`)
+      .then((res) => {
+        setCategoryList(res.data.categories);
+        category == "" && setCategory(res.data.categories[0]._id);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   }, [id]);
 
-  const updateService = () => {
+  const updateService = async () => {
     const serviceObject = {
       title: title,
       serviceImg: imageFile,
@@ -45,44 +52,77 @@ function EditService(props) {
       rop: ROP,
       price: price,
     };
-    api
+    console.log(serviceObject);
+    await api
       .patch(`/services/${id}`, serviceObject, {
+        headers: {
+          accept: "application/json",
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  const createService = async () => {
+    console.log({
+      title: title,
+      description: description,
+      serviceImg: imageFile,
+      category: category,
+      provider: user._id,
+      rop: ROP,
+      price: price,
+    });
+    const serviceObject = {
+      title: title,
+      description: description,
+      serviceImg: imageFile,
+      category: category,
+      provider: user._id,
+      rop: ROP,
+      price: price,
+    };
+    // var data = new FormData();
+    // await data.append("data",data)
+    // console.log(data);
+    await api
+      .post(`/services`, serviceObject, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       })
-      .then((res) => {});
-  };
-
-  const createService = () => {
-    api
-      .post(
-        `/services`,
-        {
-          title: title,
-          description: description,
-          serviceImg: imageFile,
-          category: category,
-          provider: user._id,
-          rop: ROP,
-          price: price,
-        },
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      )
-      .then((res) => {});
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
   const fetchData = () => {
-    api.get(`/services/${id}`).then((res) => {
-      setServiceDetails(res.data.service);
-      setTitle(res.data.service.service.title);
-      setDescription(res.data.service.service.description);
-      setImage(res.data.service.service.serviceImg);
-      console.log(res.data);
-    });
+    api
+      .get(`/services/specific/${id}`)
+      .then((res) => {
+        setServiceDetails(res.data.service);
+        setTitle(res.data.service.service.title);
+        setDescription(res.data.service.service.description);
+        setImage(`http://${API_IP_2}/${res.data.service.service.serviceImg}`);
+        setCategory(res.data.service.service.category);
+        setPrice(
+          res.data.service.service.rateOfPayment == "negotiable"
+            ? ""
+            : res.data.service.service.price
+        );
+        setROP(res.data.service.service.rateOfPayment);
+        console.log(res);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
   const onChange = (image, addUpdateIndex) => {
     setImage(image);
@@ -94,7 +134,7 @@ function EditService(props) {
           {props.type == "new" ? "Service > New" : "Service > Edit"}
         </div>
         <div className="edit-service-container">
-          <form>
+          <div className="form">
             <label htmlFor="">Title</label>
             <input
               type="text"
@@ -127,17 +167,17 @@ function EditService(props) {
                     setROP(e.target.value);
                   }}
                 >
-                  <option>Hourly</option>
-                  <option>Daily</option>
-                  <option>Monthly</option>
-                  <option>Negotiable</option>
+                  <option value="hourly">Hourly</option>
+                  <option value="daily">Daily</option>
+                  <option value="monthly">Monthly</option>
+                  <option value="negotiable">Negotiable</option>
                 </select>
               </div>
               <div className="column">
                 <label htmlFor="">Price</label>
                 <input
-                  type="text"
-                  value={price}
+                  type="number"
+                  value={ROP != "negotiable" ? price : ""}
                   onChange={(e) => {
                     setPrice(e.target.value);
                   }}
@@ -154,7 +194,7 @@ function EditService(props) {
             <label htmlFor="">Service image</label>
 
             <div className="service-img">
-              {image != "" && <img src={`http://${API_IP_2}/${image}`} />}
+              {image != "" && <img src={image} />}
 
               <label class="upload-np-btn">
                 <i class="fa-solid fa-cloud-arrow-up"></i>
@@ -238,9 +278,16 @@ function EditService(props) {
                 >
                   <button
                     className="delete-service button"
-                    // onClick={() => {
-                    //   api.delete(`services/${id}`).then((res) => {});
-                    // }}
+                    onClick={() => {
+                      api
+                        .delete(`services/${id}`)
+                        .then((res) => {
+                          navigate("/profile/services");
+                        })
+                        .catch((e) => {
+                          console.log(e);
+                        });
+                    }}
                   >
                     <i className="fa-solid fa-trash-can"></i>Delete
                   </button>
@@ -249,7 +296,7 @@ function EditService(props) {
             ) : (
               <></>
             )}
-          </form>
+          </div>
 
           {/* {props.type != "new" ? (
             <div className="edit-service-view">

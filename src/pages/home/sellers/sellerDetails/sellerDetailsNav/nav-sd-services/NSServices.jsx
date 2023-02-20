@@ -22,6 +22,8 @@ function NSServices() {
   const fetchData = () => {
     api.get(`/services/seller-services/${username}`).then((res) => {
       setServicesList(res.data.services);
+    }).catch((e)=>{
+      console.log(e);
     });
   };
 

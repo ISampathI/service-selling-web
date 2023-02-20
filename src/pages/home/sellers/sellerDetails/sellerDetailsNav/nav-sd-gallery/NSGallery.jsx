@@ -22,6 +22,8 @@ function NSGallery() {
   const fetchData = () => {
     api.get(`/gallery/${username}`).then((res) => {
       setImgList(res.data.images);
+    }).catch((e)=>{
+      console.log(e);
     });
   };
   return (

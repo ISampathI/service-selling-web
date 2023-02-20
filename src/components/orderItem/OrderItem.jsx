@@ -4,16 +4,18 @@ import { Link } from "react-router-dom";
 import { API_IP_2, UserContext } from "../../helper/Context";
 import Modal from "../modal/Modal";
 import "./orderItem.scss";
+import Ripples from "react-ripples";
 
 const api = axios.create({
   baseURL: `http://${API_IP_2}/api/`,
 });
 function OrderItem(props) {
   const { user, setUser } = useContext(UserContext);
-  const [orderPrice, setOrderPrice] = useState(0);
+  const [orderPrice, setOrderPrice] = useState();
   const [acceptModal, setAcceptModal] = useState(false);
   const [denyModal, setDenyModal] = useState(0);
   const [completeModal, setCompleteModal] = useState(0);
+  const [ratingStares, setRatingStares] = useState(1);
 
   return (
     <div
@@ -23,7 +25,7 @@ function OrderItem(props) {
         <div className="seller" onClick={props.onClickOnHeader}>
           <div className="profile-img">
             <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdXrN5H9Es9LsjxqNrUFbuEXtdc6q1457prQ&usqp=CAU"
+              src={props.proPic}
               alt=""
             />
           </div>
@@ -35,7 +37,10 @@ function OrderItem(props) {
       </div>
       {/* <i className="fa-regular fa-trash-can"></i> */}
       <div className="down">
-        <Link to={`/profile/orders/servicedetails/${props.id}`} className="react-link">
+        <Link
+          to={`/profile/orders/servicedetails/${props.id}`}
+          className="react-link"
+        >
           <div className="service-view">
             <img src={`http://${API_IP_2}/${props.serviceImg}`} alt="" />
             <div className="column">
@@ -157,6 +162,65 @@ function OrderItem(props) {
           }}
         />
       )}
+      {1 && (
+        <Modal
+          content={() => {
+            return (
+              <div className="review-modal">
+                <div className="title">Service Review</div>
+                <img src="" alt="" />
+                <div className="name">{props.name}m</div>
+                <p>Rate and review the service</p>
+                <div className="stars">
+                  {/* <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i> */}
+                  <i
+                    onClick={() => {
+                      setRatingStares(1);
+                    }}
+                    class={ratingStares >= 1 ? "fa-solid fa-star":"fa-regular fa-star"}
+                  ></i>
+                  <i
+                    onClick={() => {
+                      setRatingStares(2);
+                    }}
+                    class={ratingStares >= 2 ? "fa-solid fa-star":"fa-regular fa-star"}
+                  ></i>
+                  <i
+                    onClick={() => {
+                      setRatingStares(3);
+                    }}
+                    class={ratingStares >= 3 ? "fa-solid fa-star":"fa-regular fa-star"}
+                  ></i>
+                  <i
+                    onClick={() => {
+                      setRatingStares(4);
+                    }}
+                    class={ratingStares >= 4 ? "fa-solid fa-star":"fa-regular fa-star"}
+                  ></i>
+                  <i
+                    onClick={() => {
+                      setRatingStares(5);
+                    }}
+                    class={ratingStares >= 5 ? "fa-solid fa-star":"fa-regular fa-star"}
+                  ></i>
+                </div>
+                <textarea />
+                <Ripples
+                  className="riple-btn"
+                  color="rgba(255,255,255, 0.5)"
+                  during={1200}
+                >
+                  <button onClick={""}>Submit Review</button>
+                </Ripples>
+              </div>
+            );
+          }}
+        ></Modal>
+      )}
       {completeModal == 1 && (
         <Modal
           exit_btn="true"
@@ -183,20 +247,21 @@ function OrderItem(props) {
                       setOrderPrice(e.target.value);
                     }}
                     placeholder="Enter Amount"
-                    type="text"
+                    type="number"
                   />
                 </div>
                 <div className="buttons">
                   <button
                     onClick={() => {
-                      api
-                        .patch(`/orders/${props.orderId}`, [
-                          { propName: "status", value: "completed" },
-                          { propName: "price", value: orderPrice },
-                        ])
-                        .then((res) => {
-                          props.onClickOnComplete();
-                        });
+                      // api
+                      //   .patch(`/orders/${props.orderId}`, [
+                      //     { propName: "status", value: "completed" },
+                      //     { propName: "price", value: orderPrice },
+                      //   ])
+                      //   .then((res) => {
+                      //     props.onClickOnComplete();
+                      //   });
+                      setCompleteModal(0);
                     }}
                   >
                     Submit

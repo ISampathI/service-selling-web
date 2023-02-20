@@ -31,31 +31,40 @@
         width: 150px;
         aspect-ratio: 1/1;
         border-radius: 50%;
-        border: 1px solid $border-color-2
+        border: 1px solid $border-color-2;
+        object-fit: cover;
     }
 
     .seller-name {
+        margin-top: 10px;
         width: 90%;
         display: flex;
         margin-inline: 10px;
         color: $text-color;
         font-weight: 600;
-        margin-top: 5px;
         border-bottom: 2px solid $border-color-2;
         justify-content: center;
-        padding-top: 10px;
         padding-bottom: 3px;
     }
 
-    .seller-rank {
-        display: none;
-    }
+    .rating {
+        margin-top: 5px;
+        display: flex;
+        align-items: center;
+        background-color: $primary-color;
+        padding: 1px;
+        padding-inline: 7px;
+        border-radius: 10px;
+        font-weight: 500;
+        color: white;
 
-    .seller-ratings {
         i {
-            color: $primary-color;
-            opacity: 0.6;
-            display: none;
+            font-size: 14px;
+            margin-right: 5px;
+            color: rgb(248, 206, 1);
+        }
+        p{
+            font-size: 14px;
         }
     }
 
@@ -65,41 +74,9 @@
         height: 80px;
         margin-top: auto;
         margin-bottom: 8px;
-        margin-top: 10px;
+        margin-top: 5px;
         color: $text-color;
         font-weight: 500;
-    }
-
-    .buttons {
-        display: flex;
-        width: 100%;
-        margin-top: auto;
-        margin-bottom: 10px;
-        justify-content: space-between;
-        display: none;
-
-        button {
-            width: 47%;
-            height: 30px;
-            border: 0;
-            margin-top: auto;
-            font-size: 15px;
-            color: white;
-            background-color: $primary-color;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .view-profile-btn {
-            color: white;
-            text-decoration: none;
-        }
-
-        .contact-now-btn {
-            background-color: transparent;
-            color: $primary-color;
-            border: 1px solid $primary-color;
-        }
     }
 }
 

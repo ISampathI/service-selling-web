@@ -89,6 +89,7 @@
             color: white;
             background-color: $primary-color;
             border-radius: 50%;
+            cursor: pointer;
         }
 
         @include breakpoint(1120px) {

@@ -10,7 +10,7 @@ import {
 } from "../../../helper/Context";
 import Footer from "../../../layouts/Footer";
 import { Cookies, useCookies } from "react-cookie";
-import defaultImg from "../../../assets/img/defaultpropic.jpg";
+import defaultImg from "../../../assets/img/defaultpropic.png";
 
 const api = axios.create({
   baseURL: `http://${API_IP_2}/`,

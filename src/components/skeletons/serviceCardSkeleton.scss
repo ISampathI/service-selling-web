@@ -1,0 +1,85 @@
+@import "../../assets/styles/variables";
+
+.ServiceCardSkeleton {
+    width: 230px;
+    height: 275px;
+    margin-bottom: 25px;
+    margin: 10px;
+    overflow: hidden;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    padding-bottom: 10px;
+
+    .img {
+        width: calc(100% - 14px);
+        aspect-ratio: 1/1;
+        overflow: hidden;
+        object-fit: cover;
+        border-radius: 15px;
+        margin: 7px;
+        background-color: rgb(222, 221, 222);
+    }
+
+    .rating {
+        position: absolute;
+        top: 14px;
+        right: 14px;
+        display: flex;
+        align-items: center;
+        background-color: rgb(222, 221, 222);
+        padding-inline: 7px;
+        border-radius: 10px;
+        font-weight: 500;
+        box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+
+        i {
+            font-size: 15px;
+            margin-right: 5px;
+            color: rgb(248, 206, 1);
+            background-color: rgb(222, 221, 222);
+        }
+    }
+
+    .service-title {
+        font-size: 1em;
+        height: 20px;
+        font-weight: 500;
+        text-align: justify;
+        padding-inline: 5px;
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+        margin-inline: 15px;
+        background-color: rgb(222, 221, 222);
+        border-radius: 5px;
+    }
+
+    .seller {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        padding-inline: 10px;
+
+        .seller-propic {
+            width: 30px;
+            height: 30px;
+            border-radius: 25px;
+            background-color: rgb(222, 221, 222);
+
+        }
+
+        .seller-details {
+            display: flex;
+            min-width: calc(100% - 40px);
+            flex-direction: column;
+            margin-left: 5px;
+            font-size: 15px;
+            justify-content: center;
+            background-color: rgb(222, 221, 222);
+            color: transparent;
+            border-radius: 5px;
+        }
+    }
+}

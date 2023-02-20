@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { API_IP_2, LoginContext, UserContext } from "../../../helper/Context";
 import "./profileCard.scss";
-import defaultImg from "../../../assets/img/defaultpropic.jpg";
+import defaultImg from "../../../assets/img/defaultpropic.png";
 
 function Profile() {
   const { loggedIn } = useContext(LoginContext);

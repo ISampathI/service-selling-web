@@ -22,6 +22,7 @@ import "./home.scss";
 import Footer from "../../layouts/Footer";
 import { useCookies } from "react-cookie";
 import LoadingBar from "react-top-loading-bar";
+import Ripples from "react-ripples";
 
 const api = axios.create({
   baseURL: `http://${API_IP_2}/`,
@@ -54,6 +55,8 @@ function Home() {
             setLoggedIn(true);
           }
         }
+      }).catch((e)=>{
+        console.log(e);
       });
   }, []);
 

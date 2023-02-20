@@ -21,9 +21,14 @@ function NServices() {
   }, [user]);
 
   const fetchData = () => {
-    api.get(`/services/seller-services/${user.username}`).then((res) => {
-      setServicesList(res.data.services);
-    });
+    api
+      .get(`/services/seller-services/${user.username}`)
+      .then((res) => {
+        setServicesList(res.data.services);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
 
   return (
@@ -34,14 +39,15 @@ function NServices() {
           <i class="fa-solid fa-circle-plus"></i>
           <p>Create New Service</p>
         </Link>
-        {servicesList && servicesList.map((item, index) => (
-          <ServiceCard
-            service_img={`http://${API_IP_2}/${item.serviceImg}`}
-            title={item.title}
-            id={item._id}
-            type="2"
-          />
-        ))}
+        {servicesList &&
+          servicesList.map((item, index) => (
+            <ServiceCard
+              service_img={`http://${API_IP_2}/${item.serviceImg}`}
+              title={item.title}
+              id={item._id}
+              type="2"
+            />
+          ))}
         <div className="add-new-service add-new-service-h"></div>
         <div className="add-new-service add-new-service-h"></div>
         <div className="add-new-service add-new-service-h"></div>

@@ -1,0 +1,69 @@
+@import "../../assets/styles/variables";
+
+.SellerCardSkeleton {
+    width: 230px;
+    height: 275px;
+    margin-bottom: 25px;
+    margin: 10px;
+    overflow: hidden;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    position: relative;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    padding-bottom: 10px;
+    align-items: center;
+    padding: 10px;
+    padding-inline: 15px;
+    position: relative;
+
+    .img {
+        width: 150px;
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+        object-fit: cover;
+        background-color: rgb(222, 221, 222);
+    }
+
+    .seller-name {
+        margin-top: 10px;
+        width: 90%;
+        height: 20px;
+        display: flex;
+        margin-inline: 10px;
+        color: $text-color;
+        font-weight: 600;
+        justify-content: center;
+        padding-bottom: 3px;
+        background-color: rgb(222, 221, 222);
+        border-radius: 5px;
+    }
+
+    .rating {
+        margin-top: 5px;
+        display: flex;
+        height: 27px;
+        width: 50px;
+        align-items: center;
+        padding: 1px;
+        padding-inline: 7px;
+        border-radius: 10px;
+        font-weight: 500;
+        background-color: rgb(222, 221, 222);
+        display: none;
+    }
+
+    .seller-details-container {
+        font-size: 13.5px;
+        text-align: center;
+        width: 100%;
+        height: 50px;
+        margin-bottom: 8px;
+        margin-top: 15px;
+        color: $text-color;
+        font-weight: 500;
+        border-radius: 5px;
+        background-color: rgb(222, 221, 222);
+    }
+}

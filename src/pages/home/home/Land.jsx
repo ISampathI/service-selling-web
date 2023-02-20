@@ -16,10 +16,12 @@ import {
   ChangeHeaderNavColor,
   ChangeHeaderNavColorContext,
   ProgressBarContext,
+  UserContext,
 } from "../../../helper/Context";
 import Footer from "../../../layouts/Footer";
 import { Link } from "react-router-dom";
 import Ripples from "react-ripples";
+import ServiceCardSkeleton from "../../../components/skeletons/ServiceCardSkeleton";
 
 const api = axios.create({
   baseURL: `http://${API_IP_2}/`,
@@ -33,6 +35,7 @@ export default function Home(props) {
   const [populerServicesList, setPopulerServices] = useState([]);
   const [platformStatus, setPlatformStatus] = useState([]);
   const { progress, setProgress } = useContext(ProgressBarContext);
+  const { user, setUser } = useContext(UserContext);
 
   const { changeHeaderNavColor, setChangeHeaderNavColor } = useContext(
     ChangeHeaderNavColorContext
@@ -41,7 +44,7 @@ export default function Home(props) {
   useEffect(() => {
     setProgress(30);
     fetchData();
-  }, []);
+  }, [user]);
   var handleScroll = (event) => {
     const scrollTop = event.target.scrollTop;
     if (scrollTop > 0) {
@@ -52,19 +55,70 @@ export default function Home(props) {
   };
 
   const fetchData = async () => {
-    await api.get("/api/categories").then((res) => {
-      setCategoryList(res.data.categories);
-    });
-    await api.get("/api/services/suggested").then((res) => {
-      setSuggestedServicesList(res.data.services);
-    });
+    await api
+      .get(
+        "/api/categories",
+        {},
+        {
+          headers: {
+            "ngrok-skip-browser-warning": "any",
+          },
+        }
+      )
+      .then((res) => {
+        setCategoryList(res.data.categories);
+      });
+    await api
+      .get(
+        user._id
+          ? `/api/services/suggested/${user._id}`
+          : `/api/services/suggested/`,
+        {},
+        {
+          headers: {
+            "ngrok-skip-browser-warning": "any",
+          },
+        }
+      )
+      .then((res) => {
+        setSuggestedServicesList(res.data.services);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
     setProgress(50);
-    await api.get("/api/services/popular").then((res) => {
-      setPopulerServices(res.data.services);
-    });
-    await api.get("/api/users/platform-status").then((res) => {
-      setPlatformStatus(res.data.status);
-    });
+    await api
+      .get(
+        "/api/services/popular",
+        {},
+        {
+          headers: {
+            "ngrok-skip-browser-warning": "any",
+          },
+        }
+      )
+      .then((res) => {
+        setPopulerServices(res.data.services);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+    await api
+      .get(
+        "/api/users/platform-status",
+        {},
+        {
+          headers: {
+            "ngrok-skip-browser-warning": "any",
+          },
+        }
+      )
+      .then((res) => {
+        setPlatformStatus(res.data.status);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
     setProgress(100);
   };
 
@@ -130,21 +184,29 @@ export default function Home(props) {
             <br /> on <span>Hire</span> Now!
           </div>
           <div className="ul-cat-wrap">
-            <div
-              className="slid-btn slid-btn-l"
-              onClick={() => {
-                scrollElement.current.scrollLeft -= 200;
-              }}
-            >
-              <i class="fa-solid fa-angle-left"></i>
+            <div className="slid-btn slid-btn-l">
+              <Ripples
+                onClick={() => {
+                  scrollElement.current.scrollLeft -= 200;
+                }}
+                className="riple-btn"
+                color="rgba(255,255,255, 0.5)"
+                during={1200}
+              >
+                <i class="fa-solid fa-angle-left"></i>
+              </Ripples>
             </div>
-            <div
-              className="slid-btn slid-btn-r"
-              onClick={() => {
-                scrollElement.current.scrollLeft += 200;
-              }}
-            >
-              <i class="fa-solid fa-angle-right"></i>
+            <div className="slid-btn slid-btn-r">
+              <Ripples
+                onClick={() => {
+                  scrollElement.current.scrollLeft += 200;
+                }}
+                className="riple-btn"
+                color="rgba(255,255,255, 0.5)"
+                during={1200}
+              >
+                <i class="fa-solid fa-angle-right"></i>
+              </Ripples>
             </div>
             <ul ref={scrollElement}>
               {CategoryList.map((item, index) => (
@@ -206,36 +268,56 @@ export default function Home(props) {
           Suggested Services <span>for you</span>
         </div>
         <div className="services-list">
-          {suggestedServicesList.map(
-            (item, index) =>
-              index < 6 && (
-                <ServiceCard
-                  name={item.name}
-                  profile_img={item.proPic}
-                  service_img={`http://${API_IP_2}/${item.serviceImg}`}
-                  title={item.title}
-                  id={item._id}
-                  location={item.location}
-                  type="0"
-                />
+          {suggestedServicesList.length > 0
+            ? suggestedServicesList.map(
+                (item, index) =>
+                  index < 6 && (
+                    <ServiceCard
+                      name={item.name}
+                      profile_img={item.proPic}
+                      service_img={`http://${API_IP_2}/${item.serviceImg}`}
+                      title={item.title}
+                      id={item._id}
+                      location={item.location}
+                      type="0"
+                      price={item.price}
+                      rating={item.rating}
+                    />
+                  )
               )
-          )}
+            : Array(5)
+                .fill(1)
+                .map((item, index) => (
+                  <>
+                    <ServiceCardSkeleton type="0" />
+                  </>
+                ))}
         </div>
         <div className="services-list">
-          {suggestedServicesList.map(
-            (item, index) =>
-              index >= 6 && (
-                <ServiceCard
-                  name={item.name}
-                  profile_img={item.proPic}
-                  service_img={`http://${API_IP_2}/${item.serviceImg}`}
-                  title={item.title}
-                  id={item._id}
-                  location={item.location}
-                  type="0"
-                />
+          {suggestedServicesList.length > 0
+            ? suggestedServicesList.map(
+                (item, index) =>
+                  index >= 6 && (
+                    <ServiceCard
+                      name={item.name}
+                      profile_img={item.proPic}
+                      service_img={`http://${API_IP_2}/${item.serviceImg}`}
+                      title={item.title}
+                      id={item._id}
+                      location={item.location}
+                      type="0"
+                      price={item.price}
+                      rating={item.rating}
+                    />
+                  )
               )
-          )}
+            : Array(5)
+                .fill(1)
+                .map((item, index) => (
+                  <>
+                    <ServiceCardSkeleton type="0" />
+                  </>
+                ))}
         </div>
       </div>
       <div className="services">
@@ -243,36 +325,56 @@ export default function Home(props) {
           <span>Populer</span> Services
         </div>
         <div className="services-list">
-          {populerServicesList.map(
-            (item, index) =>
-              index < 6 && (
-                <ServiceCard
-                  name={item.name}
-                  profile_img={item.proPic}
-                  service_img={`http://${API_IP_2}/${item.serviceImg}`}
-                  title={item.title}
-                  id={item._id}
-                  location={item.location}
-                  type="0"
-                />
+          {populerServicesList.length > 0
+            ? populerServicesList.map(
+                (item, index) =>
+                  index < 6 && (
+                    <ServiceCard
+                      name={item.name}
+                      profile_img={item.proPic}
+                      service_img={`http://${API_IP_2}/${item.serviceImg}`}
+                      title={item.title}
+                      id={item._id}
+                      location={item.location}
+                      type="0"
+                      price={item.price}
+                      rating={item.rating}
+                    />
+                  )
               )
-          )}
+            : Array(5)
+                .fill(1)
+                .map((item, index) => (
+                  <>
+                    <ServiceCardSkeleton type="0" />
+                  </>
+                ))}
         </div>
         <div className="services-list">
-          {populerServicesList.map(
-            (item, index) =>
-              index >= 6 && (
-                <ServiceCard
-                  name={item.name}
-                  profile_img={item.proPic}
-                  service_img={`http://${API_IP_2}/${item.serviceImg}`}
-                  title={item.title}
-                  id={item._id}
-                  location={item.location}
-                  type="0"
-                />
+          {populerServicesList.length > 0
+            ? populerServicesList.map(
+                (item, index) =>
+                  index >= 6 && (
+                    <ServiceCard
+                      name={item.name}
+                      profile_img={item.proPic}
+                      service_img={`http://${API_IP_2}/${item.serviceImg}`}
+                      title={item.title}
+                      id={item._id}
+                      location={item.location}
+                      type="0"
+                      price={item.price}
+                      rating={item.rating}
+                    />
+                  )
               )
-          )}
+            : Array(5)
+                .fill(1)
+                .map((item, index) => (
+                  <>
+                    <ServiceCardSkeleton type="0" />
+                  </>
+                ))}
         </div>
       </div>
       {/* <div className="what-p-saying">
@@ -362,8 +464,20 @@ export default function Home(props) {
             accepting payments through the app.
           </p>
           <div className="buttons">
-            <div className="playstore">Android App</div>
-            <div className="appstore">IOS App</div>
+            <Ripples
+              className="riple-btn"
+              color="rgba(255,255,255, 0.5)"
+              during={1200}
+            >
+              <div className="playstore">Android App</div>
+            </Ripples>
+            <Ripples
+              className="riple-btn"
+              color="rgba(255,255,255, 0.5)"
+              during={1200}
+            >
+              <div className="appstore">IOS App</div>
+            </Ripples>
           </div>
         </div>
         <div className="right"></div>
