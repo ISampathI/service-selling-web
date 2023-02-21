@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { Cookies } from "react-cookie";
-import { API_IP_2, UserContext } from "../../../helper/Context";
+import { API_IP_2, ProgressBarContext, UserContext } from "../../../helper/Context";
 import defaultImg from "../../../assets/img/defaultpropic.png";
 
 const api = axios.create({
@@ -23,8 +23,10 @@ function EditUserInfo() {
   const [image, setImage] = useState();
   const [imageFile, setImageFile] = useState({});
   const { user, setUser } = useContext(UserContext);
+  const { progress, setProgress } = useContext(ProgressBarContext);
 
   useEffect(() => {
+    setProgress(10);
     setImage(user.proPic ? `http://${API_IP_2}/${user.proPic}` : defaultImg);
     setFirstName(user.firstName);
     setLastName(user.lastName);
@@ -34,10 +36,11 @@ function EditUserInfo() {
     setAddressLine2(user.address && user.address.addressLine2);
     setCity(user.address && user.address.city);
     setDistrict(user.address && user.address.district);
-    console.log(user.address);
+    setProgress(100);
   }, [user]);
 
-  const updateUserData = () => {
+  const updateUserData = async() => {
+    setProgress(10)
     const userObject = {
       firstName: firstName,
       lastName: lastName,
@@ -52,7 +55,7 @@ function EditUserInfo() {
       proPic: imageFile,
     };
     console.log(userObject);
-    api
+    await api
       .patch(`/users/${user._id}`, userObject, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -60,11 +63,11 @@ function EditUserInfo() {
       })
       .then((res) => {
         setUser(res.data.user);
-        console.log(res.data);
       })
       .catch((e) => {
         console.log(e);
       });
+      setProgress(100)
   };
 
   return (

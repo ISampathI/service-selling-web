@@ -34,6 +34,7 @@ function NewOrdersNav() {
           name={item.name}
           serviceImg={item.serviceImg}
           title={item.title}
+          proPic={item.proPic}
           onClickOnHeader={() => {
             setActiveUser(item);
           }}

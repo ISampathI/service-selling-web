@@ -35,6 +35,7 @@ function PendingOrderNav() {
           serviceImg={item.serviceImg}
           title={item.title}
           active="3"
+          proPic={item.proPic}
           onClickOnHeader={() => {
             setActiveUser(item);
           }}

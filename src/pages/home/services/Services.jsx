@@ -54,7 +54,7 @@ export default function Services(props) {
       await api
         .get(`/services/search/${searchKey}`)
         .then((res) => {
-          setServicesList(servicesList.concat(res.data.services));
+          setServicesList(res.data.services);
           console.log(servicesList);
         })
         .catch((e) => {

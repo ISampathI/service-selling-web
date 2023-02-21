@@ -1,15 +1,25 @@
+import axios from "axios";
 import React from "react";
 import Ripples from "react-ripples";
+import { useParams } from "react-router-dom";
 import emailVerifyImg from "../../../assets/img/emailverify.png";
+import { API_IP_2 } from "../../../helper/Context";
 import "./emailVerify.scss";
+
+const api = axios.create({
+  baseURL: `http://${API_IP_2}/api`,
+});
+
 function EmailVerify() {
+  var { id } = useParams();
+  var { token } = useParams();
   return (
     <div className="EmailVerify">
       <div className="email-verify-container">
         <img src={emailVerifyImg} alt="" />
         <div className="title">Verify your email address</div>
         <div className="sub-text">
-          You've entered email@gmail.com as the email address for your acout.
+          You've entered email@gmail.com as the email address for your account.
           Please verify this email address by clicking button bellow.
         </div>
         <Ripples
@@ -17,7 +27,20 @@ function EmailVerify() {
           color="rgba(255,255,255, 0.5)"
           during={1200}
         >
-          <button onClick={""}>Verify Your Email</button>
+          <button
+            onClick={() => {
+              api
+                .get("/users/email-verify", {
+                  id: id,
+                  token: token,
+                })
+                .then((res) => {
+                  console.log(res);
+                });
+            }}
+          >
+            Verify Your Email
+          </button>
         </Ripples>
       </div>
     </div>

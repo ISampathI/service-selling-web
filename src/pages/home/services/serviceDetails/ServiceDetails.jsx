@@ -56,9 +56,10 @@ export default function ServiceDetails(props) {
   const fetchData = async () => {
     setProgress(30);
     await api
-      .get(`/services/specific/${id}`)//specific
+      .get(`/services/specific/${id}`) //specific
       .then((res) => {
         setServiceDetails(res.data.service);
+        console.log(res.data.service);
       })
       .catch((e) => {
         console.log(e);
@@ -139,6 +140,23 @@ export default function ServiceDetails(props) {
           <div className="details">
             {serviceDetails.service && serviceDetails.service.description}
             <br />
+            <div className="price-details">
+              <div className="p-container">
+                <span>Rate Of Payment</span>
+                <div className="p-details">
+                  {serviceDetails.service &&
+                    serviceDetails.service.rateOfPayment}
+                </div>
+              </div>
+              <div className="p-container">
+                <span>Price</span>
+                <div className="p-details">
+                  {serviceDetails.service && serviceDetails.service.price > 0
+                    ? serviceDetails.service.price + "LKR"
+                    : "N/D"}
+                </div>
+              </div>
+            </div>
           </div>
           {serviceDetails.seller && serviceDetails.seller._id != user._id && (
             <div className="buttons">

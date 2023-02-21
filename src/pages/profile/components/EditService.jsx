@@ -259,9 +259,19 @@ function EditService(props) {
               >
                 <button
                   className="update-service button"
-                  onClick={props.type == "new" ? createService : updateService}
+                  onClick={
+                    props.type == "new"
+                      ? () => {
+                          createService();
+                          navigate("/profile/services");
+                        }
+                      : () => {
+                          updateService();
+                          navigate("/profile/services");
+                        }
+                  }
                 >
-                  {props.type == "new" ? "Save" : "Update"}
+                  {props.type == "new" ? "Create" : "Update"}
                 </button>
               </Ripples>
             </div>

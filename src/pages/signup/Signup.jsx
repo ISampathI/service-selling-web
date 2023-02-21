@@ -11,6 +11,8 @@ import {
 } from "../../helper/Context";
 import "./signup.scss";
 import Ripples from "react-ripples";
+import emailVerifyImg from "../../assets/img/emailverify.png";
+import Modal from "../../components/modal/Modal";
 
 const api = axios.create({
   baseURL: `http://${API_IP_2}/api`,
@@ -30,6 +32,7 @@ function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [showEVModal, setShowEVModal] = useState(false);
 
   const [errorDetails, setErrorDetails] = useState({});
 
@@ -44,8 +47,11 @@ function Signup() {
         password: password,
       })
       .then((res) => {
+        console.log(res);
         if (res.data) {
-          navigate("/login");
+          if (res.data.isEmailSent) {
+            setShowEVModal(true);
+          }
         }
       })
       .catch((e) => {
@@ -53,7 +59,7 @@ function Signup() {
           setErrorDetails(e.response.data.error.errors);
         } else {
           let errors = e.response.data.error.errors;
-          errors["password"]="not mached"
+          errors["password"] = "not mached";
           setErrorDetails(errors);
         }
       });
@@ -154,6 +160,39 @@ function Signup() {
             <div className="img-layer"></div>
           </div>
         </div>
+        {showEVModal && (
+          <Modal
+            onClick={() => {
+              setShowEVModal(false);
+            }}
+            content={() => {
+              return (
+                <div className="email-verify-ad-container">
+                  <img src={emailVerifyImg} alt="" />
+                  <div className="title">Verify your email address</div>
+                  <div className="sub-text">
+                    You've entered {email && email} as the email address for
+                    your account. Please verify this email address by clicking
+                    button bellow.
+                  </div>
+                  <Ripples
+                    className="riple-btn"
+                    color="rgba(255,255,255, 0.5)"
+                    during={1200}
+                  >
+                    <button
+                      onClick={() => {
+                        navigate("/login");
+                      }}
+                    >
+                      ok
+                    </button>
+                  </Ripples>
+                </div>
+              );
+            }}
+          />
+        )}
       </div>
     </>
   );

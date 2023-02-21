@@ -24,7 +24,7 @@ function SellerCard(props) {
           <p>5.0</p>
         </div>
         <div className="seller-details-container">
-          {props.about && props.about.slice(0, 60)}...
+          {props.about && props.about.slice(0, 50)}...
         </div>
         {/* <div className="buttons">
           <button className="view-profile-btn">

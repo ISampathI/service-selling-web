@@ -30,7 +30,6 @@ function ActiveOrdersNav() {
       api.get(`/orders/buyer-active-orders/${user._id}`).then((res) => {
         res.data.orders && setOrderList(res.data.orders);
         setActiveUser(res.data.orders ? res.data.orders[0] : null);
-        console.log(res.data, "<<");
       }).catch((e)=>{
         console.log(e);
       });
@@ -44,6 +43,7 @@ function ActiveOrdersNav() {
             selected={activeUser._id == item._id && true}
             orderId={item._id}
             name={item.name}
+            proPic={item.proPic}
             serviceImg={item.serviceImg}
             title={item.title}
             active="1"

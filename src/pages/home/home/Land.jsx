@@ -7,6 +7,7 @@ import icon1 from "../../../assets/img/icons/icon1.png";
 // import herosvg from "../../../assets/svg/hero.svg";
 import dec1 from "../../../assets/img/dec1.png";
 import dec2 from "../../../assets/img/dec2.png";
+import dec3 from "../../../assets/img/dec3.png";
 import playstoreimg from "../../../assets/img/buttons/playstore.png";
 import appstoreimg from "../../../assets/img/buttons/appstore.png";
 import axios from "axios";
@@ -127,6 +128,9 @@ export default function Home(props) {
       <div className="hero-section">
         <div className="dec1">
           <img src={dec1} alt="" />
+        </div>
+        <div className="dec3">
+          <img src={dec3} alt="" />
         </div>
         <div className="hero-left">
           <div className="main-title">

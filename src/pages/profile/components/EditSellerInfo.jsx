@@ -1,7 +1,11 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { Cookies } from "react-cookie";
-import { API_IP_2, UserContext } from "../../../helper/Context";
+import {
+  API_IP_2,
+  ProgressBarContext,
+  UserContext,
+} from "../../../helper/Context";
 
 const api = axios.create({
   baseURL: `http://${API_IP_2}/api/`,
@@ -17,17 +21,21 @@ function EditSellerInfo() {
   const [about, setAbout] = useState("");
 
   const { user, setUser } = useContext(UserContext);
+  const { progress, setProgress } = useContext(ProgressBarContext);
 
   useEffect(() => {
+    setProgress(10);
     setImage(user.proPic && `http://${API_IP_2}/${user.proPic}`);
     setJob(user.job && user.job);
     setDob(user.dob && user.dob.split("T")[0]);
     setAbout(user.about && user.about);
     setAvailability(user.availability && user.availability);
     setLocation(user.location && user.location);
+    setProgress(100);
   }, [user]);
 
-  const updateSeller = () => {
+  const updateSeller = async () => {
+    setProgress(10);
     const userObject = {
       job: job,
       dob: dob,
@@ -36,19 +44,20 @@ function EditSellerInfo() {
       about: about,
       proPic: imageFile,
     };
-    api
+    await api
       .patch(`/users/${user._id}`, userObject, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       })
       .then((res) => {
-        setUser(res.data);
+        setUser(res.data.user);
         console.log(res.data.user, "LL");
       })
       .catch((e) => {
         console.log(e);
       });
+    setProgress(100);
   };
 
   return (

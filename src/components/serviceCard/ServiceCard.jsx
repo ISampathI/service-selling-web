@@ -8,7 +8,12 @@ function createContent(props) {
   return (
     <div className="ServiceCard">
       <img src={props.service_img && props.service_img} alt="" />
-      <div className="service-title">{props.title}</div>
+      <div
+        className="service-title"
+        style={props.type ? (props.type == "2" ? { border: "0" } : {}) : {}}
+      >
+        {props.title}
+      </div>
       <div className="seller">
         {props.type == "0" ? (
           <>

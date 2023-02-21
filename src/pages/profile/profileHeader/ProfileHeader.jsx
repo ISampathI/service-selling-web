@@ -32,7 +32,7 @@ export default function ProfileHeader(props) {
   const switchSeller = (toSeller = true) => {
     api
       .patch(
-        `/api/users/${user.username}`,
+        `/api/users/${user._id}`,
         { isSellerActivated: toSeller },
         {
           headers: {
@@ -42,6 +42,9 @@ export default function ProfileHeader(props) {
       )
       .then((res) => {
         console.log(res.data, toSeller, "!!!");
+      })
+      .catch((e) => {
+        console.log(e);
       });
   };
   return (

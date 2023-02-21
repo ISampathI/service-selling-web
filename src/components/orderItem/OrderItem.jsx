@@ -15,7 +15,9 @@ function OrderItem(props) {
   const [acceptModal, setAcceptModal] = useState(false);
   const [denyModal, setDenyModal] = useState(0);
   const [completeModal, setCompleteModal] = useState(0);
+  const [reviewModal, setReviewModal] = useState(0);
   const [ratingStares, setRatingStares] = useState(1);
+  const [review, setReview] = useState("");
 
   return (
     <div
@@ -24,10 +26,7 @@ function OrderItem(props) {
       <div className="up">
         <div className="seller" onClick={props.onClickOnHeader}>
           <div className="profile-img">
-            <img
-              src={props.proPic}
-              alt=""
-            />
+            <img src={`http://${API_IP_2}/${props.proPic}`} alt="" />
           </div>
           <div className="container">
             <div className="name">{props.name}</div>
@@ -162,7 +161,7 @@ function OrderItem(props) {
           }}
         />
       )}
-      {1 && (
+      {reviewModal==1 &&
         <Modal
           content={() => {
             return (
@@ -172,55 +171,92 @@ function OrderItem(props) {
                 <div className="name">{props.name}m</div>
                 <p>Rate and review the service</p>
                 <div className="stars">
-                  {/* <i class="fa-solid fa-star"></i>
-                  <i class="fa-solid fa-star"></i>
-                  <i class="fa-solid fa-star"></i>
-                  <i class="fa-solid fa-star"></i>
-                  <i class="fa-solid fa-star"></i> */}
                   <i
                     onClick={() => {
                       setRatingStares(1);
                     }}
-                    class={ratingStares >= 1 ? "fa-solid fa-star":"fa-regular fa-star"}
+                    class={
+                      ratingStares >= 1
+                        ? "fa-solid fa-star"
+                        : "fa-regular fa-star"
+                    }
                   ></i>
                   <i
                     onClick={() => {
                       setRatingStares(2);
                     }}
-                    class={ratingStares >= 2 ? "fa-solid fa-star":"fa-regular fa-star"}
+                    class={
+                      ratingStares >= 2
+                        ? "fa-solid fa-star"
+                        : "fa-regular fa-star"
+                    }
                   ></i>
                   <i
                     onClick={() => {
                       setRatingStares(3);
                     }}
-                    class={ratingStares >= 3 ? "fa-solid fa-star":"fa-regular fa-star"}
+                    class={
+                      ratingStares >= 3
+                        ? "fa-solid fa-star"
+                        : "fa-regular fa-star"
+                    }
                   ></i>
                   <i
                     onClick={() => {
                       setRatingStares(4);
                     }}
-                    class={ratingStares >= 4 ? "fa-solid fa-star":"fa-regular fa-star"}
+                    class={
+                      ratingStares >= 4
+                        ? "fa-solid fa-star"
+                        : "fa-regular fa-star"
+                    }
                   ></i>
                   <i
                     onClick={() => {
                       setRatingStares(5);
                     }}
-                    class={ratingStares >= 5 ? "fa-solid fa-star":"fa-regular fa-star"}
+                    class={
+                      ratingStares >= 5
+                        ? "fa-solid fa-star"
+                        : "fa-regular fa-star"
+                    }
                   ></i>
                 </div>
-                <textarea />
+                <textarea
+                  value={review}
+                  onChange={(e) => {
+                    setReview(e.target.value);
+                  }}
+                />
                 <Ripples
                   className="riple-btn"
                   color="rgba(255,255,255, 0.5)"
                   during={1200}
                 >
-                  <button onClick={""}>Submit Review</button>
+                  <button
+                    onClick={() => {
+                      const reviewObject = {
+                        serviceId: props.id,
+                        buyerId: user._id,
+                        rating: ratingStares,
+                        review: review,
+                        orderId: props.orderId,
+                      };
+                      // api
+                      //   .post(`/api/services/review${props.id}`, reviewObject)
+                      //   .then(() => {})
+                      //   .catch((e) => {});
+                      setReviewModal(0)
+                    }}
+                  >
+                    Submit Review
+                  </button>
                 </Ripples>
               </div>
             );
           }}
         ></Modal>
-      )}
+      }
       {completeModal == 1 && (
         <Modal
           exit_btn="true"
@@ -298,29 +334,32 @@ function OrderItem(props) {
                 <div className="buttons">
                   <button
                     onClick={() => {
-                      api
-                        .patch(`/orders/${props.orderId}`, [
-                          { propName: "status", value: "completed" },
-                          { propName: "paid", value: true },
-                          { propName: "method", value: "online" },
-                        ])
-                        .then((res) => {
-                          props.onClickOnComplete();
-                        });
+                      // api
+                      //   .patch(`/orders/${props.orderId}`, [
+                      //     { propName: "status", value: "completed" },
+                      //     { propName: "paid", value: true },
+                      //     { propName: "method", value: "online" },
+                      //   ])
+                      //   .then((res) => {
+                      //     props.onClickOnComplete();
+                      //   });
+                      setCompleteModal(0);
+                      setReviewModal(1);
                     }}
                   >
                     <i class="fa-regular fa-credit-card"></i>Pay Online
                   </button>
                   <button
                     onClick={() => {
-                      api
-                        .patch(`/orders/${props.orderId}`, [
-                          { propName: "status", value: "completed" },
-                          { propName: "method", value: "cash" },
-                        ])
-                        .then((res) => {
-                          props.onClickOnComplete();
-                        });
+                      // api
+                      //   .patch(`/orders/${props.orderId}`, [
+                      //     { propName: "status", value: "completed" },
+                      //     { propName: "method", value: "cash" },
+                      //   ])
+                      //   .then((res) => {
+                      //     props.onClickOnComplete();
+                      //   });
+                      setCompleteModal(0);
                     }}
                   >
                     <i class="fa-regular fa-handshake"></i>Cash

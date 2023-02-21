@@ -98,7 +98,10 @@ function App() {
                       </Route>
                     </Route>
                     <Route path="/login" element={<Login />} />
-                    <Route path="/emailverify" element={<EmailVerify />} />
+                    <Route
+                      path="/emailverify/:id/:token"
+                      element={<EmailVerify />}
+                    />
                     <Route path="/signup" element={<Signup />} />
                     <Route path="/profile" element={<Profile />}>
                       <Route path="services" element={<NServices />} />
