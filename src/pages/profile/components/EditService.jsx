@@ -110,7 +110,7 @@ function EditService(props) {
         setServiceDetails(res.data.service);
         setTitle(res.data.service.service.title);
         setDescription(res.data.service.service.description);
-        setImage(`http://${API_IP_2}/${res.data.service.service.serviceImg}`);
+        setImage(`http://${API_IP_2}/api/${res.data.service.service.serviceImg}`);
         setCategory(res.data.service.service.category);
         setPrice(
           res.data.service.service.rateOfPayment == "negotiable"

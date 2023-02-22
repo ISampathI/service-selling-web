@@ -60,11 +60,6 @@ export default function Home(props) {
       .get(
         "/api/categories",
         {},
-        {
-          headers: {
-            "ngrok-skip-browser-warning": "any",
-          },
-        }
       )
       .then((res) => {
         setCategoryList(res.data.categories);
@@ -75,11 +70,6 @@ export default function Home(props) {
           ? `/api/services/suggested/${user._id}`
           : `/api/services/suggested/`,
         {},
-        {
-          headers: {
-            "ngrok-skip-browser-warning": "any",
-          },
-        }
       )
       .then((res) => {
         setSuggestedServicesList(res.data.services);
@@ -92,11 +82,6 @@ export default function Home(props) {
       .get(
         "/api/services/popular",
         {},
-        {
-          headers: {
-            "ngrok-skip-browser-warning": "any",
-          },
-        }
       )
       .then((res) => {
         setPopulerServices(res.data.services);
@@ -108,11 +93,6 @@ export default function Home(props) {
       .get(
         "/api/users/platform-status",
         {},
-        {
-          headers: {
-            "ngrok-skip-browser-warning": "any",
-          },
-        }
       )
       .then((res) => {
         setPlatformStatus(res.data.status);
@@ -216,7 +196,7 @@ export default function Home(props) {
               {CategoryList.map((item, index) => (
                 <CategoryCard
                   name={item.name}
-                  category_img={`http://${API_IP_2}/${item.categoryImg}`}
+                  category_img={`http://${API_IP_2}/api/${item.categoryImg}`}
                   id={item._id}
                 />
               ))}
@@ -279,7 +259,7 @@ export default function Home(props) {
                     <ServiceCard
                       name={item.name}
                       profile_img={item.proPic}
-                      service_img={`http://${API_IP_2}/${item.serviceImg}`}
+                      service_img={`http://${API_IP_2}/api/${item.serviceImg}`}
                       title={item.title}
                       id={item._id}
                       location={item.location}
@@ -305,7 +285,7 @@ export default function Home(props) {
                     <ServiceCard
                       name={item.name}
                       profile_img={item.proPic}
-                      service_img={`http://${API_IP_2}/${item.serviceImg}`}
+                      service_img={`http://${API_IP_2}/api/${item.serviceImg}`}
                       title={item.title}
                       id={item._id}
                       location={item.location}
@@ -336,7 +316,7 @@ export default function Home(props) {
                     <ServiceCard
                       name={item.name}
                       profile_img={item.proPic}
-                      service_img={`http://${API_IP_2}/${item.serviceImg}`}
+                      service_img={`http://${API_IP_2}/api/${item.serviceImg}`}
                       title={item.title}
                       id={item._id}
                       location={item.location}
@@ -362,7 +342,7 @@ export default function Home(props) {
                     <ServiceCard
                       name={item.name}
                       profile_img={item.proPic}
-                      service_img={`http://${API_IP_2}/${item.serviceImg}`}
+                      service_img={`http://${API_IP_2}/api/${item.serviceImg}`}
                       title={item.title}
                       id={item._id}
                       location={item.location}

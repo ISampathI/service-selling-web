@@ -30,7 +30,7 @@ function NSGallery() {
     <div className="SellerDetailsNav">
       <div className="gallery">
         {imgList && imgList.map((item, index) => {
-          return <img src={item.img} alt="" />;
+          return <img src={`http://${API_IP_2}/api/${item.img}`} alt="" />;
         })}
       </div>
     </div>

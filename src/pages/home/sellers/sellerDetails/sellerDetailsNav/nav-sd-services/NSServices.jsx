@@ -33,7 +33,7 @@ function NSServices() {
         {servicesList?.map((item, index) => {
           return (
             <ServiceCard
-              service_img={`http://${API_IP_2}/${item.serviceImg}`}
+              service_img={`http://${API_IP_2}/api/${item.serviceImg}`}
               title={item.title}
               id={item._id}
               type="1"

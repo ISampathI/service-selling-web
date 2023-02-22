@@ -5,8 +5,14 @@ import { useEffect } from "react";
 import ServiceCard from "../../../../components/serviceCard/ServiceCard";
 import ProfileCard from "../../components/ProfileCard";
 import "./nGallery.scss";
-import { API_IP, API_IP_2, UserContext } from "../../../../helper/Context";
+import {
+  API_IP,
+  API_IP_2,
+  ProgressBarContext,
+  UserContext,
+} from "../../../../helper/Context";
 import { Cookies } from "react-cookie";
+import LoadingBar from "react-top-loading-bar";
 
 const api = axios.create({
   baseURL: `http://${API_IP_2}/api/`,
@@ -17,13 +23,15 @@ function NGallery() {
   const { user, setUser } = useContext(UserContext);
   const [image, setImage] = useState();
   const [imageFile, setImageFile] = useState({});
+  const { progress, setProgress } = useContext(ProgressBarContext);
 
   useEffect(() => {
     fetchData();
   }, [user]);
 
-  const fetchData = () => {
-    api
+  const fetchData = async () => {
+    setProgress(10);
+    await api
       .get(`/gallery/${user._id}`)
       .then((res) => {
         setGallery(res.data.images);
@@ -32,6 +40,7 @@ function NGallery() {
       .catch((e) => {
         console.log(e);
       });
+    setProgress(100);
   };
 
   return (
@@ -57,7 +66,9 @@ function NGallery() {
                     },
                   }
                 )
-                .then((res) => {console.log(res);})
+                .then((res) => {
+                  console.log(res);
+                })
                 .catch((e) => {
                   console.log(e);
                 });
@@ -68,11 +79,13 @@ function NGallery() {
         </label>
         {gallery &&
           gallery.map((item, index) => (
-            <img src={`http://${API_IP_2}/${item.img}`} alt="" />
+            <div className="img">
+              <div className="del-img">
+                <i class="fa-solid fa-trash"></i>
+              </div>
+              <img src={`http://${API_IP_2}/api/${item.img}`} alt="" />
+            </div>
           ))}
-        <div className="add-new-image add-new-image-h"></div>
-        <div className="add-new-image add-new-image-h"></div>
-        <div className="add-new-image add-new-image-h"></div>
       </div>
       {/* <div className="gallery">
         <img

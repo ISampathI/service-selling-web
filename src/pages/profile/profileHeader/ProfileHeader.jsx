@@ -165,7 +165,7 @@ export default function ProfileHeader(props) {
                 <img
                   src={
                     user.proPic
-                      ? `http://${API_IP_2}/${user.proPic}`
+                      ? `http://${API_IP_2}/api/${user.proPic}`
                       : defaultImg
                   }
                   alt=""

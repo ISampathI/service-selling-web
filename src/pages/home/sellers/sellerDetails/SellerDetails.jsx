@@ -47,7 +47,7 @@ export default function SellerDetails(props) {
             <img
               src={
                 sellerDetails.proPic
-                  ? `http://${API_IP_2}/${sellerDetails.proPic}`
+                  ? `http://${API_IP_2}/api/${sellerDetails.proPic}`
                   : defaultImg
               }
               alt=""

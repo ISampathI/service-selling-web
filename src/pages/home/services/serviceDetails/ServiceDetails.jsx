@@ -59,17 +59,18 @@ export default function ServiceDetails(props) {
       .get(`/services/specific/${id}`) //specific
       .then((res) => {
         setServiceDetails(res.data.service);
-        console.log(res.data.service);
+        console.log(res.data.service, "#####?");
       })
       .catch((e) => {
         console.log(e);
       });
     setProgress(100);
   };
-  const switchBuyer = () => {
-    api
+  const switchBuyer = async () => {
+    setProgress(10);
+    await api
       .patch(
-        `/users/${user.username}`,
+        `/users/${user._id}`,
         { isSellerActivated: false },
         {
           headers: {
@@ -79,11 +80,11 @@ export default function ServiceDetails(props) {
       )
       .then((res) => {
         setUser(res.data);
-        console.log(res.data);
       })
       .catch((e) => {
         console.log(e);
       });
+    setProgress(100);
   };
 
   return (
@@ -95,7 +96,7 @@ export default function ServiceDetails(props) {
               <img
                 src={
                   serviceDetails.seller &&
-                  `http://${API_IP_2}/${serviceDetails.seller.proPic}`
+                  `http://${API_IP_2}/api/${serviceDetails.seller.proPic}`
                 }
                 alt=""
               />
@@ -105,8 +106,17 @@ export default function ServiceDetails(props) {
                 {serviceDetails.seller && serviceDetails.seller.name}
               </div>
               <div className="row">
-                <div className="rating-num">4.5</div>
-                <Rating rating="1" />
+                <div className="rating-num">
+                  {serviceDetails.service &&
+                    serviceDetails.service.rating != 0 &&
+                    serviceDetails.service.rating}
+                </div>
+                {serviceDetails.service &&
+                serviceDetails.service.rating != 0 ? (
+                  <Rating rating={serviceDetails.service.rating} />
+                ) : (
+                  <></>
+                )}
               </div>
             </div>
             <i
@@ -116,9 +126,18 @@ export default function ServiceDetails(props) {
               className="fa-solid fa-share-nodes"
             ></i>
             <i
-              onClick={() => {
-                alert(id);
-                // api.post("/api/users/", {}).then(() => {alert(serviceDetails.service._id)});
+              onClick={async () => {
+                setProgress(10);
+                await api
+                  .post(`/cart`, {
+                    buyer: user._id,
+                    seller: serviceDetails.seller._id,
+                    service: id,
+                  })
+                  .then((res) => {
+                    console.log(res);
+                  });
+                setProgress(100);
               }}
               className="fa-solid fa-cart-shopping"
             ></i>
@@ -131,7 +150,7 @@ export default function ServiceDetails(props) {
             <img
               src={
                 serviceDetails.service &&
-                `http://${API_IP_2}/${serviceDetails.service.serviceImg}`
+                `http://${API_IP_2}/api/${serviceDetails.service.serviceImg}`
               }
               alt=""
             />
@@ -194,7 +213,9 @@ export default function ServiceDetails(props) {
               </Ripples>
             </div>
           )}
-          <ReviewList />
+          <ReviewList
+            reviewList={serviceDetails.reviews && serviceDetails.reviews}
+          />
         </div>
       </div>
       {showModal == "sellerToBuyer" && (

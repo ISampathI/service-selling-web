@@ -6,7 +6,9 @@ import ServiceCard from "../../../../components/serviceCard/ServiceCard";
 import ProfileCard from "../../components/ProfileCard";
 import "./nservices.scss";
 import { Link } from "react-router-dom";
-import { API_IP, API_IP_2, UserContext } from "../../../../helper/Context";
+import { API_IP, API_IP_2, ProgressBarContext, UserContext } from "../../../../helper/Context";
+import LoadingBar from "react-top-loading-bar";
+
 
 const api = axios.create({
   baseURL: `http://${API_IP_2}/api/`,
@@ -15,20 +17,23 @@ const api = axios.create({
 function NServices() {
   const [servicesList, setServicesList] = useState([]);
   const { user, setUser } = useContext(UserContext);
+  const { progress, setProgress } = useContext(ProgressBarContext);
 
   useEffect(() => {
     fetchData();
   }, [user]);
 
-  const fetchData = () => {
+  const fetchData = async() => {
+    setProgress(10)
     api
       .get(`/services/seller-services/${user.username}`)
       .then((res) => {
         setServicesList(res.data.services);
       })
       .catch((e) => {
-        console.log(e);
+        console.log(e,"######");
       });
+      setProgress(100)
   };
 
   return (
@@ -42,7 +47,7 @@ function NServices() {
         {servicesList &&
           servicesList.map((item, index) => (
             <ServiceCard
-              service_img={`http://${API_IP_2}/${item.serviceImg}`}
+              service_img={`http://${API_IP_2}/api/${item.serviceImg}`}
               title={item.title}
               id={item._id}
               type="2"

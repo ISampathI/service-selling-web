@@ -27,10 +27,10 @@
         }
 
         .infinite-scroll {
-            width: 100%;
+            width: fit-content;
             height: 100vh;
             display: flex;
-            justify-content: flex-start;
+            justify-content: center;
             align-items: center;
             flex-wrap: wrap;
 
@@ -74,12 +74,10 @@
                 }
             }
             .correct-margine{
-                min-width: 280px;
-                min-height: 210px;
-                max-width: 280px;
-                max-height: 300px;
-                margin-right: 25px;
+                width: 230px;
+                height: 275px;
                 margin-bottom: 25px;
+                margin: 10px;
                 overflow: hidden;
                 border: 1px solid $line-color-1;
                 border-radius: 5px;
@@ -159,5 +157,11 @@
                 display: none;
             }
         }
+    }
+    .spacer-l{
+        margin-left: auto;
+    }
+    .spacer-r{
+        margin-right: auto;
     }
 }

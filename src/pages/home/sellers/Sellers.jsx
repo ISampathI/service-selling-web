@@ -68,6 +68,9 @@ function Sellers(props) {
             : Array(15)
                 .fill(1)
                 .map((item, index) => <SellerCardSkeleton />)}
+                <div className="correct-margine"></div>
+                <div className="correct-margine"></div>
+                <div className="correct-margine"></div>
         </InfiniteScroll>
       </div>
       <Footer />

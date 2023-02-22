@@ -51,11 +51,7 @@
                 margin-left: 10px;
                 display: flex;
                 justify-content: center;
-                i{
-                    display: grid;
-                    place-content: center;
-                    color: rgb(255, 169, 64);
-                }
+                
             }
             .review-date{
                 color: $text-color;
@@ -63,6 +59,7 @@
             }
             .row{
                 display: flex;
+                align-items: center;
             }
 
         }

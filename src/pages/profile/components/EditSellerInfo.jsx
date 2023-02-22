@@ -25,7 +25,7 @@ function EditSellerInfo() {
 
   useEffect(() => {
     setProgress(10);
-    setImage(user.proPic && `http://${API_IP_2}/${user.proPic}`);
+    setImage(user.proPic && `http://${API_IP_2}/api/${user.proPic}`);
     setJob(user.job && user.job);
     setDob(user.dob && user.dob.split("T")[0]);
     setAbout(user.about && user.about);

@@ -5,6 +5,7 @@ import { API_IP_2, UserContext } from "../../helper/Context";
 import Modal from "../modal/Modal";
 import "./orderItem.scss";
 import Ripples from "react-ripples";
+import defaultImg from "../../assets/img/defaultpropic.png";
 
 const api = axios.create({
   baseURL: `http://${API_IP_2}/api/`,
@@ -26,7 +27,14 @@ function OrderItem(props) {
       <div className="up">
         <div className="seller" onClick={props.onClickOnHeader}>
           <div className="profile-img">
-            <img src={`http://${API_IP_2}/${props.proPic}`} alt="" />
+            <img
+              src={
+                props.proPic != undefined
+                  ? `http://${API_IP_2}/api/${props.proPic}`
+                  : defaultImg
+              }
+              alt=""
+            />
           </div>
           <div className="container">
             <div className="name">{props.name}</div>
@@ -41,10 +49,10 @@ function OrderItem(props) {
           className="react-link"
         >
           <div className="service-view">
-            <img src={`http://${API_IP_2}/${props.serviceImg}`} alt="" />
+            <img src={`http://${API_IP_2}/api/${props.serviceImg}`} alt="" />
             <div className="column">
               <div className="title">{props.title}</div>
-              <div className="price">RS:2000</div>
+              <div className="price">{props.price}</div>
             </div>
           </div>
         </Link>
@@ -161,7 +169,7 @@ function OrderItem(props) {
           }}
         />
       )}
-      {reviewModal==1 &&
+      {reviewModal == 1 && (
         <Modal
           content={() => {
             return (
@@ -236,17 +244,20 @@ function OrderItem(props) {
                   <button
                     onClick={() => {
                       const reviewObject = {
-                        serviceId: props.id,
-                        buyerId: user._id,
+                        service: props.id,
+                        buyer: user._id,
                         rating: ratingStares,
                         review: review,
-                        orderId: props.orderId,
                       };
-                      // api
-                      //   .post(`/api/services/review${props.id}`, reviewObject)
-                      //   .then(() => {})
-                      //   .catch((e) => {});
-                      setReviewModal(0)
+                      console.log(reviewObject);
+                      api
+                        .post(`/reviews`, reviewObject)
+                        .then((res) => {
+                          console.log(res);
+                          setReviewModal(0);
+                          props.onClickOnComplete();
+                        })
+                        .catch((e) => {});
                     }}
                   >
                     Submit Review
@@ -256,7 +267,7 @@ function OrderItem(props) {
             );
           }}
         ></Modal>
-      }
+      )}
       {completeModal == 1 && (
         <Modal
           exit_btn="true"
@@ -289,14 +300,14 @@ function OrderItem(props) {
                 <div className="buttons">
                   <button
                     onClick={() => {
-                      // api
-                      //   .patch(`/orders/${props.orderId}`, [
-                      //     { propName: "status", value: "completed" },
-                      //     { propName: "price", value: orderPrice },
-                      //   ])
-                      //   .then((res) => {
-                      //     props.onClickOnComplete();
-                      //   });
+                      api
+                        .patch(`/orders/${props.orderId}`, [
+                          { propName: "status", value: "completed" },
+                          { propName: "price", value: orderPrice },
+                        ])
+                        .then((res) => {
+                          props.onClickOnComplete();
+                        });
                       setCompleteModal(0);
                     }}
                   >
@@ -334,31 +345,31 @@ function OrderItem(props) {
                 <div className="buttons">
                   <button
                     onClick={() => {
-                      // api
-                      //   .patch(`/orders/${props.orderId}`, [
-                      //     { propName: "status", value: "completed" },
-                      //     { propName: "paid", value: true },
-                      //     { propName: "method", value: "online" },
-                      //   ])
-                      //   .then((res) => {
-                      //     props.onClickOnComplete();
-                      //   });
-                      setCompleteModal(0);
-                      setReviewModal(1);
+                      api
+                        .patch(`/orders/${props.orderId}`, [
+                          { propName: "status", value: "completed" },
+                          { propName: "paid", value: true },
+                          { propName: "method", value: "online" },
+                        ])
+                        .then((res) => {
+                          setCompleteModal(0);
+                          setReviewModal(1);
+                        });
                     }}
                   >
                     <i class="fa-regular fa-credit-card"></i>Pay Online
                   </button>
                   <button
                     onClick={() => {
-                      // api
-                      //   .patch(`/orders/${props.orderId}`, [
-                      //     { propName: "status", value: "completed" },
-                      //     { propName: "method", value: "cash" },
-                      //   ])
-                      //   .then((res) => {
-                      //     props.onClickOnComplete();
-                      //   });
+                      api
+                        .patch(`/orders/${props.orderId}`, [
+                          { propName: "status", value: "completed" },
+                          { propName: "paid", value: true },
+                          { propName: "method", value: "cash" },
+                        ])
+                        .then((res) => {
+                          props.onClickOnComplete();
+                        });
                       setCompleteModal(0);
                     }}
                   >

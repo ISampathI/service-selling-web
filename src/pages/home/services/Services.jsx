@@ -40,7 +40,6 @@ export default function Services(props) {
     ChangeHeaderNavColorContext
   );
   var servicePage = 1;
-
   var { searchKey } = useParams();
 
   useEffect(() => {
@@ -122,7 +121,7 @@ export default function Services(props) {
                   <ServiceCard
                     name={item.name}
                     profile_img={item.proPic}
-                    service_img={`http://${API_IP_2}/${item.serviceImg}`}
+                    service_img={`http://${API_IP_2}/api/${item.serviceImg}`}
                     title={item.title}
                     location={item.location}
                     id={item._id}
@@ -139,6 +138,9 @@ export default function Services(props) {
                     <ServiceCardSkeleton type="0" />
                   </>
                 ))}
+                <div className="correct-margine"></div>
+                <div className="correct-margine"></div>
+                <div className="correct-margine"></div>
         </InfiniteScroll>
       </div>
       <Footer />

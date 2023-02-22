@@ -124,7 +124,7 @@ export default function AppHeader(props) {
                 <img
                   src={
                     user.proPic
-                      ? `http://${API_IP_2}/${user.proPic}`
+                      ? `http://${API_IP_2}/api/${user.proPic}`
                       : defaultImg
                   }
                   alt=""

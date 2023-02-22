@@ -13,7 +13,7 @@ function SellerCard(props) {
         <img
           src={
             props.profile_img
-              ? `http://${API_IP_2}/${props.profile_img}`
+              ? `http://${API_IP_2}/api/${props.profile_img}`
               : defaultImg
           }
           alt=""

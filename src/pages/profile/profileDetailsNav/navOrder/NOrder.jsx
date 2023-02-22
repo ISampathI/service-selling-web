@@ -3,9 +3,15 @@ import OrderItem from "../../../../components/orderItem/OrderItem";
 import "./nOrder.scss";
 import axios from "axios";
 import { Link, NavLink, Outlet } from "react-router-dom";
-import { API_IP, API_IP_2, UserContext } from "../../../../helper/Context";
+import {
+  API_IP,
+  API_IP_2,
+  ProgressBarContext,
+  UserContext,
+} from "../../../../helper/Context";
 import { createContext } from "react";
 import defaultImg from "../../../../assets/img/defaultpropic.png";
+import LoadingBar from "react-top-loading-bar";
 
 const api = axios.create({
   baseURL: `http://${API_IP_2}/api/`,
@@ -16,17 +22,23 @@ function NOrder() {
   const [orderList, setOrderList] = useState([]);
   const { user, setUser } = useContext(UserContext);
   const [activeUser, setActiveUser] = useState();
+  const { progress, setProgress } = useContext(ProgressBarContext);
 
   useEffect(() => {
     fetchData();
   }, [user]);
 
-  const fetchData = () => {
-    api.get("/services").then((res) => {
-      setOrderList(res.data);
-    }).catch((e)=>{
-      console.log(e);
-    });
+  const fetchData = async () => {
+    setProgress(10);
+    await api
+      .get("/services")
+      .then((res) => {
+        setOrderList(res.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+    setProgress(100);
   };
 
   return (
@@ -83,8 +95,8 @@ function NOrder() {
               <div className="profile-img">
                 <img
                   src={
-                    activeUser != null
-                      ? `http://${API_IP_2}/${activeUser.serviceImg}`
+                    activeUser != null && activeUser.proPic
+                      ? `http://${API_IP_2}/api/${activeUser.proPic}`
                       : defaultImg
                   }
                   alt=""
@@ -106,9 +118,11 @@ function NOrder() {
                 </div>
               </div> */}
               </div>
-              <Link to={activeUser && `/sellers/${activeUser.name}/services`}>
-                <button disabled={!activeUser}>View Profile</button>
-              </Link>
+              {user.userType == "buyer" && user.isSellerActivated == false && (
+                <Link to={activeUser && `/sellers/${activeUser.name}/services`}>
+                  <button disabled={!activeUser}>View Profile</button>
+                </Link>
+              )}
             </div>
           </div>
         </div>

@@ -27,7 +27,7 @@ function EditUserInfo() {
 
   useEffect(() => {
     setProgress(10);
-    setImage(user.proPic ? `http://${API_IP_2}/${user.proPic}` : defaultImg);
+    setImage(user.proPic ? `http://${API_IP_2}/api/${user.proPic}` : defaultImg);
     setFirstName(user.firstName);
     setLastName(user.lastName);
     setEmail(user.email);

@@ -13,7 +13,7 @@ function Profile() {
   return (
     <div className="Profile">
       <div className="profile-img">
-        <img src={user.proPic ? `http://${API_IP_2}/${user.proPic}`: {defaultImg}} alt="" />
+        <img src={user.proPic ? `http://${API_IP_2}/api/${user.proPic}`: {defaultImg}} alt="" />
       </div>
       <div className="container1">
         <div className="name">
