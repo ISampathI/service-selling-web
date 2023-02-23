@@ -28,8 +28,8 @@
     position: relative;
 
     img {
-        min-width: 150px;
-        min-height: 150px;
+        width: 150px;
+        height: 150px;
         aspect-ratio: 1/1;
         border-radius: 50%;
         border: 1px solid $border-color-2;
@@ -70,14 +70,14 @@
     }
 
     .seller-details-container {
-        font-size: 13.5px;
+        font-size: 12.5px;
         text-align: center;
         height: 80px;
         margin-top: auto;
         margin-bottom: 8px;
         margin-top: 5px;
         color: $text-color;
-        font-weight: 500;
+        font-weight: 400;
         opacity: 0.8;
     }
 }

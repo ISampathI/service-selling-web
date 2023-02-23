@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { API_IP_2, LoginContext, UserContext } from "../../../helper/Context";
 import "./profileCard.scss";
 import defaultImg from "../../../assets/img/defaultpropic.png";
+import Rating from "../../../components/rating/Rating";
 
 function Profile() {
   const { loggedIn } = useContext(LoginContext);
@@ -20,16 +21,10 @@ function Profile() {
           {user.firstName} {user.lastName}
         </div>
         <div className="row">
-          <div className="rating-num">4.5</div>
+          <div className="rating-num">{user.rating}</div>
           <div className="rating-sub">
-            <div className="rating-star">
-              <i class="fa-solid fa-star"></i>
-              <i class="fa-solid fa-star"></i>
-              <i class="fa-solid fa-star"></i>
-              <i class="fa-solid fa-star"></i>
-              <i class="fa-solid fa-star"></i>
-            </div>
-            <div className="reviews">10 reviews</div>
+            <Rating rating={user.rating}/>
+            <div className="reviews">{user.ratingCount} Reviews</div>
           </div>
         </div>
       </div>
@@ -43,7 +38,7 @@ function Profile() {
         <ul>
           <li>{user.job}</li>
           <li>{user.availability}</li>
-          <li>25</li>
+          <li>{user.age}</li>
           <li>{user.location}</li>
         </ul>
       </div>

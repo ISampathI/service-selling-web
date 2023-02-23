@@ -31,11 +31,14 @@ export default function SellerDetails(props) {
 
   const fetchData = () => {
     setProgress(30);
-    api.get(`/users/${username}`).then((res) => {
-      setSellerDetails(res.data);
-    }).catch((e)=>{
-      console.log(e);
-    });
+    api
+      .get(`/users/${username}`)
+      .then((res) => {
+        setSellerDetails(res.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
     setProgress(100);
   };
 
@@ -55,34 +58,60 @@ export default function SellerDetails(props) {
           </div>
           <div className="container1">
             <div className="name">
-              {sellerDetails && sellerDetails.firstname}{" "}
-              {sellerDetails && sellerDetails.lastname}
+              {sellerDetails && sellerDetails.firstName}{" "}
+              {sellerDetails && sellerDetails.lastName}
             </div>
             <div className="row">
               <div className="rating-num">
                 {sellerDetails && sellerDetails.rating}
               </div>
               <div className="rating-sub">
-                <Rating rating="3.2" />
-                <div className="reviews">10 reviews</div>
+                <Rating
+                  rating={
+                    sellerDetails && sellerDetails.rating <= 5
+                      ? sellerDetails.rating
+                      : "2"
+                  }
+                />
+                <div className="reviews">
+                  {sellerDetails
+                    ? sellerDetails.ratingCount != undefined
+                      ? sellerDetails.ratingCount
+                      : "0"
+                    : "0"}{" "}
+                  reviews
+                </div>
               </div>
             </div>
           </div>
           <div className="container2">
-            
             <ul>
               <li>
                 <span>Job</span>
                 <span>
-                  {" "}
                   {sellerDetails.job != undefined ? sellerDetails.job : "-"}
                 </span>
               </li>
-              <li><span>Availability</span><span>{sellerDetails.availability != undefined
-                  ? sellerDetails.availability
-                  : "-"}</span></li>
-              <li><span>Age</span><span>{sellerDetails.age != undefined ? sellerDetails.age : "-"}</span></li>
-              <li><span>Location</span><span>{sellerDetails.city != undefined ? sellerDetails.city : "-"}</span></li>
+              <li>
+                <span>Availability</span>
+                <span>
+                  {sellerDetails.availability != undefined
+                    ? sellerDetails.availability
+                    : "-"}
+                </span>
+              </li>
+              <li>
+                <span>Age</span>
+                <span>
+                  {sellerDetails.age != undefined ? sellerDetails.age : "-"}
+                </span>
+              </li>
+              <li>
+                <span>Location</span>
+                <span>
+                  {sellerDetails.city != undefined ? sellerDetails.city : "-"}
+                </span>
+              </li>
             </ul>
           </div>
           <div className="seller-about-text">About</div>

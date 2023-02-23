@@ -78,7 +78,7 @@ function AboutUs() {
               <img src={about8} alt="" />
             </div>
           </div>
-          <div className="team">
+          <div className="team" id="team">
             <div className="title">
               Our <span>Team</span>
             </div>

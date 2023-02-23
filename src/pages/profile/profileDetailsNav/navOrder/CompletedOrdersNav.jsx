@@ -55,6 +55,7 @@ function CompletedOrdersNav() {
             title={item.title}
             active="2"
             proPic={item.proPic}
+            serviceId = {item.service}
             onClickOnHeader={() => {
               setActiveUser(item);
             }}

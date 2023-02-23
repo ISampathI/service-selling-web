@@ -4,49 +4,63 @@ import { TailSpin } from "react-loader-spinner";
 import { useParams } from "react-router-dom";
 import CartItem from "../../../../../components/cartItem/CartItem";
 import "./orderServiceDetails.scss";
+import LoadingBar from "react-top-loading-bar";
+import { useContext } from "react";
+import { API_IP_2, ProgressBarContext } from "../../../../../helper/Context";
+import { useEffect } from "react";
+import axios from "axios";
+
+
+const api = axios.create({
+  baseURL: `http://${API_IP_2}/api/`,
+});
+
 
 export default function OrderServiceDetails(props) {
+  const [order, setOrder] = useState([]);
+  const { progress, setProgress } = useContext(ProgressBarContext);
   var { id } = useParams();
+
+  useEffect(() => {
+    console.log("hello");
+    fetchData();
+  }, [id]);
+
+  const fetchData = async () => {
+    setProgress(10);
+    await api
+      .get(`/orders/${id}`)
+      .then((res) => {
+        setOrder(res.data)
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+    setProgress(100);
+  };
+
   return (
     <div className="OrderServiceDetails">
       <div className="service-details-wrap">
         <div className="service-container">
           <div className="seller"></div>
           <div className="title">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem,
-            necessitatibus.
+            {order.title && order.title}
           </div>
 
           <img
             className="service-img"
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5o1JEx5HkuIza83FgPMcXYA5aylxAwGXGyA&usqp=CAU"
+            src={order.serviceImg && `http://${API_IP_2}/api/${order.serviceImg}`}
             alt=""
           />
           <h1>About</h1>
           <div className="details">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem
-            mollitia alias ipsa labore inventore? Veniam pariatur inventore
-            necessitatibus et numquam atque! Magni quod aliquid at, recusandae
-            saepe perspiciatis nulla maiores accusamus et corporis neque.
-            Voluptate voluptas fugit mollitia rem iusto quisquam, distinctio
-            quas impedit facere quibusdam explicabo fuga delectus dolore!
-            <br />
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus
-            consequuntur ut error quos omnis voluptatibus qui sapiente natus
-            sunt cupiditate dolor veritatis fuga, reiciendis eos fugit similique
-            debitis odio suscipit deserunt quibusdam perferendis, unde facere!
-            Rerum fuga nihil deleniti natus? Beatae, repellat dicta! Minus
-            dolore tenetur itaque doloremque facilis provident.
+          {order.description && order.description}
             <br />
           </div>
           <h3>Additional details</h3>
           <div className="additional-details">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem
-            mollitia alias ipsa labore inventore? Veniam pariatur inventore
-            necessitatibus et numquam atque! Magni quod aliquid at, recusandae
-            saepe perspiciatis nulla maiores accusamus et corporis neque.
-            Voluptate voluptas fugit mollitia rem iusto quisquam, distinctio
-            quas impedit facere quibusdam explicabo fuga delectus dolore!
+            {order.message && order.message}
           </div>
         </div>
       </div>

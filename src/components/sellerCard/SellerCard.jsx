@@ -19,12 +19,12 @@ function SellerCard(props) {
           alt=""
         />
         <div className="seller-name">{props.username}</div>
-        <div className="rating">
+        {/* <div className="rating">
           <i class="fa-solid fa-star"></i>
           <p>5.0</p>
-        </div>
+        </div> */}
         <div className="seller-details-container">
-          {props.about && props.about.slice(0, 50)}...
+          {props.about && props.about.slice(0, 90)}...
         </div>
         {/* <div className="buttons">
           <button className="view-profile-btn">

@@ -53,6 +53,7 @@ function ActiveOrdersNav() {
             serviceImg={item.serviceImg}
             title={item.title}
             active="1"
+            serviceId = {item.service}
             onClickOnHeader={() => {
               setActiveUser(item);
             }}

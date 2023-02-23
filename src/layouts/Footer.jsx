@@ -41,10 +41,15 @@ function Footer() {
           <div className="footer-column">
             <p>About</p>
             <ul>
+            <Link to="/aboutus" className="react-link">
               <li>Our Story</li>
+              </Link>
+              <Link to="/aboutus" className="react-link">
               <li>Benefits</li>
+              </Link>
+              <Link to="/aboutus/#team" className="react-link">
               <li>Team</li>
-              <li>Contact Us</li>
+              </Link>
             </ul>
           </div>
           <div className="footer-column footer-contacts">

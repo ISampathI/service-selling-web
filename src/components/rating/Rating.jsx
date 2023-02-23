@@ -4,7 +4,7 @@ import "./rating.scss";
 function Rating(props) {
   return (
     <div className="Rating">
-      {props.rating ?? parseInt(props.rating) > 5 ? (
+      {props.rating && props.rating && parseInt(props.rating) < 5 ? (
         <div className="rating-star">
           {Array(parseInt(props.rating))
             .fill(1)

@@ -48,6 +48,7 @@ function PendingOrderNav() {
             title={item.title}
             active="3"
             proPic={item.proPic}
+            serviceId = {item.service}
             onClickOnHeader={() => {
               setOrderList([
                 ...orderList.slice(0, index),

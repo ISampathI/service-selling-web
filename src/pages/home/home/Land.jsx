@@ -80,7 +80,7 @@ export default function Home(props) {
     setProgress(50);
     await api
       .get(
-        "/api/services/popular",
+        "/api/services/popular/services",
         {},
       )
       .then((res) => {

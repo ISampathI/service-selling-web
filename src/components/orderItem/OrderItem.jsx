@@ -45,7 +45,7 @@ function OrderItem(props) {
       {/* <i className="fa-regular fa-trash-can"></i> */}
       <div className="down">
         <Link
-          to={`/profile/orders/servicedetails/${props.id}`}
+          to={`/profile/orders/servicedetails/${props.orderId}`}
           className="react-link"
         >
           <div className="service-view">
@@ -244,7 +244,7 @@ function OrderItem(props) {
                   <button
                     onClick={() => {
                       const reviewObject = {
-                        service: props.id,
+                        service: props.serviceId,
                         buyer: user._id,
                         rating: ratingStares,
                         review: review,
