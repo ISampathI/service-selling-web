@@ -145,8 +145,7 @@ function Login() {
                   <div className="title">Verify your email address</div>
                   <div className="sub-text">
                     You've entered {tempUser.email && tempUser.email} as the
-                    email address for your account. Please verify this email
-                    address by clicking button bellow.
+                    email address for your account. Please check your inbox and verify this email.
                   </div>
                 </div>
               );

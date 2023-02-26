@@ -11,6 +11,6 @@ export const ProgressBarContext = createContext();
 
 export const API_IP = "localhost:5001";
 // export const API_IP_2 = "localhost:3000";
-// export const API_IP_2 = "192.168.43.78:3000";
-export const API_IP_2 = "172.104.61.240";
+// export const API_IP_2 = "192.168.96.175:5001";
+export const API_IP_2 = "localhost:5001";
 // export const API_IP_2 = "";

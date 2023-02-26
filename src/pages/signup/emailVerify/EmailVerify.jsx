@@ -1,7 +1,7 @@
 import axios from "axios";
 import React from "react";
 import Ripples from "react-ripples";
-import { useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import emailVerifyImg from "../../../assets/img/emailverify.png";
 import { API_IP_2 } from "../../../helper/Context";
 import "./emailVerify.scss";
@@ -13,6 +13,8 @@ const api = axios.create({
 function EmailVerify() {
   var { id } = useParams();
   var { token } = useParams();
+
+  const navigate = useNavigate();
   return (
     <div className="EmailVerify">
       <div className="email-verify-container">
@@ -28,14 +30,16 @@ function EmailVerify() {
           during={1200}
         >
           <button
-            onClick={() => {
-              api
-                .get("/users/email-verify", {
-                  id: id,
+            onClick={async () => {
+              console.log(id, token);
+              await api
+                .post("/users/email-verify", {
+                  userID: id,
                   token: token,
                 })
                 .then((res) => {
                   console.log(res);
+                  navigate("/login");
                 });
             }}
           >

@@ -36,9 +36,9 @@ function Signup() {
 
   const [errorDetails, setErrorDetails] = useState({});
 
-  const doRegister = () => {
+  const doRegister = async() => {
     setProgress(10);
-    api
+    await api
       .post("/users/signup", {
         username: userName,
         firstName: firstName,
@@ -50,6 +50,7 @@ function Signup() {
         console.log(res);
         if (res.data) {
           if (res.data.isEmailSent) {
+            console.log(res.data);
             setShowEVModal(true);
           }
         }
@@ -172,8 +173,7 @@ function Signup() {
                   <div className="title">Verify your email address</div>
                   <div className="sub-text">
                     You've entered {email && email} as the email address for
-                    your account. Please verify this email address by clicking
-                    button bellow.
+                    your account. Please check your inbox and verify this email.
                   </div>
                   <Ripples
                     className="riple-btn"

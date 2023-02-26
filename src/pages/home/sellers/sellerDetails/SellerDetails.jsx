@@ -61,28 +61,31 @@ export default function SellerDetails(props) {
               {sellerDetails && sellerDetails.firstName}{" "}
               {sellerDetails && sellerDetails.lastName}
             </div>
-            <div className="row">
-              <div className="rating-num">
-                {sellerDetails && sellerDetails.rating}
-              </div>
-              <div className="rating-sub">
-                <Rating
-                  rating={
-                    sellerDetails && sellerDetails.rating <= 5
-                      ? sellerDetails.rating
-                      : "2"
-                  }
-                />
-                <div className="reviews">
-                  {sellerDetails
-                    ? sellerDetails.ratingCount != undefined
-                      ? sellerDetails.ratingCount
-                      : "0"
-                    : "0"}{" "}
-                  reviews
+            {sellerDetails.rating > 0 && (
+              <div className="row">
+                <div className="rating-num">
+                  {sellerDetails && sellerDetails.rating}
+                </div>
+
+                <div className="rating-sub">
+                  <Rating
+                    rating={
+                      sellerDetails && sellerDetails.rating <= 5
+                        ? sellerDetails.rating
+                        : "2"
+                    }
+                  />
+                  <div className="reviews">
+                    {sellerDetails
+                      ? sellerDetails.ratingCount != undefined
+                        ? sellerDetails.ratingCount
+                        : "0"
+                      : "0"}{" "}
+                    reviews
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
           </div>
           <div className="container2">
             <ul>

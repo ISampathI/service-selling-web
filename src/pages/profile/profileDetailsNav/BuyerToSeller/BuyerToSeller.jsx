@@ -17,7 +17,7 @@ function BuyerToSeller() {
   const [addressLine1, setAddressLine1] = useState("");
   const [addressLine2, setAddressLine2] = useState("");
   const [city, setCity] = useState("");
-  const [province, setProvince] = useState("");
+  const [district, setDistrict] = useState("");
 
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -32,7 +32,7 @@ function BuyerToSeller() {
 
   const { user, setUser } = useContext(UserContext);
 
-  const updateUserData = () => {
+  const updateUserData = async () => {
     const userObject = {
       firstName: firstName,
       lastName: lastName,
@@ -42,46 +42,50 @@ function BuyerToSeller() {
         addressLine1: addressLine1,
         addressLine2: addressLine2,
         city: city,
-        province: province,
+        district: district,
       },
       proPic: imageFile,
-
       job: job,
       dob: dob,
       location: location,
       availability: availability,
       about: about,
-      userType: true,
+      userType: "seller",
       isSellerActivated: true,
     };
-    api
+    console.log(user._id);
+    await api
       .patch(`/users/${user._id}`, userObject, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       })
       .then((res) => {
-        setUser(res.data);
-      }).catch((e)=>{
+        console.log(res);
+        setUser(res.data.user);
+      })
+      .catch((e) => {
         console.log(e);
       });
   };
 
   useEffect(() => {
-    setImage(user.proPic && `http://${API_IP_2}/${user.proPic}`);
     setJob(user.job && user.job);
     setAbout(user.about && user.about);
     setAvailability(user.availability && user.availability);
     setLocation(user.location && user.location);
-    setImage(user.proPic ? `http://${API_IP_2}/${user.proPic}` : defaultImg);
+    setImage(
+      user.proPic ? `http://${API_IP_2}/api/${user.proPic}` : defaultImg
+    );
     setFirstName(user.firstName);
     setLastName(user.lastName);
     setEmail(user.email);
+    setDob(user.dob && user.dob.split("T")[0]);
     setMobileNumber(user.phoneNumber && user.phoneNumber);
     setAddressLine1(user.address && user.address.addressLine1);
     setAddressLine2(user.address && user.address.addressLine2);
     setCity(user.address && user.address.city);
-    setProvince(user.address && user.address.province);
+    setDistrict(user.address && user.address.district);
   }, [user]);
 
   const updateSeller = () => {
@@ -91,8 +95,21 @@ function BuyerToSeller() {
       location: location,
       availability: availability,
       about: about,
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      mobileNumber: mobileNumber,
+      address: {
+        addressLine1: addressLine1,
+        addressLine2: addressLine2,
+        city: city,
+        district: district,
+      },
       proPic: imageFile,
+      userType: "seller",
+      isSellerActivated: "true",
     };
+    console.log(userObject);
     api
       .patch(`/users/${user.username}`, userObject, {
         headers: {
@@ -100,8 +117,10 @@ function BuyerToSeller() {
         },
       })
       .then((res) => {
+        console.log(res.data);
         setUser(res.data);
-      }).catch((e)=>{
+      })
+      .catch((e) => {
         console.log(e);
       });
   };
@@ -224,10 +243,10 @@ function BuyerToSeller() {
                       Province <span>*</span>
                     </label>
                     <select
-                      name="province"
-                      value={province}
+                      name="district"
+                      value={district}
                       onChange={(e) => {
-                        setCity(e.target.value);
+                        setDistrict(e.target.value);
                       }}
                     >
                       <option value="Colombo">Colombo</option>

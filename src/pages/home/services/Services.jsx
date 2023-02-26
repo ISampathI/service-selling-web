@@ -61,7 +61,7 @@ export default function Services(props) {
         });
     } else if (searchCategory == "") {
       await api
-        .get(`/services/${servicesList.length + 1}`)
+        .get(`/services`)
         .then((res) => {
           console.log(res);
           setServicesList(servicesList.concat(res.data.services));
