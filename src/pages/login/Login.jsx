@@ -57,7 +57,7 @@ function Login() {
       })
       .catch((e) => {
         setErrorDetails(e);
-        //console.log(e.response.data);
+        console.log(e.response.data);
       });
     setProgress(100);
   };

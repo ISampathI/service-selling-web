@@ -1,7 +1,11 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import OrderItem from "../../../../components/orderItem/OrderItem";
-import { API_IP_2, ProgressBarContext, UserContext } from "../../../../helper/Context";
+import {
+  API_IP_2,
+  ProgressBarContext,
+  UserContext,
+} from "../../../../helper/Context";
 import { NOrderActiveUserContext } from "./NOrder";
 import LoadingBar from "react-top-loading-bar";
 
@@ -20,26 +24,32 @@ function ActiveOrdersNav() {
     console.log([user, orderList]);
   }, [user]);
 
-  const fetchData = async() => {
-    setProgress(10)
+  const fetchData = async () => {
+    setProgress(10);
     if (user.userType == "seller" && user.isSellerActivated) {
-      await api.get(`/orders/seller-active-orders/${user._id}`).then((res) => {
-        setOrderList(res.data.orders);
-        setActiveUser(res.data.orders ? res.data.orders[0] : null);
-        console.log(res.data.orders);
-      }).catch((e)=>{
-        console.log(e);
-      });
+      await api
+        .get(`/orders/seller-active-orders/${user._id}`)
+        .then((res) => {
+          setOrderList(res.data.orders);
+          setActiveUser(res.data.orders ? res.data.orders[0] : null);
+          console.log(res.data.orders);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     } else if (user.userType == "buyer" || user.isSellerActivated == false) {
-      await api.get(`/orders/buyer-active-orders/${user._id}`).then((res) => {
-        res.data.orders && setOrderList(res.data.orders);
-        setActiveUser(res.data.orders ? res.data.orders[0] : null);
-        console.log(res.data.orders);
-      }).catch((e)=>{
-        console.log(e);
-      });
+      await api
+        .get(`/orders/buyer-active-orders/${user._id}`)
+        .then((res) => {
+          res.data.orders && setOrderList(res.data.orders);
+          setActiveUser(res.data.orders ? res.data.orders[0] : null);
+          console.log(res.data.orders);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     }
-    setProgress(100)
+    setProgress(100);
   };
   return (
     <>
@@ -47,18 +57,23 @@ function ActiveOrdersNav() {
         orderList.map((item, index) => (
           <OrderItem
             selected={activeUser._id == item._id && true}
+            activeUser={activeUser}
             orderId={item._id}
+            orderPrice = {item.price}
             name={item.name}
             proPic={item.proPic}
             serviceImg={item.serviceImg}
             title={item.title}
             active="1"
-            serviceId = {item.service}
+            serviceId={item.service}
             onClickOnHeader={() => {
               setActiveUser(item);
             }}
             onClickOnComplete={() => {
-              setOrderList([...orderList.slice(0, index), ...orderList.slice(index + 1)])
+              setOrderList([
+                ...orderList.slice(0, index),
+                ...orderList.slice(index + 1),
+              ]);
             }}
           />
         ))}

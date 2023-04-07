@@ -21,7 +21,7 @@ function EditService(props) {
   const [categoryList, setCategoryList] = useState([]);
   const [category, setCategory] = useState("");
   const [ROP, setROP] = useState("negotiable");
-  const [price, setPrice] = useState();
+  const [price, setPrice] = useState(0);
   const [cookies, setCookie] = useCookies();
 
   const { user, setUser } = useContext(UserContext);

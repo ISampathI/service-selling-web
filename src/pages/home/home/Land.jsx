@@ -104,7 +104,7 @@ export default function Home(props) {
   };
 
   return (
-    <div className="Home" onScroll={handleScroll}>
+    <div className="Home" onScroll={handleScroll}z>
       <div className="hero-section">
         <div className="dec1">
           <img src={dec1} alt="" />

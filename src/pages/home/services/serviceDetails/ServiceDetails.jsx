@@ -128,16 +128,20 @@ export default function ServiceDetails(props) {
             <i
               onClick={async () => {
                 setProgress(10);
-                await api
-                  .post(`/cart`, {
-                    buyer: user._id,
-                    seller: serviceDetails.seller._id,
-                    service: id,
-                  })
-                  .then((res) => {
-                    console.log(res);
-                  });
-                setProgress(100);
+                if (user.userType != "guest") {
+                  await api
+                    .post(`/cart`, {
+                      buyer: user._id,
+                      seller: serviceDetails.seller._id,
+                      service: id,
+                    })
+                    .then((res) => {
+                      console.log(res);
+                    });
+                  setProgress(100);
+                } else {
+                  navigate("/login");
+                }
               }}
               className="fa-solid fa-cart-shopping"
             ></i>

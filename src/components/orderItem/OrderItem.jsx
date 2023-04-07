@@ -283,7 +283,7 @@ function OrderItem(props) {
                     <li>Buyer name</li>
                   </ul>
                   <ul>
-                    <li>Jhon ali</li>
+                    <li>{props.activeUser.name}</li>
                   </ul>
                 </div>
                 <div className="payment-amount">
@@ -336,11 +336,11 @@ function OrderItem(props) {
                     <li>Seller name</li>
                   </ul>
                   <ul>
-                    <li>Jhon ali</li>
+                    <li>{props.activeUser.name}</li>
                   </ul>
                 </div>
                 <div className="payment-amount">
-                  <p>payment amount</p> <span>5000</span>
+                  <p>payment amount</p> <span>{props.orderPrice}</span>
                 </div>
                 <div className="buttons">
                   <button
