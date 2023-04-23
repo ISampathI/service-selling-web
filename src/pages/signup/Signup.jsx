@@ -36,35 +36,41 @@ function Signup() {
 
   const [errorDetails, setErrorDetails] = useState({});
 
-  const doRegister = async() => {
+  const doRegister = async () => {
     setProgress(10);
-    await api
-      .post("/users/signup", {
-        username: userName,
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        password: password,
-      })
-      .then((res) => {
-        console.log(res);
-        if (res.data) {
-          if (res.data.isEmailSent) {
-            console.log(res.data);
-            setShowEVModal(true);
-          }
-        }
-      })
-      .catch((e) => {
-        if (password == confirmPassword && password != "") {
-          setErrorDetails(e.response.data.error.errors);
-        } else {
-          let errors = e.response.data.error.errors;
-          errors["password"] = "not mached";
-          setErrorDetails(errors);
-        }
+    if (password != confirmPassword) {
+      setErrorDetails({
+        password: { kind: "confirmation doesn't match", path: "password" },
       });
-
+    } else {
+      await api
+        .post("/users/signup", {
+          username: userName,
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          password: password,
+        })
+        .then((res) => {
+          console.log(res);
+          if (res.data) {
+            if (res.data.isEmailSent) {
+              setShowEVModal(true);
+            }
+          }
+        })
+        .catch((e) => {
+          let err = e.response.data.error.errors;
+          if(password == ""){
+            err.password = {kind:"required", path:"password"}
+          }
+          if(confirmPassword == ""){
+            err.confirmPassword = {kind:"required", path:"confirmPassword"}
+          }
+          setErrorDetails(err);
+          console.log(errorDetails, "####");
+        });
+    }
     setProgress(100);
   };
   useEffect(() => {
@@ -94,26 +100,47 @@ function Signup() {
                     setuserName(e.target.value);
                   }}
                 />
+                <div className="error-message">
+                  {errorDetails.username != undefined
+                    ? `${errorDetails.username?.path} ${errorDetails.username?.kind}`
+                    : ""}
+                </div>
               </div>
-              <div className="input-row">
-                <input
-                  type="text"
-                  style={errorDetails.firstName && { border: "1px solid red" }}
-                  placeholder="First Name"
-                  value={firstName}
-                  onChange={(e) => {
-                    setFirstName(e.target.value);
-                  }}
-                />
-                <input
-                  type="text"
-                  style={errorDetails.lastName && { border: "1px solid red" }}
-                  placeholder="Last Name"
-                  value={lastName}
-                  onChange={(e) => {
-                    setLastName(e.target.value);
-                  }}
-                />
+              <div className="input-row input-row-col">
+                <div className="input-column">
+                  <input
+                    type="text"
+                    style={
+                      errorDetails.firstName && { border: "1px solid red" }
+                    }
+                    placeholder="First Name"
+                    value={firstName}
+                    onChange={(e) => {
+                      setFirstName(e.target.value);
+                    }}
+                  />
+                  <div className="error-message">
+                    {errorDetails.firstName != undefined
+                      ? `${errorDetails.firstName?.path} ${errorDetails.firstName?.kind}`
+                      : ""}
+                  </div>
+                </div>
+                <div className="input-column">
+                  <input
+                    type="text"
+                    style={errorDetails.lastName && { border: "1px solid red" }}
+                    placeholder="Last Name"
+                    value={lastName}
+                    onChange={(e) => {
+                      setLastName(e.target.value);
+                    }}
+                  />
+                  <div className="error-message">
+                    {errorDetails.lastName != undefined
+                      ? `${errorDetails.lastName?.path} ${errorDetails.lastName?.kind}`
+                      : ""}
+                  </div>
+                </div>
               </div>
               <div className="input-row">
                 <input
@@ -125,6 +152,11 @@ function Signup() {
                     setEmail(e.target.value);
                   }}
                 />
+                <div className="error-message">
+                  {errorDetails.email != undefined
+                    ? `${errorDetails.email?.path} ${errorDetails.email?.kind}`
+                    : ""}
+                </div>
               </div>
               <div className="input-row">
                 <input
@@ -136,6 +168,11 @@ function Signup() {
                     setPassword(e.target.value);
                   }}
                 />
+                <div className="error-message">
+                  {errorDetails.password != undefined
+                    ? `${errorDetails.password?.path} ${errorDetails.password?.kind}`
+                    : ""}
+                </div>
               </div>
               <div className="input-row">
                 <input
@@ -147,6 +184,11 @@ function Signup() {
                     setConfirmPassword(e.target.value);
                   }}
                 />
+                <div className="error-message">
+                  {errorDetails.confirmPassword != undefined
+                    ? `${errorDetails.confirmPassword?.path} ${errorDetails.confirmPassword?.kind}`
+                    : ""}
+                </div>
               </div>
               <Ripples
                 className="riple-btn"

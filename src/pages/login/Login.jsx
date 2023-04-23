@@ -36,29 +36,41 @@ function Login() {
 
   const doLogin = () => {
     setProgress(0);
-    api
-      .post("/users/get-token", {
-        email: userName,
-        password: password,
-      })
-      .then((res) => {
-        if (res.data) {
-          if (res.data.user.isEmailVerified == false) {
-            setTempUser(res.data.user);
-            setShowEVModal(true);
-          } else if(res.data.user.isEmailVerified == true) {
-            setCookie("token", res.data.token, { path: "/" });
-            setUser(res.data.user);
-            setLoggedIn(true);
-            navigate("/");
+    let err = {}
+    if (userName == "") {
+      err = { username: "username required" };
+    }
+    if (password == "") {
+      // setErrorDetails((prev) => ({ ...prev, password: "password cant be empty" }));
+      err = {...err, password: "password required"}
+    }
+    setErrorDetails(err)
+    if (userName != "" && password != "") {
+      api
+        .post("/users/get-token", {
+          email: userName,
+          password: password,
+        })
+        .then((res) => {
+          if (res.data) {
+            if (res.data.user.isEmailVerified == false) {
+              setTempUser(res.data.user);
+              setShowEVModal(true);
+            } else if (res.data.user.isEmailVerified == true) {
+              setCookie("token", res.data.token, { path: "/" });
+              setUser(res.data.user);
+              setLoggedIn(true);
+              navigate("/");
+            }
+            console.log(res.data);
           }
-          console.log(res.data);
-        }
-      })
-      .catch((e) => {
-        setErrorDetails(e);
-        console.log(e.response.data);
-      });
+        })
+        .catch((e) => {
+          setErrorDetails(e.response.data)
+        });
+    }
+    //console.log("#",err);
+    setErrorDetails(err)
     setProgress(100);
   };
 
@@ -85,7 +97,7 @@ function Login() {
                 <input
                   value={userName}
                   style={
-                    errorDetails.response?.status == 401
+                    errorDetails.username != undefined
                       ? { border: "1px solid red" }
                       : {}
                   }
@@ -95,12 +107,17 @@ function Login() {
                   type="text"
                   placeholder="User Name"
                 />
+                <div className="error-message">
+                  {errorDetails.username != undefined
+                    ? errorDetails.username
+                    : ""}
+                </div>
               </div>
               <div className="input-row">
                 <input
                   value={password}
                   style={
-                    errorDetails.response?.status == 401
+                    errorDetails.password != undefined
                       ? { border: "1px solid red" }
                       : {}
                   }
@@ -110,6 +127,11 @@ function Login() {
                   type="password"
                   placeholder="Password"
                 />
+                <div className="error-message">
+                  {errorDetails.password != undefined
+                    ? errorDetails.password
+                    : ""}
+                </div>
               </div>
               <Ripples
                 className="riple-btn"
@@ -145,7 +167,8 @@ function Login() {
                   <div className="title">Verify your email address</div>
                   <div className="sub-text">
                     You've entered {tempUser.email && tempUser.email} as the
-                    email address for your account. Please check your inbox and verify this email.
+                    email address for your account. Please check your inbox and
+                    verify this email.
                   </div>
                 </div>
               );
