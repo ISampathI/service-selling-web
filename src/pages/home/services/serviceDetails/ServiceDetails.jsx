@@ -137,6 +137,9 @@ export default function ServiceDetails(props) {
                     })
                     .then((res) => {
                       console.log(res);
+                    })
+                    .catch((e) => {
+                      console.log(e);
                     });
                   setProgress(100);
                 } else {

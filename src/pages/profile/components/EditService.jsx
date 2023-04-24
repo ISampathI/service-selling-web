@@ -79,7 +79,7 @@ function EditService(props) {
       if (description == "") {
         err.description = { path: "description", kind: "required" };
       }
-      setErrorDetails(err)
+      setErrorDetails(err);
     }
   };
 
@@ -234,8 +234,15 @@ function EditService(props) {
                   accept="image/*"
                   style={{ display: "none" }}
                   onChange={(e) => {
-                    setImage(URL.createObjectURL(e.target.files[0]));
-                    setImageFile(e.target.files[0]);
+                    if (e.target.files[0].type.split("/")[0] == "image") {
+                      setImage(URL.createObjectURL(e.target.files[0]));
+                      setImageFile(e.target.files[0]);
+                    } else {
+                      setErrorDetails({
+                        ...errorDetails,
+                        serviceImg: { path: "serviceImg", kind: "not valid" },
+                      });
+                    }
                   }}
                 />
               </label>
