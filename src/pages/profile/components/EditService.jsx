@@ -23,6 +23,7 @@ function EditService(props) {
   const [ROP, setROP] = useState("negotiable");
   const [price, setPrice] = useState(0);
   const [cookies, setCookie] = useCookies();
+  const [errorDetails, setErrorDetails] = useState([]);
 
   const { user, setUser } = useContext(UserContext);
 
@@ -39,11 +40,13 @@ function EditService(props) {
         category == "" && setCategory(res.data.categories[0]._id);
       })
       .catch((e) => {
+        setErrorDetails(e.response.data);
         console.log(e);
       });
   }, [id]);
 
   const updateService = async () => {
+    let err = {};
     const serviceObject = {
       title: title,
       serviceImg: imageFile,
@@ -53,19 +56,31 @@ function EditService(props) {
       price: price,
     };
     console.log(serviceObject);
-    await api
-      .patch(`/services/${id}`, serviceObject, {
-        headers: {
-          accept: "application/json",
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    if (title != "" && description != "") {
+      await api
+        .patch(`/services/${id}`, serviceObject, {
+          headers: {
+            accept: "application/json",
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          navigate("/profile/services");
+        })
+        .catch((e) => {
+          setErrorDetails(e.response.data.error.errors);
+          console.log(e);
+        });
+    } else {
+      if (title == "") {
+        err.title = { path: "title", kind: "required" };
+      }
+      if (description == "") {
+        err.description = { path: "description", kind: "required" };
+      }
+      setErrorDetails(err)
+    }
   };
 
   const createService = async () => {
@@ -98,9 +113,10 @@ function EditService(props) {
       })
       .then((res) => {
         console.log(res);
+        navigate("/profile/services");
       })
       .catch((e) => {
-        console.log(e);
+        setErrorDetails(e.response.data.error.errors);
       });
   };
   const fetchData = () => {
@@ -110,7 +126,9 @@ function EditService(props) {
         setServiceDetails(res.data.service);
         setTitle(res.data.service.service.title);
         setDescription(res.data.service.service.description);
-        setImage(`http://${API_IP_2}/api/${res.data.service.service.serviceImg}`);
+        setImage(
+          `http://${API_IP_2}/api/${res.data.service.service.serviceImg}`
+        );
         setCategory(res.data.service.service.category);
         setPrice(
           res.data.service.service.rateOfPayment == "negotiable"
@@ -143,6 +161,11 @@ function EditService(props) {
                 setTitle(e.target.value);
               }}
             />
+            <div className="error-message">
+              {errorDetails.title != undefined
+                ? `${errorDetails.title?.path} ${errorDetails.title?.kind}`
+                : ""}
+            </div>
             <label htmlFor="">Category</label>
             <select
               className="category-select"
@@ -191,6 +214,11 @@ function EditService(props) {
                 setDescription(e.target.value);
               }}
             />
+            <div className="error-message">
+              {errorDetails.description != undefined
+                ? `${errorDetails.description?.path} ${errorDetails.description?.kind}`
+                : ""}
+            </div>
             <label htmlFor="">Service image</label>
 
             <div className="service-img">
@@ -250,6 +278,11 @@ function EditService(props) {
                 )}
               </ImageUploading> */}
             </div>
+            <div className="error-message">
+              {errorDetails.serviceImg != undefined
+                ? `${errorDetails.serviceImg?.path} ${errorDetails.serviceImg?.kind}`
+                : ""}
+            </div>
 
             <div className="buttons">
               <Ripples
@@ -263,11 +296,9 @@ function EditService(props) {
                     props.type == "new"
                       ? () => {
                           createService();
-                          navigate("/profile/services");
                         }
                       : () => {
                           updateService();
-                          navigate("/profile/services");
                         }
                   }
                 >

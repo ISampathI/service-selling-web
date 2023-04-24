@@ -66,6 +66,7 @@ function Login() {
           }
         })
         .catch((e) => {
+          console.log(e,"%");
           setErrorDetails(e.response.data)
         });
     }

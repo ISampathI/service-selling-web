@@ -154,7 +154,7 @@ function Signup() {
                 />
                 <div className="error-message">
                   {errorDetails.email != undefined
-                    ? `${errorDetails.email?.path} ${errorDetails.email?.kind}`
+                    ? `${errorDetails.email?.path} ${errorDetails.email?.kind != "user defined" ? errorDetails.email?.kind : "validation failed"}`
                     : ""}
                 </div>
               </div>

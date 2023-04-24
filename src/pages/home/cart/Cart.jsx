@@ -44,6 +44,7 @@ function Cart() {
       .then((res) => {
         setCartList(res.data.cartItems);
         setCheckedUser(res.data.cartItems[0].service.seller);
+        console.log(res.data.cartItems);
       })
       .catch((e) => {
         console.log(e);
@@ -155,15 +156,15 @@ function Cart() {
                 <div className="name">
                   {checkedUser.name ? checkedUser.name : "Seeller"}
                 </div>
-                <div className="row">
+                {/* <div className="row">
                   <div className="rating-num">
                     {checkedUser.rating ? checkedUser.rating : "-"}
                   </div>
                   <div className="rating-sub">
-                    <Rating rating={"3"} />
+                    <Rating rating={checkedUser.rating} />
                     <div className="reviews">10 reviews</div>
                   </div>
-                </div>
+                </div> */}
               </div>
               {/* <div className="container2">
                 <ul>
