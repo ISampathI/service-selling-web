@@ -209,4 +209,11 @@
         border-radius: 5px;
         color: white;
     }
+
+    .error-message {
+        width: 100%;
+        height: 1rem;
+        padding-left: 10px;
+        color: $text-color-4;
+    }
 }

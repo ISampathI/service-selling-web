@@ -57,7 +57,9 @@ export default function AppHeader(props) {
             }}
             onKeyUp={(event) => {
               if (event.key == "Enter") {
-                navigate(`/services/search/${searchKey}`, { searchKey });
+                if (searchKey.trim() != "") {
+                  navigate(`/services/search/${searchKey}`, { searchKey });
+                }
               }
             }}
           />
@@ -66,7 +68,14 @@ export default function AppHeader(props) {
             color="rgba(255,255,255, 0.5)"
             during={1200}
           >
-            <i className="fa-solid fa-magnifying-glass"></i>
+            <i
+              className="fa-solid fa-magnifying-glass"
+              onClick={() => {
+                if (searchKey.trim() != "") {
+                  navigate(`/services/search/${searchKey}`, { searchKey });
+                }
+              }}
+            ></i>
           </Ripples>
         </div>
         <div className="nav-bar">

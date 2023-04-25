@@ -49,6 +49,7 @@ export default function Services(props) {
   }, [searchCategory, searchKey]);
 
   const fetchMoreData = async () => {
+    console.log(searchCategory,"#");
     if (searchKey != undefined) {
       await api
         .get(`/services/search/${searchKey}`)

@@ -38,7 +38,17 @@ function Signup() {
 
   const doRegister = async () => {
     setProgress(10);
-    if (password != confirmPassword) {
+    let err = {};
+
+    if (password == "" || confirmPassword == "") {
+      if (password == "") {
+        err.password = { kind: "required", path: "password" };
+      }
+      if (confirmPassword == "") {
+        err.confirmPassword = { kind: "required", path: "confirmPassword" };
+      }
+      setErrorDetails(err);
+    } else if (password != confirmPassword) {
       setErrorDetails({
         password: { kind: "confirmation doesn't match", path: "password" },
       });
@@ -61,11 +71,11 @@ function Signup() {
         })
         .catch((e) => {
           let err = e.response.data.error.errors;
-          if(password == ""){
-            err.password = {kind:"required", path:"password"}
+          if (password == "") {
+            err.password = { kind: "required", path: "password" };
           }
-          if(confirmPassword == ""){
-            err.confirmPassword = {kind:"required", path:"confirmPassword"}
+          if (confirmPassword == "") {
+            err.confirmPassword = { kind: "required", path: "confirmPassword" };
           }
           setErrorDetails(err);
           console.log(errorDetails, "####");
@@ -154,7 +164,11 @@ function Signup() {
                 />
                 <div className="error-message">
                   {errorDetails.email != undefined
-                    ? `${errorDetails.email?.path} ${errorDetails.email?.kind != "user defined" ? errorDetails.email?.kind : "validation failed"}`
+                    ? `${errorDetails.email?.path} ${
+                        errorDetails.email?.kind != "user defined"
+                          ? errorDetails.email?.kind
+                          : "validation failed"
+                      }`
                     : ""}
                 </div>
               </div>
@@ -177,7 +191,7 @@ function Signup() {
               <div className="input-row">
                 <input
                   type="text"
-                  style={errorDetails.password && { border: "1px solid red" }}
+                  style={errorDetails.confirmPassword && { border: "1px solid red" }}
                   placeholder="Confirm Password"
                   value={confirmPassword}
                   onChange={(e) => {

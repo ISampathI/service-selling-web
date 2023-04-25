@@ -10,6 +10,7 @@ export default function CategoryCard(props) {
     <div
       className="CategoryCard"
       onClick={(e) => {
+        setSearchCategory(props.id)
         navigate("/services");
       }}
     >

@@ -4,6 +4,7 @@ import { Cookies } from "react-cookie";
 import { API_IP_2, UserContext } from "../../../../helper/Context";
 import "./buyerToSeller.scss";
 import defaultImg from "../../../../assets/img/defaultpropic.png";
+import { useNavigate } from "react-router-dom";
 
 const api = axios.create({
   baseURL: `http://${API_IP_2}/api/`,
@@ -29,44 +30,90 @@ function BuyerToSeller() {
   const [location, setLocation] = useState("");
   const [availability, setAvailability] = useState("Full Time");
   const [about, setAbout] = useState("");
+  const [errorDetails, setErrorDetails] = useState({});
 
   const { user, setUser } = useContext(UserContext);
 
+  const navigation = useNavigate();
+
   const updateUserData = async () => {
-    const userObject = {
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      mobileNumber: mobileNumber,
-      address: {
-        addressLine1: addressLine1,
-        addressLine2: addressLine2,
-        city: city,
-        district: district,
-      },
-      proPic: imageFile,
-      job: job,
-      dob: dob,
-      location: location,
-      availability: availability,
-      about: about,
-      userType: "seller",
-      isSellerActivated: true,
-    };
-    console.log(user._id);
-    await api
-      .patch(`/users/${user._id}`, userObject, {
-        headers: {
-          "Content-Type": "multipart/form-data",
+    let err = {};
+    if (firstName == undefined || firstName == "") {
+      err.firstName = { path: "firstName", kind: "required" };
+    }
+    if (lastName == undefined || lastName == "") {
+      err.lastName = { path: "lastName", kind: "required" };
+    }
+    if (email == undefined || email == "") {
+      err.email = { path: "email", kind: "required" };
+    }
+    if (mobileNumber == undefined || mobileNumber == "") {
+      err.mobileNumber = { path: "mobileNumber", kind: "required" };
+    }
+    if (addressLine1 == undefined || addressLine1 == "") {
+      err.addressLine1 = { path: "addressLine1", kind: "required" };
+    }
+    if (city == undefined || city == "") {
+      err.city = { path: "city", kind: "required" };
+    }
+    if (district == undefined || district == "") {
+      setDistrict("Colombo");
+      //err.district = { path: "district", kind: "required" };
+    }
+    if (job == undefined || job == "") {
+      err.job = { path: "job", kind: "required" };
+    }
+    if (dob == undefined || dob == "") {
+      err.dob = { path: "dob", kind: "required" };
+    }
+    if (location == undefined || location == "") {
+      err.location = { path: "location", kind: "required" };
+    }
+    if (availability == undefined || availability == "") {
+      err.availability = { path: "availability", kind: "required" };
+    }
+    if (about == undefined || about == "") {
+      err.about = { path: "about", kind: "required" };
+    }
+    setErrorDetails(err);
+    if (Object.keys(err).length == 0) {
+      const userObject = {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        mobileNumber: mobileNumber,
+        address: {
+          addressLine1: addressLine1,
+          addressLine2: addressLine2,
+          city: city,
+          district: district,
         },
-      })
-      .then((res) => {
-        console.log(res);
-        setUser(res.data.user);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+        proPic: imageFile,
+        job: job,
+        dob: dob,
+        location: location,
+        availability: availability,
+        about: about,
+        userType: "seller",
+        isSellerActivated: true,
+      };
+
+      await api
+        .patch(`/users/${user._id}`, userObject, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          setUser(res.data.user);
+          navigation("/profile/services");
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    } else {
+    }
   };
 
   useEffect(() => {
@@ -86,6 +133,7 @@ function BuyerToSeller() {
     setAddressLine2(user.address && user.address.addressLine2);
     setCity(user.address && user.address.city);
     setDistrict(user.address && user.address.district);
+    setErrorDetails({});
   }, [user]);
 
   const updateSeller = () => {
@@ -149,6 +197,11 @@ function BuyerToSeller() {
                       setFirstName(e.target.value);
                     }}
                   />
+                  <div className="error-message">
+                    {errorDetails.firstName != undefined
+                      ? `${errorDetails.firstName?.path} ${errorDetails.firstName?.kind}`
+                      : ""}
+                  </div>
                 </div>
                 <div className="spacer"></div>
                 <div className="column">
@@ -163,6 +216,11 @@ function BuyerToSeller() {
                       setLastName(e.target.value);
                     }}
                   />
+                  <div className="error-message">
+                    {errorDetails.lastName != undefined
+                      ? `${errorDetails.lastName?.path} ${errorDetails.lastName?.kind}`
+                      : ""}
+                  </div>
                 </div>
               </div>
               <div className="row">
@@ -179,6 +237,11 @@ function BuyerToSeller() {
                       setEmail(e.target.value);
                     }}
                   />
+                  <div className="error-message">
+                    {errorDetails.email != undefined
+                      ? `${errorDetails.email?.path} ${errorDetails.email?.kind}`
+                      : ""}
+                  </div>
                 </div>
                 <div className="spacer"></div>
                 <div className="column">
@@ -193,6 +256,11 @@ function BuyerToSeller() {
                       setMobileNumber(e.target.value);
                     }}
                   />
+                  <div className="error-message">
+                    {errorDetails.mobileNumber != undefined
+                      ? `${errorDetails.mobileNumber?.path} ${errorDetails.mobileNumber?.kind}`
+                      : ""}
+                  </div>
                 </div>
               </div>
               <label htmlFor="">
@@ -211,9 +279,15 @@ function BuyerToSeller() {
                       setAddressLine1(e.target.value);
                     }}
                   />
-                  <label htmlFor="">
-                    Address line 2 <span>*</span>
-                  </label>
+                  <div
+                    className="error-message"
+                    style={{ marginTop: "-30px", marginBottom: "1rem" }}
+                  >
+                    {errorDetails.addressLine1 != undefined
+                      ? `${errorDetails.addressLine1?.path} ${errorDetails.addressLine1?.kind}`
+                      : ""}
+                  </div>
+                  <label htmlFor="">Address line 2</label>
                   <input
                     type="text"
                     name="addressLine2"
@@ -236,11 +310,16 @@ function BuyerToSeller() {
                         setCity(e.target.value);
                       }}
                     />
+                    <div className="error-message">
+                      {errorDetails.city != undefined
+                        ? `${errorDetails.city?.path} ${errorDetails.city?.kind}`
+                        : ""}
+                    </div>
                   </div>
                   <div className="spacer"></div>
                   <div className="column">
                     <label htmlFor="">
-                      Province <span>*</span>
+                      District <span>*</span>
                     </label>
                     <select
                       name="district"
@@ -275,6 +354,11 @@ function BuyerToSeller() {
                       <option value="Ratnapura">Ratnapura</option>
                       <option value="Kegalle">Kegalle</option>
                     </select>
+                    <div className="error-message">
+                      {errorDetails.district != undefined
+                        ? `${errorDetails.district?.path} ${errorDetails.district?.kind}`
+                        : ""}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -293,6 +377,11 @@ function BuyerToSeller() {
                       setJob(e.target.value);
                     }}
                   />
+                  <div className="error-message">
+                    {errorDetails.job != undefined
+                      ? `${errorDetails.job?.path} ${errorDetails.job?.kind}`
+                      : ""}
+                  </div>
                 </div>
                 <div className="spacer"></div>
                 <div className="column">
@@ -307,6 +396,11 @@ function BuyerToSeller() {
                       setDob(e.target.value);
                     }}
                   />
+                  <div className="error-message">
+                    {errorDetails.dob != undefined
+                      ? `${errorDetails.dob?.path} ${errorDetails.dob?.kind}`
+                      : ""}
+                  </div>
                 </div>
               </div>
               <div className="row">
@@ -322,6 +416,11 @@ function BuyerToSeller() {
                       setLocation(e.target.value);
                     }}
                   />
+                  <div className="error-message">
+                    {errorDetails.location != undefined
+                      ? `${errorDetails.location?.path} ${errorDetails.location?.kind}`
+                      : ""}
+                  </div>
                 </div>
                 <div className="spacer"></div>
                 <div className="column">
@@ -338,6 +437,11 @@ function BuyerToSeller() {
                     <option value="Full Time">Full Time</option>
                     <option value="Part Time">Part Time</option>
                   </select>
+                  <div className="error-message">
+                    {errorDetails.availability != undefined
+                      ? `${errorDetails.availability?.path} ${errorDetails.availability?.kind}`
+                      : ""}
+                  </div>
                 </div>
               </div>
               <label htmlFor="">
@@ -350,6 +454,11 @@ function BuyerToSeller() {
                   setAbout(e.target.value);
                 }}
               ></textarea>
+              <div className="error-message" style={{ marginTop: "-30px" }}>
+                {errorDetails.about != undefined
+                  ? `${errorDetails.about?.path} ${errorDetails.about?.kind}`
+                  : ""}
+              </div>
               <button className="update-btn" onClick={updateUserData}>
                 Create Seller Account
               </button>

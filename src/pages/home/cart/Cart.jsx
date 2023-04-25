@@ -69,14 +69,19 @@ function Cart() {
                 <button
                   onClick={async () => {
                     setProgress(10);
+                    let cartIdsObj = {
+                      cartIds: selectedList.filter((value, index, array) => {
+                        return selectedList.indexOf(value) === index;
+                      }),
+                    };
+                    console.log(cartIdsObj);
                     await api
-                      .get(`/api/cart/delete-all/`, {
-                        cartIds: selectedList.filter((value, index, array) => {
-                          return selectedList.indexOf(value) === index;
-                        }),
+                      .delete(`/api/cart/delete/all/`, {
+                        data: cartIdsObj,
                       })
                       .then((res) => {
                         setProgress(100);
+                        fetchData();
                         console.log(res);
                       })
                       .catch((e) => {
@@ -194,12 +199,12 @@ function Cart() {
                         : "-"}
                     </span>
                   </li>
-                  <li>
+                  {/* <li>
                     <span>Age</span>
                     <span>
                       {checkedUser.age != undefined ? checkedUser.age : "-"}
                     </span>
-                  </li>
+                  </li> */}
                   <li>
                     <span>Location</span>
                     <span>

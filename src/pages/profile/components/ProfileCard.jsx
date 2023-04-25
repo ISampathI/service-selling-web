@@ -41,13 +41,13 @@ function Profile() {
         <ul>
           <li>Job</li>
           <li>Availability</li>
-          <li>Age</li>
+          {/* <li>Age</li> */}
           <li>Location</li>
         </ul>
         <ul>
           <li>{user.job}</li>
           <li>{user.availability}</li>
-          <li>{user.age}</li>
+          {/* <li>{user.age}</li> */}
           <li>{user.location}</li>
         </ul>
       </div>

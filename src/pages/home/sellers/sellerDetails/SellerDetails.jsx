@@ -103,12 +103,12 @@ export default function SellerDetails(props) {
                     : "-"}
                 </span>
               </li>
-              <li>
+              {/* <li>
                 <span>Age</span>
                 <span>
                   {sellerDetails.age != undefined ? sellerDetails.age : "-"}
                 </span>
-              </li>
+              </li> */}
               <li>
                 <span>Location</span>
                 <span>
