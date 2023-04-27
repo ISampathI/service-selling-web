@@ -59,6 +59,9 @@ export default function AppHeader(props) {
               if (event.key == "Enter") {
                 if (searchKey.trim() != "") {
                   navigate(`/services/search/${searchKey}`, { searchKey });
+                } else {
+                  setSearchKey(undefined);
+                  navigate("/services");
                 }
               }
             }}
@@ -73,6 +76,9 @@ export default function AppHeader(props) {
               onClick={() => {
                 if (searchKey.trim() != "") {
                   navigate(`/services/search/${searchKey}`, { searchKey });
+                } else {
+                  setSearchKey(undefined);
+                  navigate("/services");
                 }
               }}
             ></i>
