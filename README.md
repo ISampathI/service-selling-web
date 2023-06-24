@@ -3,6 +3,7 @@ Welcome to HireNow, an innovative online platform for buying and selling physica
 
 ### Introduction
 HireNow is a service selling platform that empowers users to monetize their skills and talents. Built using the MERN (MongoDB, Express.js, React.js, and Node.js) stack, HireNow offers a robust, scalable, and user-friendly web application. Whether you're a freelancer, professional, or hobbyist, this platform provides you with the opportunity to showcase your abilities to a global audience and generate income doing what you love.
+backend : https://github.com/nadikakpathirana/hire-now-rest-api-node
 
 ### Key Features
 - Service Listings: Users can create comprehensive listings for the services they offer, including descriptions, pricing, and additional details.
