@@ -61,7 +61,16 @@ function App() {
                   <Routes>
                     <Route path="/" element={<Home />}>
                       <Route path="" element={<Land />} />
-                      <Route path="/cart" element={<Cart />} />
+                      <Route
+                        path="/cart"
+                        element={
+                          user.userType != "guest" ? (
+                            <Cart />
+                          ) : (
+                            <Navigate to="/" />
+                          )
+                        }
+                      />
                       <Route path="/aboutus" element={<AboutUs />} />
                       <Route path="/services" element={<Services />}>
                         <Route
@@ -103,7 +112,16 @@ function App() {
                       element={<EmailVerify />}
                     />
                     <Route path="/signup" element={<Signup />} />
-                    <Route path="/profile" element={<Profile />}>
+                    <Route
+                      path="/profile"
+                      element={
+                        user.userType != "guest" ? (
+                          <Profile />
+                        ) : (
+                          <Navigate to="/" />
+                        )
+                      }
+                    >
                       <Route path="services" element={<NServices />} />
                       <Route path="orders" element={<NOrder />}>
                         <Route
